@@ -1,0 +1,51 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+    font-family: iranSans;
+    src: url("../fonts/IranSans/FontsFree-Net-ir_sans.ttf");
+}
+
+@layer base {
+    * {
+        text-align: right;
+        direction: rtl;
+        font-family: iranSans;
+        font-size: 0.875rem;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    select[dir="rtl"] {
+        background-position: left 0.5rem center;
+    }
+}
+
+@layer components {
+    .a-hover {
+        @apply hover:text-orange-700 transition-all;
+    }
+
+    .bg-hover {
+        @apply hover:bg-orange-200 transition-all;
+    }
+
+    .bg-slate-gray {
+        @apply bg-slate-200;
+    }
+
+    .dropdown-zone {
+        @apply absolute hidden z-50;
+    }
+
+    .title {
+        @apply text-red-600 text-xl md:text-2xl font-bold py-4;
+    }
+
+    .rtl {
+        direction: rtl;
+    }
+}
