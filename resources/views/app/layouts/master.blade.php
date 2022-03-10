@@ -11,13 +11,14 @@
     .products-owl-carousel .owl-item {
         min-height: 27rem;
     }
+
 </style>
 
 <body dir="rtl" class="relative">
     @include('app.layouts.header')
 
-    <main class="bg-gray-100 text-gray-900 pt-5 pb-10">
-        <section class="lg:container mx-auto lg:px-4 px-4 sm:px-9">
+    <main class="pt-5 pb-10 text-gray-900 bg-gray-100">
+        <section class="px-4 mx-auto lg:container lg:px-4 sm:px-9">
             @include('app.layouts.discount')
             @yield('content')
         </section>

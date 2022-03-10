@@ -41,8 +41,8 @@
 
                     <x-product.gallery class="relative left-0 right-0 mx-auto" :images="[
                             asset('app-assets/images/saffir_40300-22063852!3.jpg'),
-                            asset('app-assets/images/saffir_200-22063852!3.jpg'),
                             asset('app-assets/images/saffir_440300-22063852!2.jpg'),
+                            asset('app-assets/images/saffir_200-22063852!3.jpg'),
                             asset('app-assets/images/saffir_340300-22063852!1.jpg'),
                             asset('app-assets/images/saffir_200-22063852!3.jpg'),
                             asset('app-assets/images/saffir_440300-22063852!2.jpg'),

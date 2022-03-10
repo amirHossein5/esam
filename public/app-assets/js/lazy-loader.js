@@ -34,6 +34,7 @@
             fn ? fn() : null;
         };
         img.src = src;
+        el.classList.remove("lazy");
     }
 
     function elementInViewport(el) {

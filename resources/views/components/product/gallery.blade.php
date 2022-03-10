@@ -5,11 +5,6 @@
     <link rel="stylesheet" href="{{ asset('app-assets/venobox/venobox.min.css') }}" />
 
     <style>
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
-
         .swiper-slide {
             text-align: center;
             font-size: 18px;
@@ -30,6 +25,12 @@
             -ms-flex-align: center;
             -webkit-align-items: center;
             align-items: center;
+        }
+
+        .mySwiper2 .swiper-slide {
+            margin-left: 0!important;
+            padding-right: 5px!important;
+            padding-left: 5px!important;
         }
 
         .swiper-slide img {
@@ -89,8 +90,8 @@
         <div class="swiper-wrapper">
             @foreach ($images as $image)
                 <div class="swiper-slide">
-                    <a href="{{ $image }}" data-gall="product-gallery" class="venobox outline-none">
-                        <img src="{{ $image }}" />
+                    <a href="{{ $image }}" data-gall="product-gallery" class="outline-none venobox">
+                        <img src="{{ asset('app-assets/images/product-gallery-loader.webp') }}" class="lazy" data-src="{{ $image }}" />
                     </a>
                 </div>
             @endforeach
@@ -102,7 +103,7 @@
         <div class="swiper-wrapper">
             @foreach ($images as $image)
                 <div class="swiper-slide">
-                    <img src="{{ $image }}" />
+                    <img src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" class="lazy" data-src="{{ $image }}" />
                 </div>
             @endforeach
         </div>
@@ -127,7 +128,6 @@
             watchSlidesProgress: true,
         });
         var swiper2 = new Swiper(".mySwiper2", {
-            spaceBetween: 10,
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",

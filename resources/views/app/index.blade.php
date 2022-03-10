@@ -29,30 +29,30 @@
         <h6 class="title">خوش قیمت</h6>
 
         <section class="owl-carousel products-owl-carousel owl-theme">
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -60,37 +60,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -98,37 +98,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -136,37 +136,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -174,37 +174,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -212,37 +212,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -250,37 +250,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -288,37 +288,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -326,37 +326,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -364,37 +364,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
-                            data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
+                        <img class="rounded lazy"
+                            data-src="{{ asset('app-assets/images/saffir_200-22063852!3.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -402,9 +402,9 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
@@ -414,31 +414,31 @@
     </section>
 
     {{-- auctions banners --}}
-    <section class="mt-8 md:mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+    <section class="grid grid-cols-2 gap-3 mt-8 md:mt-3 sm:grid-cols-3 md:grid-cols-4">
         <div>
             <a href="">
-                <img class="lazy rounded-md shadow-md"
+                <img class="rounded-md shadow-md lazy"
                     src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}"
                     data-src="{{ asset('app-assets/images/001004-449x336-Auction-coin-min.jpg') }}" alt="">
             </a>
         </div>
         <div>
             <a href="">
-                <img class="lazy rounded-md shadow-md"
+                <img class="rounded-md shadow-md lazy"
                     src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}"
                     data-src="{{ asset('app-assets/images/001004-449x336-Auction-coin-min.jpg') }}" alt="">
             </a>
         </div>
         <div>
             <a href="">
-                <img class="lazy rounded-md shadow-md"
+                <img class="rounded-md shadow-md lazy"
                     src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}"
                     data-src="{{ asset('app-assets/images/001004-449x336-Auction-coin-min.jpg') }}" alt="">
             </a>
         </div>
         <div>
             <a href="">
-                <img class="lazy rounded-md shadow-md"
+                <img class="rounded-md shadow-md lazy"
                     src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}"
                     data-src="{{ asset('app-assets/images/001004-449x336-Auction-coin-min.jpg') }}" alt="">
             </a>
@@ -450,52 +450,52 @@
         <h6 class="title">دست دوم</h6>
 
         <section class="owl-carousel products-owl-carousel owl-theme">
-            <section class="rounded-md bg-white shadow-md relative">
-                <a href="" class="pointer flex justify-center items-center py-2">
+            <section class="relative bg-white rounded-md shadow-md">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
                     <section class="flex justify-center items-center py-4 px-2 border-t min-h-[9rem]">
                         <div>
                             <div class="text-center">
-                                <span class=" text-xl">81,1515,1</span>
+                                <span class="text-xl ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -503,37 +503,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -541,37 +541,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -579,37 +579,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -617,37 +617,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -655,37 +655,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -693,37 +693,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -731,37 +731,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -769,37 +769,37 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
                 <section class="absolute left-0 top-2">
-                    <div class="w-28 text-center">
+                    <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
                         <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
                     </div>
                 </section>
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
-                                <span class=" text-red-600 text-xl">81,1515,1</span>
+                                <span class="text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                             <div class="text-center">
@@ -807,9 +807,9 @@
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
@@ -824,332 +824,332 @@
 
         <section class="owl-carousel products-owl-carousel owl-theme">
 
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
             </section>
-            <section class="rounded-md bg-white shadow-md relative">
+            <section class="relative bg-white rounded-md shadow-md">
 
-                <a href="" class="pointer flex justify-center items-center py-2">
+                <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="lazy rounded"
+                        <img class="rounded lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
                 </a>
                 <section class="mt-2">
-                    <a href="" class="a-hover p-2 block text-base">
+                    <a href="" class="block p-2 text-base a-hover">
                         گرافیک asus gtx 1050 ti 4g
                     </a>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div>
                             <div class="text-center">
                                 <p>بالاترین پیشنهاد:</p>
-                                <span class=" text-red-600 text-xl mt-1">81,1515,1</span>
+                                <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
                                 تومان
                             </div>
                         </div>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                        <span class="text-red-600 text-2xl">20</span>
+                        <span class="text-2xl text-red-600">20</span>
                     </section>
-                    <section class="flex justify-center items-center py-4 px-2 border-t">
+                    <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
-                            <span class="text-red-600 text-2xl">41:11:09</span>
+                            <span class="text-2xl text-red-600">41:11:09</span>
                         </div>
                     </section>
                 </section>
