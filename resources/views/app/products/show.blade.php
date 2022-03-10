@@ -381,13 +381,13 @@
 
             </section>
 
-            <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' data-open="false">
-                <p class="pb-2 text-lg border-b cursor-pointer">
-                    <i class="icofont-caret-left"></i>
+            <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' data-open="true">
+                <p class="pb-2 text-lg border-b cursor-pointer drop-list-click-open">
+                    <i class="icofont-caret-down"></i>
                     توضیحات کالا
                 </p>
 
-                <section class="hidden my-5 text-gray-900 drop-list-zone">
+                <section class="my-5 text-gray-900 drop-list-zone">
                     <p>
                         مشکل فنی ندارد . سلامت باتری در تهیه این آگهی 77 درصد سایکل باتری 568 . همیچیز فابریک چیزی عوض نشده . از لحاظ ظاهری تمیز فقط بدنش گوشش لک داره که توی عکس ها مشخصه اما در کل خریدار عزیز شما 3 4 تا خش یا نقطه کوچک هم در نظر بگیر که اگر از چشم من چیزی پنهان موند مشکلی پیش نیاد. کاملا اپدیت هست . سوال یا عکس بیشتری نیاز بود در خدمتم
                     </p>
@@ -396,7 +396,7 @@
             </section>
 
             <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' data-open="false">
-                <p class="pb-2 text-lg border-b cursor-pointer">
+                <p class="pb-2 text-lg border-b cursor-pointer drop-list-click-open">
                     <i class="icofont-caret-left"></i>
                     سوال از فروشنده (۱۳)
                 </p>
@@ -500,7 +500,7 @@
         <section class="mt-20">
             <h6 class="title">کالاهای مرتبط</h6>
 
-            <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center">
+            <section class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center">
 
                 {{-- for typical sell --}}
                 <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">

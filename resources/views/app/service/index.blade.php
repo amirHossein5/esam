@@ -28,7 +28,7 @@
                 <div class="flex flex-col gap-7 mt-6">
                     <div class="drop-list cursor-pointer" data-open="false">
 
-                        <span class="text-gray-900 py-3">
+                        <span class="text-gray-900 py-3 drop-list-click-open">
                             <i class="icofont-caret-left"></i>
                             عضویت و حساب کاربری
                         </span>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="drop-list cursor-pointer" data-open="false">
 
-                        <span class="text-gray-900 py-3">
+                        <span class="text-gray-900 py-3 drop-list-click-open">
                             <i class="icofont-caret-left"></i>
                             عضویت و حساب کاربری
                         </span>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="drop-list cursor-pointer" data-open="false">
 
-                        <span class="text-gray-900 py-3">
+                        <span class="text-gray-900 py-3 drop-list-click-open">
                             <i class="icofont-caret-left"></i>
                             عضویت و حساب کاربری
                         </span>
@@ -70,7 +70,21 @@
                     </div>
                     <div class="drop-list cursor-pointer" data-open="false">
 
-                        <span class="text-gray-900 py-3">
+                        <span class="text-gray-900 py-3 drop-list-click-open">
+                            <i class="icofont-caret-left"></i>
+                            عضویت و حساب کاربری
+                        </span>
+
+                        <div class="drop-list-zone hidden mt-3">
+                            <a href="" class="a-hover block py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                            <a href="" class="a-hover block py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                            <a href="" class="a-hover block py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                            <a href="" class="a-hover block py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                        </div>
+                    </div>
+                    <div class="drop-list cursor-pointer" data-open="false">
+
+                        <span class="text-gray-900 py-3 drop-list-click-open">
                             <i class="icofont-caret-left"></i>
                             عضویت و حساب کاربری
                         </span>

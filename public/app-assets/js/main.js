@@ -14,18 +14,19 @@ $(function () {
     });
 
     // drop list
-    $('.drop-list').on('click', () => {
+    $('.drop-list-click-open').on('click', () => {
         var target = event.currentTarget;
-        var dropListZone = $(target).find('.drop-list-zone');
+        var dropList = $(target).closest('.drop-list');
+        var dropListZone = $(dropList).find('.drop-list-zone');
 
-        $(target).data('open', ! $(target).data('open'))
+        $(dropList).data('open', ! $(dropList).data('open'))
         $(dropListZone).slideToggle(300);
 
-        if ($(target).data('open')) {
-            $(target).find('i').removeClass('icofont-caret-left');
-            $(target).find('i').addClass('icofont-caret-down');
+        if ($(dropList).data('open')) {
+            $(dropList).find('i').removeClass('icofont-caret-left');
+            $(dropList).find('i').addClass('icofont-caret-down');
         } else {
-            $(target).find('i').addClass('icofont-caret-left');
+            $(dropList).find('i').addClass('icofont-caret-left');
             $(target).find('i').removeClass('icofont-caret-down');
         }
     })
