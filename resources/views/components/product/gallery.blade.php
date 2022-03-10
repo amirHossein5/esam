@@ -11,7 +11,7 @@
             background: #fff;
             background-size: cover;
             background-position: center;
-            margin-left: 5px!important;
+            margin-left: 5px !important;
             /* Center slide text vertically */
             display: -webkit-box;
             display: -ms-flexbox;
@@ -28,9 +28,9 @@
         }
 
         .mySwiper2 .swiper-slide {
-            margin-left: 0!important;
-            padding-right: 5px!important;
-            padding-left: 5px!important;
+            margin-left: 0 !important;
+            padding-right: 5px !important;
+            padding-left: 5px !important;
         }
 
         .swiper-slide img {
@@ -91,7 +91,8 @@
             @foreach ($images as $image)
                 <div class="swiper-slide">
                     <a href="{{ $image }}" data-gall="product-gallery" class="outline-none venobox">
-                        <img src="{{ asset('app-assets/images/product-gallery-loader.webp') }}" class="lazy" data-src="{{ $image }}" />
+                        <img src="{{ asset('app-assets/images/product-gallery-loader.webp') }}" class="swiper-lazy"
+                            data-src="{{ $image }}" />
                     </a>
                 </div>
             @endforeach
@@ -103,7 +104,8 @@
         <div class="swiper-wrapper">
             @foreach ($images as $image)
                 <div class="swiper-slide">
-                    <img src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" class="lazy" data-src="{{ $image }}" />
+                    <img src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" class="swiper-lazy"
+                        data-src="{{ $image }}" />
                 </div>
             @endforeach
         </div>
@@ -126,6 +128,8 @@
             slidesPerView: 4,
             freeMode: true,
             watchSlidesProgress: true,
+            preloadImages: false,
+            lazy: true,
         });
         var swiper2 = new Swiper(".mySwiper2", {
             navigation: {
@@ -135,6 +139,8 @@
             thumbs: {
                 swiper: swiper,
             },
+            preloadImages: false,
+            lazy: true,
         });
     </script>
 @endpush

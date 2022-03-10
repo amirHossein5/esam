@@ -2,20 +2,18 @@
 
 @section('head-tag')
     <title>قوانین مرتبط با اختلافات در معاملات</title>
-    <link rel="stylesheet" href="{{ asset('app-assets/OwlCarousel/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('app-assets/OwlCarousel/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app-assets/css/owl-carousel-navs-modification.css') }}">
 @endsection
 
 @section('content')
-    <section class="bg-white border rounded-md p-4">
-        <section class="flex justify-between items-baseline border-b">
-            <section class="title text-xl">
+    <section class="p-4 bg-white border rounded-md">
+        <section class="flex items-baseline justify-between border-b">
+            <section class="text-xl title">
                 قوانین مرتبط با اختلافات در معاملات
             </section>
 
             <section>
-                <a class="bg-blue-200 px-4 py-2 text-gray-600 rounded-md">بازگشت به راهنما</a>
+                <a class="px-4 py-2 text-gray-600 bg-blue-200 rounded-md">بازگشت به راهنما</a>
             </section>
         </section>
 
@@ -35,16 +33,16 @@
         </section>
     </section>
 
-    <section class="bg-white border rounded-md p-7 mt-4">
+    <section class="mt-4 bg-white border rounded-md p-7">
 
         <section>
-            <h6 class="font-bold text-base text-gray-800"> لینکهای مرتبط  </h6>
+            <h6 class="text-base font-bold text-gray-800"> لینکهای مرتبط  </h6>
 
             <div class="flex flex-col mt-3">
-                <a href="" class="a-hover py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
-                <a href="" class="a-hover py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
-                <a href="" class="a-hover py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
-                <a href="" class="a-hover py-4 first:border-t-0 border-t text-gray-600 text-sm">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                <a href="" class="py-4 text-sm text-gray-600 border-t a-hover first:border-t-0">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                <a href="" class="py-4 text-sm text-gray-600 border-t a-hover first:border-t-0">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                <a href="" class="py-4 text-sm text-gray-600 border-t a-hover first:border-t-0">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
+                <a href="" class="py-4 text-sm text-gray-600 border-t a-hover first:border-t-0">چگونه خرید کنم و در مزایدات شرکت کنم؟</a>
             </div>
         </section>
     </section>

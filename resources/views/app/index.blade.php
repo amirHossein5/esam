@@ -5,21 +5,40 @@
     <link rel="stylesheet" href="{{ asset('app-assets/OwlCarousel/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app-assets/OwlCarousel/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app-assets/css/owl-carousel-navs-modification.css') }}">
+
+    <style>
+
+        section.lazy::before {
+            background-image: url("<?= asset('app-assets/OwlCarousel/ajax-loader.gif') ?>");
+            background-position: 50%;
+            background-repeat: no-repeat;
+            content: "";
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            z-index: -1;
+        }
+
+    </style>
 @endsection
 
 @section('content')
     {{-- banners --}}
     <section class="banners owl-carousel banners-owl-carousel owl-theme">
         <section class="">
-            <a href="">
-                <img data-src="{{ asset('app-assets/images/slider-desktop-Slider-desktop-neysan-abi-min-min.jpg') }}"
-                    class="max-h-[308px] owl-lazy" alt="">
+            <a href="" >
+                <section class="lazy">
+                    <img data-src="{{ asset('app-assets/images/slider-desktop-Slider-desktop-neysan-abi-min-min.jpg') }}"
+    class="max-h-[308px] owl-lazy" alt="">
+                </section>
             </a>
         </section>
         <section class="">
             <a href="">
-                <img data-src="{{ asset('app-assets/images/slider-desktop-Slider-desktop-neysan-abi-min-min.jpg') }}"
-                    class="max-h-[308px] owl-lazy" alt="">
+                <section class="lazy">
+                    <img data-src="{{ asset('app-assets/images/slider-desktop-Slider-desktop-neysan-abi-min-min.jpg') }}"
+    class="max-h-[308px] owl-lazy" alt="">
+                </section>
             </a>
         </section>
     </section>
@@ -30,7 +49,7 @@
 
         <section class="owl-carousel products-owl-carousel owl-theme">
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -40,7 +59,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -68,7 +87,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -78,7 +97,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -106,7 +125,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -116,7 +135,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -144,7 +163,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -154,7 +173,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -182,7 +201,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -192,7 +211,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -220,7 +239,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -230,7 +249,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -258,7 +277,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -268,7 +287,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -296,7 +315,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -306,7 +325,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -334,7 +353,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -344,7 +363,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -372,7 +391,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -382,7 +401,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/saffir_200-22063852!3.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -453,7 +472,7 @@
             <section class="relative bg-white rounded-md shadow-md">
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -473,7 +492,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -483,7 +502,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -511,7 +530,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -521,7 +540,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -549,7 +568,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -559,7 +578,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -587,7 +606,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -597,7 +616,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -625,7 +644,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -635,7 +654,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -663,7 +682,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -673,7 +692,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -701,7 +720,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -711,7 +730,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -739,7 +758,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -749,7 +768,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -777,7 +796,7 @@
                 </section>
             </section>
             <section class="relative bg-white rounded-md shadow-md">
-                <section class="absolute left-0 top-2">
+                 <section class="absolute left-0 top-2 z-[1]">
                     <div class="text-center w-28">
                         <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
                             class="absolute z-0 -top-[2px] left-1" alt="">
@@ -787,7 +806,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -828,7 +847,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -861,7 +880,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -894,7 +913,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -927,7 +946,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -960,7 +979,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -993,7 +1012,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -1026,7 +1045,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -1059,7 +1078,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -1092,7 +1111,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -1125,7 +1144,7 @@
 
                 <a href="" class="flex items-center justify-center py-2 pointer">
                     <section class="">
-                        <img class="rounded lazy"
+                        <img class="rounded owl-lazy"
                             data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
                             src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
                     </section>
@@ -1166,6 +1185,7 @@
     <script>
         $(document).ready(function() {
             $(".banners-owl-carousel").owlCarousel({
+                lazyLoad:true,
                 items: 1,
                 margin: 10,
                 rtl: true,
@@ -1176,6 +1196,7 @@
             });
 
             $(".products-owl-carousel").owlCarousel({
+                lazyLoad:true,
                 responsive: {
                     0: {
                         items: 1,
