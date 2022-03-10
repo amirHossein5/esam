@@ -18,6 +18,7 @@
 
     <main class="bg-gray-100 text-gray-900 pt-5 pb-10">
         <section class="lg:container mx-auto lg:px-4 px-4 sm:px-9">
+            @include('app.layouts.discount')
             @yield('content')
         </section>
     </main>

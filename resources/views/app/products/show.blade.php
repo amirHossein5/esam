@@ -500,7 +500,7 @@
         <section class="mt-20">
             <h6 class="title">کالاهای مرتبط</h6>
 
-            <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
+            <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center">
 
                 {{-- for typical sell --}}
                 <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
