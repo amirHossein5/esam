@@ -1,7 +1,7 @@
 @props(['images'])
 
 @push('head-tag')
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{ asset('app-assets/swiper-slider/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('app-assets/venobox/venobox.min.css') }}" />
 
     <style>
@@ -111,7 +111,7 @@
 </div>
 
 @push('scripts')
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="{{ asset('app-assets/swiper-slider/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('app-assets/venobox/venobox.min.js') }}"></script>
 
     <script>
