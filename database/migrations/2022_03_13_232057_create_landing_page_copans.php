@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supports', function (Blueprint $table) {
+        Schema::create('landing_page_copans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')
-                ->constrained('products')
-                ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('request');
-            $table->tinyInteger('status')->default(0)->comment('0 => open, 1 => closed');
-            $table->tinyInteger('seen')->default(0)->comment('0 => unseen, 1 => seen');
+            $table->text('image');
+            $table->tinyInteger('status')->default(0)
+                ->comment("one copan can have true status, for being show");
+            $table->foreignId('copan_id')
+                ->constrained('copans')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supports');
+        Schema::dropIfExists('landing_page_copans');
     }
 };
