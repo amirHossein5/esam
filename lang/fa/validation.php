@@ -133,4 +133,8 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-];
+
+
+
+
+] + require 'validation-attributes.php';

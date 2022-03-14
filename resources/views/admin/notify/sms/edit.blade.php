@@ -26,7 +26,7 @@
                     </h5>
                 </section>
 
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+                <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.notify.sms.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
@@ -61,9 +61,9 @@
                                     <label for="view-date-picker"> تاریخ انتشار</label>
                                     <input
                                         id="main-date-picker"
-                                        name="published_at"
+                                        name="send_at"
                                         type="hidden"
-                                        value="{{ old('published_at', $sms->published_at) }}"
+                                        value="{{ old('send_at', $sms->send_at) }}"
                                     >
 
                                     <input
@@ -72,7 +72,7 @@
                                         class="form-control direction-ltr form-control-sm"
                                     >
 
-                                    @error('published_at')
+                                    @error('send_at')
                                         <span class="text-danger">
                                             {{ $message }}
                                         </span>

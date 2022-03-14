@@ -21,25 +21,25 @@ class SMSController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                SMS::select('id', 'title', 'body', 'status', 'published_at')->onlyTrashed()
+                SMS::select('id', 'title', 'body', 'status', 'send_at')->onlyTrashed()
             )->editColumn('title', function ($value) {
-                return Str::limit($value->title, 10, '...');
+                return Str::limit($value->title, 10);
             })->editColumn('body', function ($value) {
-                return Str::limit($value->body, 20, '...');
-            })->editColumn('published_at', function ($value) {
-                return jFormat($value->published_at);
-            })->filterColumn('published_at', function ($query, $keyword) {
+                return Str::limit($value->body, 20);
+            })->editColumn('send_at', function ($value) {
+                return jFormat($value->send_at);
+            })->filterColumn('send_at', function ($query, $keyword) {
                 if (preg_match('/[\d]{4}-[\d]{2}-[\d]{2}/', $keyword)) {
                     $keyword = toCarbon($keyword, 'Y-m-d')->format('Y-m-d');
-                    $query->whereRaw('DATE(published_at) LIKE ?', $keyword);
+                    $query->whereRaw('DATE(send_at) LIKE ?', $keyword);
                 }
             })->toJson();
         }
 
         $dates = DB::table('public_sms')
-            ->select('published_at')
+            ->select('send_at')
             ->whereNotNull('deleted_at')
-            ->pluck('published_at');
+            ->pluck('send_at');
 
         $dates = (new DateService())
             ->getSeparatedDates($dates);
@@ -61,25 +61,25 @@ class SMSController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                SMS::select('id', 'title', 'body', 'status', 'published_at')
+                SMS::select('id', 'title', 'body', 'status', 'send_at')
             )->editColumn('title', function ($value) {
                 return Str::limit($value->title, 10, '...');
             })->editColumn('body', function ($value) {
                 return Str::limit($value->body, 20, '...');
-            })->editColumn('published_at', function ($value) {
-                return jFormat($value->published_at);
-            })->filterColumn('published_at', function ($query, $keyword) {
+            })->editColumn('send_at', function ($value) {
+                return jFormat($value->send_at);
+            })->filterColumn('send_at', function ($query, $keyword) {
                 if (preg_match('/[\d]{4}-[\d]{2}-[\d]{2}/', $keyword)) {
                     $keyword = toCarbon($keyword, 'Y-m-d')->format('Y-m-d');
-                    $query->whereRaw('DATE(published_at) LIKE ?', $keyword);
+                    $query->whereRaw('DATE(send_at) LIKE ?', $keyword);
                 }
             })->toJson();
         }
 
         $dates = DB::table('public_sms')
-            ->select('published_at')
+            ->select('send_at')
             ->whereNull('deleted_at')
-            ->pluck('published_at');
+            ->pluck('send_at');
 
         $dates = (new DateService())
             ->getSeparatedDates($dates);
@@ -110,8 +110,8 @@ class SMSController extends Controller
     public function store(SMSRequest $request)
     {
         $request = $request->validated();
-        $request['published_at'] = substr($request['published_at'], 0, 10);
-        $request['published_at'] = date('Y-m-d H:i:s', $request['published_at']);
+        $request['send_at'] = substr($request['send_at'], 0, 10);
+        $request['send_at'] = date('Y-m-d H:i:s', $request['send_at']);
 
         SMS::create($request);
 
@@ -141,8 +141,8 @@ class SMSController extends Controller
     public function update(SMSRequest $request, SMS $sms)
     {
         $request = $request->validated();
-        $request['published_at'] = substr($request['published_at'], 0, 10);
-        $request['published_at'] = date('Y-m-d H:i:s', $request['published_at']);
+        $request['send_at'] = substr($request['send_at'], 0, 10);
+        $request['send_at'] = date('Y-m-d H:i:s', $request['send_at']);
 
         $sms->update($request);
 

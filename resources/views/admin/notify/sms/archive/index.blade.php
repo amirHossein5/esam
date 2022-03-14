@@ -25,7 +25,7 @@
                     </h5>
                 </section>
 
-                <section class="d-flex align-items-center mt-4 mb-3 border-bottom pb-2">
+                <section class="pb-2 mt-4 mb-3 d-flex align-items-center border-bottom">
                     <a href="{{ route('admin.notify.sms.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
@@ -38,7 +38,7 @@
                                 <th>متن اطلاعیه</th>
                                 <th>تاریخ ارسال </th>
                                 <th>وضعیت</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,10 +49,10 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <section class="container-fluid p-1">
+                                    <section class="p-1 container-fluid">
                                         <section class="row direction-ltr">
 
-                                            <section class="col-12 col-md-3 p-1">
+                                            <section class="p-1 col-12 col-md-3">
                                                 <button
                                                     id="searchDate"
                                                     type="button"
@@ -62,7 +62,7 @@
                                                 </button>
                                             </section>
 
-                                            <section class="col-12 col-md-3 p-1">
+                                            <section class="p-1 col-12 col-md-3">
                                                 <select id="year" class="form-control form-control-sm">
                                                     <option value="">سال</option>
                                                     @foreach ($years as $year)
@@ -70,7 +70,7 @@
                                                     @endforeach
                                                 </select>
                                             </section>
-                                            <section class="col-12 col-md-3 p-1">
+                                            <section class="p-1 col-12 col-md-3">
                                                 <select id="month" class="form-control form-control-sm">
                                                     <option value="">ماه</option>
                                                     @foreach ($months as $month)
@@ -78,7 +78,7 @@
                                                     @endforeach
                                                 </select>
                                             </section>
-                                            <section class="col-12 col-md-3 p-1">
+                                            <section class="p-1 col-12 col-md-3">
                                                 <select id="day" class="form-control form-control-sm">
                                                     <option value="">روز</option>
                                                     @foreach ($days as $day)
@@ -87,7 +87,7 @@
                                                 </select>
                                             </section>
 
-                                            <section class="col-12 p-1" id="searchDateMessage" style="display: none">
+                                            <section class="p-1 col-12" id="searchDateMessage" style="display: none">
                                                 <p class="text-danger">همه موارد را انتخاب کنید.</p>
                                             </section>
                                         </section>
@@ -132,7 +132,7 @@
                         "data": "body"
                     },
                     {
-                        "data": 'published_at',
+                        "data": 'send_at',
                         "render": function(data, type, row, meta) {
                             return `<section class="direction-ltr">${data.split(' ').join(' / ')}</section>`;
                         },

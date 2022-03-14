@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->timestamp('send_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
