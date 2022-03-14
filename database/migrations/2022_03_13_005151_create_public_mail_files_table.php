@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('file_path');
             $table->bigInteger('file_size');
             $table->string('file_type');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

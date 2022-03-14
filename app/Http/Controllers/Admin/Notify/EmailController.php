@@ -23,23 +23,23 @@ class EmailController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                Email::select('id', 'subject', 'body', 'status', 'published_at')->onlyTrashed()
+                Email::select('id', 'subject', 'body', 'status', 'send_at')->onlyTrashed()
             )->editColumn('subject', function ($value) {
                 return Str::limit($value->subject, 10, '...');
-            })->editColumn('published_at', function ($value) {
-                return jFormat($value->published_at);
-            })->filterColumn('published_at', function ($query, $keyword) {
+            })->editColumn('send_at', function ($value) {
+                return jFormat($value->send_at);
+            })->filterColumn('send_at', function ($query, $keyword) {
                 if (preg_match('/[\d]{4}-[\d]{2}-[\d]{2}/', $keyword)) {
                     $keyword = toCarbon($keyword, 'Y-m-d')->format('Y-m-d');
-                    $query->whereRaw('DATE(published_at) LIKE ?', $keyword);
+                    $query->whereRaw('DATE(send_at) LIKE ?', $keyword);
                 }
             })->toJson();
         }
 
         $dates = DB::table('public_mail')
-            ->select('published_at')
+            ->select('send_at')
             ->whereNotNull('deleted_at')
-            ->pluck('published_at');
+            ->pluck('send_at');
 
         $dates = (new DateService())
             ->getSeparatedDates($dates);
@@ -61,23 +61,23 @@ class EmailController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                Email::select('id', 'subject', 'body', 'status', 'published_at')
+                Email::select('id', 'subject', 'body', 'status', 'send_at')
             )->editColumn('subject', function ($value) {
                 return Str::limit($value->subject, 10, '...');
-            })->editColumn('published_at', function ($value) {
-                return jFormat($value->published_at);
-            })->filterColumn('published_at', function ($query, $keyword) {
+            })->editColumn('send_at', function ($value) {
+                return jFormat($value->send_at);
+            })->filterColumn('send_at', function ($query, $keyword) {
                 if (preg_match('/[\d]{4}-[\d]{2}-[\d]{2}/', $keyword)) {
                     $keyword = toCarbon($keyword, 'Y-m-d')->format('Y-m-d');
-                    $query->whereRaw('DATE(published_at) LIKE ?', $keyword);
+                    $query->whereRaw('DATE(send_at) LIKE ?', $keyword);
                 }
             })->toJson();
         }
 
         $dates = DB::table('public_mail')
-            ->select('published_at')
+            ->select('send_at')
             ->whereNull('deleted_at')
-            ->pluck('published_at');
+            ->pluck('send_at');
 
         $dates = (new DateService())
             ->getSeparatedDates($dates);
@@ -108,8 +108,8 @@ class EmailController extends Controller
     public function store(EmailRequest $request)
     {
         $request = $request->validated();
-        $request['published_at'] = substr($request['published_at'], 0, 10);
-        $request['published_at'] = date('Y-m-d H:i:s', $request['published_at']);
+        $request['send_at'] = substr($request['send_at'], 0, 10);
+        $request['send_at'] = date('Y-m-d H:i:s', $request['send_at']);
         $request['body'] = Purifier::clean($request['body']);
 
         Email::create($request);
@@ -140,8 +140,8 @@ class EmailController extends Controller
     public function update(EmailRequest $request, Email $email)
     {
         $request = $request->validated();
-        $request['published_at'] = substr($request['published_at'], 0, 10);
-        $request['published_at'] = date('Y-m-d H:i:s', $request['published_at']);
+        $request['send_at'] = substr($request['send_at'], 0, 10);
+        $request['send_at'] = date('Y-m-d H:i:s', $request['send_at']);
         $request['body'] = Purifier::clean($request['body']);
 
         $email->update($request);
@@ -178,18 +178,18 @@ class EmailController extends Controller
     {
         $email = Email::onlyTrashed()->findOrFail($id);
 
-        $files = $email->allFiles()->get();
+        $files = $email->files()->get();
 
         foreach ($files as $file) {
             $folder = dirname($file->file_path);
-            
+
             if (Storage::exists($folder)) {
                 Storage::deleteDirectory($folder);
             }
         }
 
         $email->forceDelete();
-        $email->allFiles()->delete();
+        $email->files()->delete();
 
 
         return back()

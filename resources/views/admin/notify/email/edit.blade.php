@@ -61,9 +61,9 @@
                                     <label for="view-date-picker"> تاریخ انتشار</label>
                                     <input
                                         id="main-date-picker"
-                                        name="published_at"
+                                        name="send_at"
                                         type="hidden"
-                                        value="{{ old('published_at', $email->published_at) }}"
+                                        value="{{ old('send_at', $email->send_at) }}"
                                     >
 
                                     <input
@@ -72,7 +72,7 @@
                                         class="form-control direction-ltr form-control-sm"
                                     >
 
-                                    @error('published_at')
+                                    @error('send_at')
                                         <span class="text-danger">
                                             {{ $message }}
                                         </span>

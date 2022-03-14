@@ -27,7 +27,7 @@
                     </h5>
                 </section>
 
-                <section class="d-flex align-items-center mt-4 mb-3 border-bottom pb-2">
+                <section class="pb-2 mt-4 mb-3 d-flex align-items-center border-bottom">
                     <section>
                         <button data-toggle="modal" data-target="#uploadFile" class="btn btn-info btn-sm">
                             آپلود فایل
@@ -51,7 +51,7 @@
                                                    نام فایل
                                                </label>
                                                <input type="text" name="file_name" id="file_name" class="form-control form-control-sm">
-                                                <ul class="file_name_errors errors mt-2">
+                                                <ul class="mt-2 file_name_errors errors">
                                                 </ul>
 
                                            </div>
@@ -70,9 +70,6 @@
                             </div>
                         </div>
                     </section>
-                    <a href="{{ route('admin.notify.emailFile.archive', $email->id) }}" class="mx-2">
-                        <u> فایل های آرشیو شده این ایمیل</u>
-                    </a>
                 </section>
 
                 <section class="table-responsive">
@@ -84,7 +81,7 @@
                                 <th>سایز</th>
                                 <th>نوع فایل</th>
                                 <th>وضعیت</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -246,7 +243,7 @@
                                     @method('delete')
                                     <button
                                         class="btn btn-danger btn-sm" type="submit"
-                                        onclick="confirm(event, 'فایل به آرشیو این ایمیل منتقل خواهد شد.')"
+                                        onclick="confirm(event, 'به طور کامل پاک خواهد شد.')"
                                     >
                                         <i class="fa fa-trash-alt"></i>
                                         حذف

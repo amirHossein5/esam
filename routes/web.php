@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Notify\EmailController;
+use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -183,13 +185,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //email file
         Route::prefix('email-file')->name('emailFile.')->controller(EmailFileController::class)->group(function () {
             Route::get('/{id}', 'index')->name('index');
-            Route::get('/{email}/archive', 'archive')->name('archive');
             Route::post('/{email}/store', 'store')->name('store');
             Route::post('/download/{file}', 'download')->name('download');
             Route::put('/{email}/update/{file}', 'update')->name('update');
-            Route::put('restore/{id}', 'restore')->name('restore');
             Route::delete('/destroy/{file}', 'destroy')->name('destroy');
-            Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
             Route::get('/changeStatus/{file}', 'changeStatus')->name('changeStatus');
             Route::post('/uploadFile', 'uploadFile')->name('uploadFile');
         });

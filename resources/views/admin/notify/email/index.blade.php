@@ -143,7 +143,7 @@
                         }
                     },
                     {
-                        "data": 'published_at',
+                        "data": 'send_at',
                         "render": function(data, type, row, meta) {
                             return `<section class="direction-ltr">${data.split(' ').join(' / ')}</section>`;
                         },
