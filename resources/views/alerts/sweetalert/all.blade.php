@@ -1,0 +1,6 @@
+@include('alerts.sweetalert.danger')
+@include('alerts.sweetalert.info')
+@include('alerts.sweetalert.success')
+@include('alerts.sweetalert.warning')
+@include('alerts.sweetalert.mixin-danger')
+@include('alerts.sweetalert.mixin-success')

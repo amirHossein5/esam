@@ -11,7 +11,6 @@
     .products-owl-carousel .owl-item {
         min-height: 27rem;
     }
-
 </style>
 
 <body dir="rtl" class="relative">

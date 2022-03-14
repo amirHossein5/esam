@@ -1,0 +1,7 @@
+.swal2-popup.swal2-modal {
+    font-size: .8rem;
+}
+
+.swal2-container {
+    z-index: 10001 !important;
+}

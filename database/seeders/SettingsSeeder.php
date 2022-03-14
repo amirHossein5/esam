@@ -22,6 +22,8 @@ class SettingsSeeder extends Seeder
                 'keywords' => 'کلمات کلیدی سایت',
                 'icon' => 'icon.png',
                 'logo' => 'logo.png',
+                'phone_number' => '09035440654',
+                'available_hours' => 'ساعت ۶ تا ۱۲'
             ]);
         }
     }
