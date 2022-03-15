@@ -144,9 +144,17 @@
                 بخش محتوی
             </section>
             <a
-                href="{{ route('admin.content.faq.index') }}"
+                href="{{ route('admin.content.faqCategories.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/faq*')) text-success @endif"
+                @if(request()->is('admin/content/faq-categories*')) text-success @endif"
+            >
+                <i class="fas fa-bars"></i>
+                <span>دسته بندی سوالات متداول</span>
+            </a>
+            <a
+                href="{{ route('admin.content.faqs.index') }}"
+                class="sidebar-link
+                @if(request()->is('admin/content/faqw*')) text-success @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>سوالات متداول</span>

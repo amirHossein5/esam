@@ -12,19 +12,6 @@ use App\Http\Requests\Admin\Content\PageRequest;
 
 class PageController extends Controller
 {
-    public function archive(): View
-    {
-        return view('admin.content.page.archive.index');
-    }
-
-    public function archiveDatatable(): JsonResponse
-    {
-        return datatables(
-            Page::select('id', 'title', 'slug', 'status')
-                ->onlyTrashed()
-        )->toJson();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -91,20 +78,12 @@ class PageController extends Controller
     {
         $request = $request->validated();
         $request['body'] = Purifier::clean($request['body']);
-        
+
         $page->update($request);
 
         return redirect()
             ->route('admin.content.page.index')
             ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
-    }
-
-    public function restore(int $id): RedirectResponse
-    {
-        Page::onlyTrashed()->where('id', $id)->restore();
-
-        return back()
-            ->with('sweetalert-mixin-success', 'با موفقیت بازگردانی شد');
     }
 
     /**
@@ -116,14 +95,6 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         $page->delete();
-
-        return back()
-            ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
-    }
-
-    public function forceDelete(int $id): RedirectResponse
-    {
-        Page::onlyTrashed()->where('id', $id)->forceDelete();
 
         return back()
             ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');

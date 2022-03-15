@@ -28,7 +28,6 @@
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                     <div>
                         <a href="{{ route('admin.content.page.create') }}" class="btn btn-info btn-sm">ایجاد پیج جدید</a>
-                        <a href="{{ route('admin.content.page.archive') }}" class="mx-2"><u>آرشیو</u></a>
                     </div>
                 </section>
 
@@ -124,7 +123,7 @@
                                     <form action="${destroyRoute}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger btn-sm" type="submit" onclick="confirm(event)">
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="confirm(event, 'به طور کامل پاک خواهد شد.')">
                                             <i class="fa fa-trash-alt"></i>
                                             حذف
                                         </button>

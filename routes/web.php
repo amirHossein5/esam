@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -136,14 +137,48 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // content
     Route::prefix('content')->name('content.')->group(function () {
 
+        //faq categories
+        Route::prefix('faq-categories')->name('faqCategories.')->group(function () {
+            Route::get('/', [FAQController::class, 'index'])->name('index');
+            Route::get('/archive', [FAQController::class, 'archive'])->name('archive');
+            Route::get('datatable', [FAQController::class, 'indexDatatable'])->name('datatable.index');
+            Route::get('datatable/archive', [FAQController::class, 'archiveDatatable'])->name('datatable.archive');
+            Route::get('/create', [FAQController::class, 'create'])->name('create');
+            Route::post('/store', [FAQController::class, 'store'])->name('store');
+            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('edit');
+            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('update');
+            Route::put('restore/{id}', [FAQController::class, 'restore'])->name('restore');
+            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('destroy');
+            Route::delete('forceDelete/{id}', [FAQController::class, 'forceDelete'])->name('forceDelete');
+            Route::get('changeStatus/{faq}', [FAQController::class, 'changeStatus'])->name('changeStatus');
+        });
+
         //faq
-        Route::controller(FaqController::class)->prefix('faq')->name('faq.')->group(function () {
-            Route::get('index')->name('index');
+        Route::prefix('faqs')->name('faqs.')->group(function () {
+            Route::get('/', [FAQController::class, 'index'])->name('index');
+            Route::get('/archive', [FAQController::class, 'archive'])->name('archive');
+            Route::get('datatable', [FAQController::class, 'indexDatatable'])->name('datatable.index');
+            Route::get('datatable/archive', [FAQController::class, 'archiveDatatable'])->name('datatable.archive');
+            Route::get('/create', [FAQController::class, 'create'])->name('create');
+            Route::post('/store', [FAQController::class, 'store'])->name('store');
+            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('edit');
+            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('update');
+            Route::put('restore/{id}', [FAQController::class, 'restore'])->name('restore');
+            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('destroy');
+            Route::delete('forceDelete/{id}', [FAQController::class, 'forceDelete'])->name('forceDelete');
+            Route::get('changeStatus/{faq}', [FAQController::class, 'changeStatus'])->name('changeStatus');
         });
 
         //page
-        Route::controller(PageController::class)->prefix('page')->name('page.')->group(function () {
-            Route::get('index')->name('index');
+        Route::prefix('page')->name('page.')->group(function () {
+            Route::get('/', [PageController::class, 'index'])->name('index');
+            Route::get('/datatable', [PageController::class, 'indexDatatable'])->name('datatable.index');
+            Route::get('/create', [PageController::class, 'create'])->name('create');
+            Route::post('/store', [PageController::class, 'store'])->name('store');
+            Route::get('/edit/{page}', [PageController::class, 'edit'])->name('edit');
+            Route::put('/update/{page}', [PageController::class, 'update'])->name('update');
+            Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('destroy');
+            Route::get('changeStatus/{page}', [PageController::class, 'changeStatus'])->name('changeStatus');
         });
     });
 
