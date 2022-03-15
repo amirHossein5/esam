@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -38,7 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('market')->name('market.')->group(function () {
 
         //category
-        Route::prefix('category')->name('category.')->controller(ProductCategory::class)->group(function () {
+        Route::prefix('category')->name('category.')->controller(ProductCategoryController::class)->group(function () {
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');

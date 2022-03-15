@@ -86,23 +86,6 @@
                             <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
                                     <div>
-                                        <label for="tags">تگ ها</label>
-                                        <input type="hidden" id="tags" name="tags" value="{{ old('tags') }}">
-                                        <select id="select2" class="form-control" multiple></select>
-                                    </div>
-                                    @error('tags')
-                                        <div class="mt-1">
-                                            <span class="text-danger font-weight-bold">
-                                                {{ $message }}
-                                            </span>
-                                        </div>
-                                    @enderror
-                                </div>
-                            </section>
-
-                            <section class="my-2 col-12 col-md-6">
-                                <div class="form-group">
-                                    <div>
                                         <label for="show_in_menu">نمایش در منو</label>
                                         <select name="show_in_menu" class="form-control" id="show_in_menu">
                                             <option value="0" @if (old('show_in_menu') === '0') selected @endif>غیرفعال</option>
@@ -163,21 +146,39 @@
                                     <div class="form-group">
                                         <input
                                             type="hidden"
-                                            name="canChooseColor"
+                                            name="colorable"
                                             value="0"
-                                            @if(old('canChooseColor') == '0') checked @endif
+                                            @if(old('colorable') == '0') checked @endif
                                         >
                                         <input
                                             type="checkbox"
-                                            name="canChooseColor"
-                                            id="canChooseColor"
+                                            name="colorable"
+                                            id="colorable"
                                             value="1"
-                                            @if(old('canChooseColor') == '1') checked @endif
+                                            @if(old('colorable') == '1') checked @endif
                                         >
-                                        <label class="mx-1" for="canChooseColor">امکان انتخاب رنگ برای محصول</label>
+                                        <label class="mx-1" for="colorable"> امکان داشتن رنگ های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
                                     </div>
                                 </section>
 
+                                <section class="col-12 col-md-6 d-flex align-items-center">
+                                    <div class="form-group">
+                                        <input
+                                            type="hidden"
+                                            name="sizable"
+                                            value="0"
+                                            @if(old('sizable') == '0') checked @endif
+                                        >
+                                        <input
+                                            type="checkbox"
+                                            name="sizable"
+                                            id="sizable"
+                                            value="1"
+                                            @if(old('sizable') == '1') checked @endif
+                                        >
+                                        <label class="mx-1" for="sizable">امکان دارا بودن سایز های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
+                                    </div>
+                                </section>
 
                                 <section class="mt-3 col-12">
                                     <button class="btn btn-primary btn-sm">ثبت</button>
@@ -195,12 +196,9 @@
 @section('script')
 
     <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('admin-assets/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('admin-assets/select2/js/select2-tags-in-form.js') }}"></script>
 
     <script>
         CKEDITOR.replace('description');
-        select2TagsInForm();
     </script>
 
 @endsection

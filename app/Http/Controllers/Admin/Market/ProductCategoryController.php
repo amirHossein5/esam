@@ -114,6 +114,10 @@ class ProductCategoryController extends Controller
             }
         }
 
+        if ($productCategory->allChildren()->exists()) {
+            unset($inputs['parent_id']);
+        }
+
         $productCategory->update($inputs);
 
         return redirect()->route('admin.market.category.index')
@@ -122,7 +126,7 @@ class ProductCategoryController extends Controller
 
     public function restore(int $id): RedirectResponse
     {
-        $productCategory = ProductCategory::onlyTrashed()->where('id', $id)->restore();
+        ProductCategory::onlyTrashed()->where('id', $id)->restore();
 
         return back()->with('sweetalert-mixin-success', 'با موفقیت بازگردانی شد');
     }
@@ -144,11 +148,9 @@ class ProductCategoryController extends Controller
     {
         $productCategory = ProductCategory::onlyTrashed()->where('id', $id)->first();
 
-        if (! Image::rm($productCategory->image)) {
-            return back()->with('sweetalert-mixin-danger', "عکس دسته بندی پاک نشد. دوباره امتحان کنید");
-        }
+        Image::rm($productCategory->image);
 
-        $productCategory->trashedChildren->each(function ($category) {
+        $productCategory->allChildren->each(function ($category) {
             if ($category->image) {
                 Image::rm($category->image);
             }

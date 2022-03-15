@@ -38,7 +38,7 @@
                         @method('put')
                         <section class="row">
 
-                            <section class="my-2 col-12 col-md-6">
+                            <section class="col-12 col-md-6">
                                 <div class="m-1 form-group">
                                     <div>
                                         <label for="name">نام دسته</label>
@@ -56,7 +56,7 @@
                             </section>
 
                             <section class="col-12 col-md-6">
-                                <div class="form-group">
+                                <div class="m-1 form-group">
                                     <label for="parent_id">دسته والد</label>
                                     <select name="parent_id" id="parent_id" class="form-control form-control-sm">
                                         <option value="">دسته اصلی</option>
@@ -84,24 +84,7 @@
                             </section>
 
 
-                            <section class="my-2 col-12 col-md-6">
-                                <div class="form-group">
-                                    <div>
-                                        <label for="tags">تگ ها</label>
-                                        <input type="hidden" id="tags" name="tags" value="{{ old('tags', $productCategory->tags) }}">
-                                        <select id="select2" class="form-control" multiple></select>
-                                    </div>
-                                    @error('tags')
-                                        <div class="mt-1">
-                                            <span class="text-danger font-weight-bold">
-                                                {{ $message }}
-                                            </span>
-                                        </div>
-                                    @enderror
-                                </div>
-                            </section>
-
-                            <section class="my-2 col-12 col-md-6">
+                            <section class=" col-12 col-md-6">
                                 <div class="form-group">
                                     <div>
                                         <label for="show_in_menu">نمایش در منو</label>
@@ -132,8 +115,8 @@
                                 </div>
                             </section>
 
-                                <section class="my-2 col-12 col-md-6">
-                                    <div class="form-group">
+                                <section class=" col-12 col-md-6">
+                                    <div class="m-1 form-group">
                                         <div>
                                             <label for="image">تصویر</label>
                                             <input type="file" id="image" class="form-control form-control-sm" name="image">
@@ -181,20 +164,41 @@
                                     <div class="form-group">
                                         <input
                                             type="hidden"
-                                            name="canChooseColor"
+                                            name="colorable"
                                             value="0"
-                                            @if(old('canChooseColor', $productCategory->canChooseColor) == '0')         checked
+                                            @if(old('colorable', $productCategory->colorable) == '0')         checked
                                             @endif
                                         >
                                         <input
                                             type="checkbox"
-                                            name="canChooseColor"
-                                            id="canChooseColor"
+                                            name="colorable"
+                                            id="colorable"
                                             value="1"
-                                            @if(old('canChooseColor', $productCategory->canChooseColor) == '1')         checked
+                                            @if(old('colorable', $productCategory->colorable) == '1')         checked
                                             @endif
                                         >
-                                        <label class="mx-1" for="canChooseColor">امکان انتخاب رنگ برای محصول</label>
+                                        <label class="mx-1" for="colorable">امکان داشتن رنگ های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
+                                    </div>
+                                </section>
+
+                                <section class="col-12 col-md-6 d-flex align-items-center">
+                                    <div class="form-group">
+                                        <input
+                                            type="hidden"
+                                            name="sizable"
+                                            value="0"
+                                            @if(old('sizable', $productCategory->sizable) == '0')         checked
+                                            @endif
+                                        >
+                                        <input
+                                            type="checkbox"
+                                            name="sizable"
+                                            id="sizable"
+                                            value="1"
+                                            @if(old('sizable', $productCategory->sizable) == '1')         checked
+                                            @endif
+                                        >
+                                        <label class="mx-1" for="sizable">امکان دارا بودن سایز های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
                                     </div>
                                 </section>
 
@@ -215,12 +219,9 @@
 @section('script')
 
     <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('admin-assets/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('admin-assets/select2/js/select2-tags-in-form.js') }}"></script>
 
     <script>
         CKEDITOR.replace('description');
-        select2TagsInForm();
     </script>
 
 @endsection
