@@ -88,7 +88,7 @@
                                                 >
 
                                                 <label for="{{ $permission->id }}" class="form-check-label select-none mr-3 mt-1">
-                                                    {{ $permission->name }}
+                                                    {{ $permission->description }}
                                                 </label>
                                             </div>
 

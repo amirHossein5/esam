@@ -20,7 +20,7 @@ class CustomerController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                User::select('id', 'email', 'mobile', 'first_name', 'last_name', 'activation', 'status')
+                User::select('id', 'email', 'mobile', 'first_name', 'last_name', 'status')
                     ->customers()
             )->toJson();
         }
@@ -163,16 +163,6 @@ class CustomerController extends Controller
 
         return $response
             ? response(['checked' => $customer->status])
-            : response([], 500);
-    }
-
-    public function activation(User $customer): Response
-    {
-        $customer->activation = ! $customer->activation;
-        $response = $customer->save();
-
-        return $response
-            ? response(['checked' => $customer->activation])
             : response([], 500);
     }
 }

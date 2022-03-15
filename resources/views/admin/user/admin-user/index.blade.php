@@ -40,7 +40,6 @@
                                 <th>نام خانوادگی</th>
                                 <th>نقش</th>
                                 <th>وضعیت</th>
-                                <th>اعتبارسنجی شده</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -81,7 +80,7 @@
                     { "data": "first_name" },
                     { "data": "last_name" },
                     {
-                        "data": "role.0.name",
+                        "data": "role.name",
                         "render": function(data, type, row, meta) {
                             return strlimit(data ?? '-', 0, 20)
                         }
@@ -97,26 +96,6 @@
                                     type="checkbox"
                                     data-url="${route}"
                                     onclick="changeStatus(event)"`;
-
-                            if (data) {
-                                tag = tag + ' checked';
-                            }
-
-                            return tag + `>`;
-                        },
-                        "searchable": false,
-                    },
-                    {
-                        "data": "activation",
-                        "render": function(data, type, row, meta) {
-                            var route = "{{ route('admin.user.admin-user.activation', ':id') }}"
-                                .replace(':id', row.id);
-
-                            var tag = `
-                                <input
-                                    type="checkbox"
-                                    data-url="${route}"
-                                    onclick="changeStatus(event, 'اعتبارسنجی')"`;
 
                             if (data) {
                                 tag = tag + ' checked';

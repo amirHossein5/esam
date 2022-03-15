@@ -39,7 +39,6 @@
                                 <th>نام</th>
                                 <th>نام خانوادگی</th>
                                 <th>وضعیت</th>
-                                <th>اعتبارسنجی شده</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
@@ -90,26 +89,6 @@
                                     type="checkbox"
                                     data-url="${route}"
                                     onclick="changeStatus(event)"`;
-
-                            if (data) {
-                                tag = tag + ' checked';
-                            }
-
-                            return tag + `>`;
-                        },
-                        "searchable": false,
-                    },
-                    {
-                        "data": "activation",
-                        "render": function(data, type, row, meta) {
-                            var route = "{{ route('admin.user.customer.activation', ':id') }}"
-                                .replace(':id', row.id);
-
-                            var tag = `
-                                <input
-                                    type="checkbox"
-                                    data-url="${route}"
-                                    onclick="changeStatus(event, 'اعتبارسنجی')"`;
 
                             if (data) {
                                 tag = tag + ' checked';

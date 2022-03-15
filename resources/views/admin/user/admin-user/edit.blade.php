@@ -112,14 +112,14 @@
 
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="role">نقش  @if ($hasCustomRole) (شخصی سازی شده) @endif</label>
+                                    <label for="role_id">نقش  @if ($hasCustomRole) (شخصی سازی شده) @endif</label>
 
-                                    <select name="role" id="role" class="form-control form-control-sm">
+                                    <select name="role_id" id="role_id" class="form-control form-control-sm">
                                         <option value="">-</option>
                                         @foreach ($roles as $role)
                                             <option
                                                 value="{{ $role->id }}"
-                                                @if(old('role', optional($admin->role)->id) == $role->id)
+                                                @if(old('role_id', optional($admin->role)->id) == $role->id)
                                                     selected
                                                 @endif
                                             >
@@ -128,7 +128,7 @@
                                         @endforeach
                                     </select>
 
-                                    @error('role')
+                                    @error('role_id')
                                         <span class="text-danger mt-2">
                                             {{ $message }}
                                         </span>

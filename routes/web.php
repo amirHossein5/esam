@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\User\AdminUserController;
+use App\Http\Controllers\Admin\User\CustomerController;
+use App\Http\Controllers\Admin\User\PermissionController;
+use App\Http\Controllers\Admin\User\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -145,16 +149,39 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // users
     Route::prefix('user')->name('user.')->group(function () {
+        //admin-user
         Route::prefix('admin-user')->name('admin-user.')->controller(AdminUserController::class)->group(function () {
-            Route::get('', 'index')->name('index');
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('{admin}/permissions/', [PermissionController::class,'edit'])->name('permissions');
+            Route::put('{admin}/permissions/', [PermissionController::class,'update'])->name('permissions.update');
+            Route::get('/edit/{admin}', 'edit')->name('edit');
+            Route::put('/update/{admin}', 'update')->name('update');
+            Route::delete('/destroy/{admin}', 'destroy')->name('destroy');
+            Route::get('/status/{admin}', 'status')->name('status');
         });
 
+        //customer
         Route::prefix('customer')->name('customer.')->controller(CustomerController::class)->group(function () {
-            Route::get('index')->name('index');
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{customer}', 'edit')->name('edit');
+            Route::put('/update/{customer}', 'update')->name('update');
+            Route::put('/upgradeToAdmin/{customer}', 'upgradeToAdmin')->name('upgradeToAdmin');
+            Route::delete('/destroy/{customer}', 'destroy')->name('destroy');
+            Route::get('/status/{customer}', 'status')->name('status');
         });
 
+        //role
         Route::prefix('role')->name('role.')->group(function () {
-            Route::get('index')->name('index');
+            Route::get('/', [RoleController::class, 'index'])->name('index');
+            Route::get('/create', [RoleController::class, 'create'])->name('create');
+            Route::post('/store', [RoleController::class, 'store'])->name('store');
+            Route::get('/edit/{role}', [RoleController::class, 'edit'])->name('edit');
+            Route::put('/update/{role}', [RoleController::class, 'update'])->name('update');
+            Route::delete('/destroy/{role}', [RoleController::class, 'destroy'])->name('destroy');
         });
     });
 

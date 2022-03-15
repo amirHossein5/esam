@@ -36,29 +36,31 @@
                         <section class="row">
 
                             <section>
-                                <div class="form-group">
+                                <div class="row">
 
                                     @foreach ($permissions as $permission)
-                                        <div class="m-3 d-inline">
-                                            <input
-                                                type="checkbox"
-                                                name="permissions[]"
-                                                value="{{ $permission->id }}"
-                                                id="{{ $permission->id }}"
-                                                @if(optional($admin->allPermissions())
-                                                    ->contains('id', $permission->id)
-                                                )
-                                                    checked
-                                                @endif
-                                            >
-                                            <label for="{{ $permission->id }}" class="mx-1 select-none">
-                                                {{ $permission->name }}
-                                            </label>
-                                        </div>
+                                        <section class="col-md-3">
+                                            <div class=" d-block form-check">
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[]"
+                                                    value="{{ $permission->id }}"
+                                                    id="{{ $permission->id }}"
+                                                    @if(optional($admin->allPermissions())
+                                                        ->contains('id', $permission->id)
+                                                    )
+                                                        checked
+                                                    @endif
+                                                >
+                                                <label for="{{ $permission->id }}" class="mx-1 select-none">
+                                                    {{ $permission->description }}
+                                                </label>
+                                            </div>
 
-                                        @error('permissions.'. $loop->index)
-                                            <span class="my-1 text-danger">{{ $message }}</span>
-                                        @enderror
+                                            @error('permissions.'. $loop->index)
+                                                <span class="my-1 text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </section>
                                     @endforeach
 
                                 </div>

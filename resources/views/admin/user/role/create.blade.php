@@ -74,7 +74,7 @@
                                             <div class="form-check">
                                                 <input
                                                     type="checkbox"
-                                                    class="form-check-input"
+                                                    class="form-check-input d-block"
                                                     name="permissions[{{ $permission->id }}]"
                                                     value="{{ $permission->id }}"
                                                     id="{{ $permission->id }}"
@@ -85,7 +85,7 @@
 
 
                                                 <label for="{{ $permission->id }}" class="form-check-label select-none mr-3 mt-1">
-                                                    {{ $permission->name }}
+                                                    {{ $permission->description }}
                                                 </label>
                                             </div>
 

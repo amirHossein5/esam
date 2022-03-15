@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('user_type')->default(0)->comment('0 => user, 1 => admin');
             $table->tinyInteger('status')->default(0)->comment('general status');
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -90,7 +90,7 @@
                                     return;
                                 }
 
-                                permissions += `${index}- ${permission.name} <br>`;
+                                permissions += `${index}- ${permission.description} <br>`;
                             });
 
                             return permissions ? permissions : '-';

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\User\PermissionRequest;
+use App\Http\Requests\Admin\PermissionRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class PermissionController extends Controller
     public function edit(User $admin)
     {
         $permissions = DB::table('permissions')->get();
-        
+
         return view('admin.user.admin-user.permissions', compact('permissions', 'admin'));
     }
 
@@ -35,13 +35,13 @@ class PermissionController extends Controller
     {
         DB::transaction(function () use ($request, $admin) {
             if (! $request->has('permissions')) {
-                $admin->role()->detach();
+                $admin->update(['role_id' => null]);
             } else {
                 $customRoleId = DB::table('roles')
                     ->where('name', Role::CUSTOM_ROLE)
                     ->value('id');
 
-                $admin->role()->sync($customRoleId);
+                $admin->update(['role_id' => $customRoleId]);
             }
 
             $admin->permissions()->sync($request->permissions);

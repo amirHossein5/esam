@@ -22,7 +22,7 @@ class AdminUserController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                User::select('id', 'email', 'mobile', 'first_name', 'last_name', 'activation', 'status')
+                User::select('id', 'email', 'mobile', 'first_name','role_id', 'last_name', 'status')
                     ->with(['role' => function ($query) {
                         $query->withoutGlobalScope('visible');
                     }])
@@ -78,12 +78,6 @@ class AdminUserController extends Controller
 
         DB::transaction(function () use ($request) {
             $user = User::create($request + ['user_type' => 1]);
-
-            if ($request['role']) {
-                $user->role()->sync([
-                    'role_id' => $request['role']
-                ]);
-            }
         });
 
         return redirect()
@@ -107,7 +101,8 @@ class AdminUserController extends Controller
 
         $hasCustomRole = DB::table('roles')
             ->where('status', 1)
-            ->exists(optional($admin->role)->id);
+            ->where('id', $admin->role_id)
+            ->exists();
 
         return view('admin.user.admin-user.edit', compact('admin', 'roles', 'hasCustomRole'));
     }
@@ -150,15 +145,9 @@ class AdminUserController extends Controller
         DB::transaction(function () use ($admin, $request) {
             $admin->update($request);
 
-            if ($request['role']) {
-                $admin->role()->sync([
-                    'role_id' => $request['role']
-                ]);
-            } else {
-                $admin->role()->detach();
+            if ($request['role_id']) {
+                $admin->permissions()->detach();
             }
-
-            $admin->permissions()->detach();
         });
 
         return redirect()
@@ -196,16 +185,6 @@ class AdminUserController extends Controller
 
         return $response
             ? response(['checked' => $admin->status])
-            : response([], 500);
-    }
-
-    public function activation(User $admin): Response
-    {
-        $admin->activation = !$admin->activation;
-        $response = $admin->save();
-
-        return $response
-            ? response(['checked' => $admin->activation])
             : response([], 500);
     }
 }

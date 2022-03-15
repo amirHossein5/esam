@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
+use App\Http\Requests\Admin\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class RoleController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                Role::with('permissions:name,id')
+                Role::with('permissions:description,id')
                     ->skip(request()->start)
                     ->take(request()->length)
                     ->get()

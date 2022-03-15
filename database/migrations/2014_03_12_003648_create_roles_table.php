@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->tinyInteger('status')->default(0)
-                ->comment("1 => visible, 0 => unvisible");
+                ->comment("0 => visible, 1 => unvisible");
             $table->timestamps();
         });
     }

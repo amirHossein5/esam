@@ -122,33 +122,17 @@
                                 </div>
                             </section>
 
-                            <section class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="activation">اعتبارسنجی شده</label>
-                                    <select name="activation" id="activation" class="form-control form-control-sm">
-                                        <option value="0" @if (old('activation') == '0') selected @endif>خیر</option>
-                                        <option value="1" @if (old('activation') == '1') selected @endif>بله</option>
-                                    </select>
-
-
-                                    @error('activation')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
-                                    @enderror
-                                </div>
-                            </section>
 
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="role">نقش</label>
-                                    <select name="role" id="role" class="form-control form-control-sm">
+                                    <label for="role_id">نقش</label>
+                                    <select name="role_id" id="role_id" class="form-control form-control-sm">
                                         <option value="">-</option>
 
                                         @foreach ($roles as $role)
                                             <option
                                                 value="{{ $role->id }}"
-                                                @if(old('role') == $role->id)
+                                                @if(old('role_id') == $role->id)
                                                     selected
                                                 @endif
                                             >
@@ -157,7 +141,7 @@
                                         @endforeach
                                     </select>
 
-                                    @error('role')
+                                    @error('role_id')
                                         <span class="text-danger mt-2">
                                             {{ $message }}
                                         </span>
