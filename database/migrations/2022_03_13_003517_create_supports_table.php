@@ -18,7 +18,10 @@ return new class extends Migration
             $table->foreignId('product_id')
                 ->constrained('products')
                 ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('request');
+            $table->text('description');
+            $table->foreignId('support_id')
+                ->constrained('supports')
+                ->cascadeOnDelete()->cascadeOnUpdate();
             $table->tinyInteger('status')->default(0)->comment('0 => open, 1 => closed');
             $table->tinyInteger('seen')->default(0)->comment('0 => unseen, 1 => seen');
             $table->timestamps();
