@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>سوالات متداول</title>
+    <title>  سوالات متداول</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/datatable/css/dataTables.min.css') }}">
 @endsection
 
@@ -11,7 +11,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> سوالات متداول</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page">   سوالات متداول</li>
         </ol>
     </nav>
 
@@ -21,59 +21,29 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        سوالات متداول
+                          سوالات متداول
                     </h5>
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                     <div>
                         <a href="{{ route('admin.content.faq.create') }}" class="btn btn-info btn-sm">ایجاد سوال جدید</a>
-                        <a href="{{ route('admin.content.faq.archive') }}" class="mx-2"><u>آرشیو</u></a>
                     </div>
                 </section>
 
                 <section class="table-responsive">
-                    <table class="hover display row-border" id="table" style="width: 100%">
+                    <table class="hover display row-border compact" id="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>پرسش</th>
-                                <th>خلاصه پاسخ</th>
+                                <th>سوال</th>
+                                <th>نام دسته</th>
                                 <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                                    {{-- <td>{{ substr($faq->answer, 0, 30) }}</td>
-                                    <td>
-                                        <input
-                                            type="checkbox"
-                                            @if ($faq->status) checked @endif
-                                            onclick="changeStatus(event)"
-                                            data-url="{{ route('admin.content.faq.changeStatus', $faq->id) }}"
-                                        >
-                                    </td> --}}
-                                    {{-- <td class="width-16-rem text-left">
-                                        <a
-                                            href="{{ route('admin.content.faq.edit', $faq->id) }}"
-                                            class="btn btn-primary btn-sm"
-                                        >
-                                            <i class="fa fa-edit"></i> ویرایش
-                                        </a>
-                                        <form action="{{ route('admin.content.faq.destroy', $faq->id) }}" method="post" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button
-                                                class="btn btn-danger btn-sm"
-                                                type="submit"
-                                                onclick="confirm(event)">
-                                                <i class="fa fa-trash-alt"></i>
-                                                حذف
-                                            </button>
-                                        </form>
-                                    </td> --}}
-                                </tr>
                         </tbody>
                     </table>
                 </section>
@@ -88,6 +58,7 @@
     @include('alerts.sweetalert.confirm')
     <script src="{{ asset('admin-assets/js/changeStatus.js') }}"></script>
     <script src="{{ asset('admin-assets/datatable/js/dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/js/limit.js') }}"></script>
 
     <script>
         $(document).ready( function () {
@@ -95,7 +66,7 @@
                 "searchDelay": 1500,
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('admin.content.faq.datatable.index') }}",
+                "ajax": "{{ url()->current() }}",
 
                 "columns": [
                     {
@@ -108,15 +79,14 @@
                     {
                         "data": "question",
                         "render": function(data, type, row, meta) {
-                            return data.substr(0, 50);
+                            return strlimit(data , 0, 15);
                         }
                     },
                     {
-                        "data": "answer",
+                        "data": "faq_category.name",
                         "render": function(data, type, row, meta) {
-                            return data.substr(0, 50);
-                        },
-                        "orderable": false
+                            return strlimit(data , 0, 15);
+                        }
                     },
                     {
                         "data": "status",
@@ -154,7 +124,7 @@
                                         <button
                                             class="btn btn-danger btn-sm"
                                             type="submit"
-                                            onclick="confirm(event)">
+                                            onclick="confirm(event, 'به طور کامل پاک خواهد شد.')">
                                             <i class="fa fa-trash-alt"></i>
                                             حذف
                                         </button>

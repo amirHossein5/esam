@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
-use Illuminate\View\View;
-use App\Models\Content\FAQ;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Mews\Purifier\Facades\Purifier;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Admin\Content\FAQCategoryRequest;
 use App\Http\Requests\Admin\Content\FAQRequest;
-use Illuminate\Support\Facades\DB;
+use App\Models\Content\FAQCategory;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class FAQController extends Controller
+class FAQCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,15 +20,14 @@ class FAQController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                FAQ::query()
+                FAQCategory::query()
                     ->skip(request()->start)
                     ->take(request()->length)
-                    ->with('faqCategory')
                     ->get()
             )->toJson();
         }
 
-        return view('admin.content.faq.index');
+        return view('admin.content.faq-category.index');
     }
 
     /**
@@ -41,9 +37,7 @@ class FAQController extends Controller
      */
     public function create()
     {
-        $faqCategories = DB::table('faq_categories')->get();
-
-        return view('admin.content.faq.create', compact('faqCategories'));
+        return view('admin.content.faq-category.create');
     }
 
     /**
@@ -52,14 +46,11 @@ class FAQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FAQRequest $request)
+    public function store(FAQCategoryRequest $request)
     {
-        $request = $request->validated();
-        $request['answer'] = Purifier::clean($request['answer']);
+        FAQCategory::create($request->validated());
 
-        FAQ::create($request);
-
-        return to_route('admin.content.faq.index')
+        return to_route('admin.content.faqCategory.index')
             ->with('sweetalert-mixin-success', 'با موفقیت ساخته شد');
     }
 
@@ -69,11 +60,9 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FAQ $faq)
+    public function edit(FAQCategory $faqCategory)
     {
-        $faqCategories = DB::table('faq_categories')->get();
-
-        return view('admin.content.faq.edit', compact('faq', 'faqCategories'));
+        return view('admin.content.faq-category.edit', compact('faqCategory'));
     }
 
     /**
@@ -83,14 +72,11 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQRequest $request, FAQ $faq)
+    public function update(FAQCategoryRequest $request, FAQCategory $faqCategory)
     {
-        $request = $request->validated();
-        $request['answer'] = Purifier::clean($request['answer']);
+        $faqCategory->update($request->validated());
 
-        $faq->update($request);
-
-        return to_route('admin.content.faq.index')
+        return to_route('admin.content.faqCategory.index')
             ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
     }
 
@@ -100,27 +86,27 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FAQ $faq)
+    public function destroy(FAQCategory $faqCategory)
     {
-        $faq->delete();
+        $faqCategory->delete();
 
-        return to_route('admin.content.faq.index')
+        return to_route('admin.content.faqCategory.index')
             ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
     }
 
     /**
      * Changes status of the resource.
      *
-     * @param  \App\Models\Content\FAQ  $faq
+     * @param  \App\Models\Content\FAQCategory  $faqCategory
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus(FAQ $faq): Response
+    public function changeStatus(FAQCategory $faqCategory): Response
     {
-        $faq->status = !$faq->status;
-        $result = $faq->save();
+        $faqCategory->status = !$faqCategory->status;
+        $result = $faqCategory->save();
 
         return $result
-            ? response(['checked' => $faq->status])
+            ? response(['checked' => $faqCategory->status])
             : response('', 500);
     }
 }

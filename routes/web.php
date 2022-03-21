@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Content\FAQCategoryController;
+use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Notify\EmailController;
@@ -140,35 +142,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('content')->name('content.')->group(function () {
 
         //faq categories
-        Route::prefix('faq-categories')->name('faqCategories.')->group(function () {
-            Route::get('/', [FAQController::class, 'index'])->name('index');
-            Route::get('/archive', [FAQController::class, 'archive'])->name('archive');
-            Route::get('datatable', [FAQController::class, 'indexDatatable'])->name('datatable.index');
-            Route::get('datatable/archive', [FAQController::class, 'archiveDatatable'])->name('datatable.archive');
-            Route::get('/create', [FAQController::class, 'create'])->name('create');
-            Route::post('/store', [FAQController::class, 'store'])->name('store');
-            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('edit');
-            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('update');
-            Route::put('restore/{id}', [FAQController::class, 'restore'])->name('restore');
-            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('destroy');
-            Route::delete('forceDelete/{id}', [FAQController::class, 'forceDelete'])->name('forceDelete');
-            Route::get('changeStatus/{faq}', [FAQController::class, 'changeStatus'])->name('changeStatus');
+        Route::prefix('faq-category')->name('faqCategory.')->controller(FAQCategoryController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{faqCategory}', 'edit')->name('edit');
+            Route::put('/update/{faqCategory}', 'update')->name('update');
+            Route::delete('/destroy/{faqCategory}', 'destroy')->name('destroy');
+            Route::get('changeStatus/{faqCategory}', 'changeStatus')->name('changeStatus');
         });
 
         //faq
-        Route::prefix('faqs')->name('faqs.')->group(function () {
-            Route::get('/', [FAQController::class, 'index'])->name('index');
-            Route::get('/archive', [FAQController::class, 'archive'])->name('archive');
-            Route::get('datatable', [FAQController::class, 'indexDatatable'])->name('datatable.index');
-            Route::get('datatable/archive', [FAQController::class, 'archiveDatatable'])->name('datatable.archive');
-            Route::get('/create', [FAQController::class, 'create'])->name('create');
-            Route::post('/store', [FAQController::class, 'store'])->name('store');
-            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('edit');
-            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('update');
-            Route::put('restore/{id}', [FAQController::class, 'restore'])->name('restore');
-            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('destroy');
-            Route::delete('forceDelete/{id}', [FAQController::class, 'forceDelete'])->name('forceDelete');
-            Route::get('changeStatus/{faq}', [FAQController::class, 'changeStatus'])->name('changeStatus');
+        Route::prefix('faq')->name('faq.')->controller(FAQController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{faq}', 'edit')->name('edit');
+            Route::put('/update/{faq}', 'update')->name('update');
+            Route::delete('/destroy/{faq}', 'destroy')->name('destroy');
+            Route::get('changeStatus/{faq}', 'changeStatus')->name('changeStatus');
         });
 
         //page

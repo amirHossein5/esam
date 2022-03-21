@@ -144,17 +144,17 @@
                 بخش محتوی
             </section>
             <a
-                href="{{ route('admin.content.faqCategories.index') }}"
+                href="{{ route('admin.content.faqCategory.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/faq-categories*')) text-green @endif"
+                @if(request()->is('admin/content/faq-category*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>دسته بندی سوالات متداول</span>
             </a>
             <a
-                href="{{ route('admin.content.faqs.index') }}"
+                href="{{ route('admin.content.faq.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/faqw*')) text-green @endif"
+                @if(request()->routeIs('admin.content.faq.index')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>سوالات متداول</span>

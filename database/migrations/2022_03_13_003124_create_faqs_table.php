@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('answer');
             $table->string('slug')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->foreignId('faq_category_id')
+                ->constrained('faq_categories')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

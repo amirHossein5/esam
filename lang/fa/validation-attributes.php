@@ -75,6 +75,6 @@ return [
         'marketable_number'    => 'تعداد قابل فروش',
         'receiver'             => 'نام تحویل گیرنده',
         'deliverer'            => 'نام تحویل دهنده',
-
+        'faq_category_id'      => 'دسته بندی سوالات متداول',
     ],
 ];

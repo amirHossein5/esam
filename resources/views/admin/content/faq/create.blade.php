@@ -1,9 +1,9 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>ساخت سوالات متداول</title>
-    <link href="{{ asset('admin-assets/select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-assets/select2/css/select2.modification.css') }}" rel="stylesheet" />
+    <title>ساخت  سوالات متداول</title>
+    <link rel="stylesheet" href="{{ asset('admin-assets/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/select2/css/select2.modification.css') }}">
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">سوالات متداول</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد سوال</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد  سوالات متداول</li>
         </ol>
     </nav>
 
@@ -23,7 +23,7 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        ایجاد سوال
+                        ایجاد  سوالات متداول
                     </h5>
                 </section>
 
@@ -36,26 +36,40 @@
                         @csrf
                         <section class="row">
 
-                            <section class="col-12">
+                           <section class="col-12 ">
                                 <div class="form-group">
-                                    <label for="question">پرسش</label>
-                                    <input type="text" id="question" name="question" value="{{ old('question') }}" class="form-control form-control-sm">
+                                    <div>
+                                        <label for="faq_category_id">برای دسته بندی </label>
+                                        <select name="faq_category_id" class="form-control" id="faq_category_id">
 
-                                    @error('question')
-                                        <span class="text-danger">
-                                            {{ $message }}
-                                        </span>
+                                            <option value="">انتخاب</option>
+
+                                            @foreach ($faqCategories as $faqCategory)
+                                                <option value="{{ $faqCategory->id }}"
+                                                    @selected(old('faq_category_id') == $faqCategory->id)
+                                                >
+                                                    {{ $faqCategory->name }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    @error('faq_category_id')
+                                        <div class="mt-1">
+                                            <span class="text-danger font-weight-bold">
+                                                {{ $message }}
+                                            </span>
+                                        </div>
                                     @enderror
                                 </div>
                             </section>
 
-                            <section class="col-12">
+                            <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="answer">پاسخ</label>
-                                    <textarea name="answer" name="answer" id="answer" class="form-control form-control-sm"
-                                        rows="6">{{ old('answer') }}</textarea>
+                                    <label for="question">سوال</label>
+                                    <input type="text" id="question" name="question" value="{{ old('question') }}" class="form-control form-control-sm">
 
-                                    @error('answer')
+                                    @error('question')
                                         <span class="text-danger">
                                             {{ $message }}
                                         </span>
@@ -68,8 +82,8 @@
                                     <div>
                                         <label for="status">وضعیت</label>
                                         <select name="status" class="form-control" id="status">
-                                            <option value="0" @if (old('status') == '0') selected @endif>غیرفعال</option>
-                                            <option value="1" @if (old('status') == '1') selected @endif>فعال</option>
+                                            <option value="0" @selected(old('status') == '0')>غیرفعال</option>
+                                            <option value="1" @selected(old('status') == '1')>فعال</option>
                                         </select>
                                     </div>
                                     @error('status')
@@ -82,26 +96,24 @@
                                 </div>
                             </section>
 
-                            <section class="col-12 col-md-6">
+                            <section class="col-12">
                                 <div class="form-group">
-                                    <div>
-                                        <label for="tags">تگ ها</label>
-                                        <input type="hidden" id="tags" name="tags" value="{{ old('tags') }}">
-                                        <select id="select2" class="form-control" multiple></select>
-                                    </div>
-                                    @error('tags')
-                                        <div class="mt-1">
-                                            <span class="text-danger font-weight-bold">
-                                                {{ $message }}
-                                            </span>
-                                        </div>
+                                    <label for="answer">پاسخ</label>
+                                    <textarea type="text" id="answer" name="answer" class="form-control form-control-sm">{{ old('answer') }}</textarea>
+
+                                    @error('answer')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
                                     @enderror
                                 </div>
                             </section>
 
+
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
+
                         </section>
                     </form>
                 </section>
@@ -111,14 +123,16 @@
     </section>
 
 @endsection
-@section('script')
 
+@section('script')
     <script src="{{ asset('admin-assets/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('admin-assets/select2/js/select2-tags-in-form.js') }}"></script>
     <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('answer');
-        select2TagsInForm();
+
+        $(document).ready(function() {
+            $('#faq_category_id').select2();
+        });
     </script>
 
 @endsection
