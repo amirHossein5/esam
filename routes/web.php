@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\FAQCategoryController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
@@ -173,6 +174,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/update/{page}', [PageController::class, 'update'])->name('update');
             Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('destroy');
             Route::get('changeStatus/{page}', [PageController::class, 'changeStatus'])->name('changeStatus');
+        });
+
+        //banners
+        Route::prefix('banner')->name('banner.')->controller(BannerController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{banner}', 'edit')->name('edit');
+            Route::put('/update/{banner}', 'update')->name('update');
+            Route::delete('/destroy/{banner}', 'destroy')->name('destroy');
         });
     });
 

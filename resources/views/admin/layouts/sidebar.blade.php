@@ -122,6 +122,12 @@
                 </section>
                 <section class="sidebar-dropdown">
                     <a
+                        href=""
+                        class="@if(request()->is('admin/market/discount/amazing-sale*')) text-green @endif "
+                    >
+                        تخفیف شگفت انگیز
+                    </a>
+                    <a
                         href="{{ route('admin.market.discount.copan') }}"
                         class="@if(request()->is('admin/market/discount/copan*')) text-green @endif "
                     >
@@ -166,6 +172,14 @@
             >
                 <i class="fas fa-bars"></i>
                 <span>پیج ساز</span>
+            </a>
+            <a
+                href="{{ route('admin.content.banner.index') }}"
+                class="sidebar-link
+                @if(request()->is('admin/content/banner*')) text-green @endif"
+            >
+                <i class="fas fa-bars"></i>
+                <span>بنر ها</span>
             </a>
 
 

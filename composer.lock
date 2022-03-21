@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "amir-hossein5/laravel-image",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amirHossein5/laravel-image.git",
-                "reference": "b991cf60740ce3cb5f6d65ab51f06191ac1834ac"
+                "reference": "81f65844afc7fc000e3758a59cdea6eb1a632217"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amirHossein5/laravel-image/zipball/b991cf60740ce3cb5f6d65ab51f06191ac1834ac",
-                "reference": "b991cf60740ce3cb5f6d65ab51f06191ac1834ac",
+                "url": "https://api.github.com/repos/amirHossein5/laravel-image/zipball/81f65844afc7fc000e3758a59cdea6eb1a632217",
+                "reference": "81f65844afc7fc000e3758a59cdea6eb1a632217",
                 "shasum": ""
             },
             "require": {
@@ -53,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/amirHossein5/laravel-image/issues",
-                "source": "https://github.com/amirHossein5/laravel-image/tree/v2.1.0"
+                "source": "https://github.com/amirHossein5/laravel-image/tree/v2.1.1"
             },
-            "time": "2022-03-14T16:15:09+00:00"
+            "time": "2022-03-21T15:20:57+00:00"
         },
         {
             "name": "beberlei/assert",
