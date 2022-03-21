@@ -44,6 +44,12 @@
                         کالاها
                     </a>
                     <a
+                        href="{{ route('admin.market.colors.index') }}"
+                        class="@if(request()->is('admin/market/colors*')) text-green @endif "
+                    >
+                        رنگ ها
+                    </a>
+                    <a
                         href="{{ route('admin.market.questions.index') }}"
                         class="@if(request()->is('admin/market/questions*')) text-green @endif "
                     >

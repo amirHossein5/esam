@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\FAQCategoryController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
@@ -54,6 +55,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/destroy/{productCategory}', 'destroy')->name('destroy');
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
             Route::get('/changeShowInMenu/{productCategory}', 'changeShowInMenu')->name('changeShowInMenu');
+        });
+
+        //colors
+        Route::prefix('colors')->name('colors.')->controller(ColorController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::delete('/destroy/{color}', 'destroy')->name('destroy');
         });
 
         // questions-answers

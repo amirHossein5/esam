@@ -42,7 +42,7 @@
 }
 
 .text-green {
-    color: #00f94a;
+    color: #00f94a !important;
 }
 
 .font-size-12 {

@@ -59,16 +59,16 @@ $(document).ready(function () {
         toggleDropdown(this);
     });
 
-    // if one of children has text-success dropdown text has too
+    // if one of children has text-green dropdown text has too
     children = $(".sidebar-dropdown").children();
 
     for (let child of children) {
-        if ($(child).hasClass("text-success")) {
+        if ($(child).hasClass("text-green")) {
             var parent = $(child).closest(".sidebar-group-link")
 
             $(parent)
                 .find(".sidebar-dropdown-toggle")
-                .addClass("text-success")
+                // .addClass("text-green")
                 .addClass("sidebar-group-link-active");
 
             toggleDropdown(parent);
