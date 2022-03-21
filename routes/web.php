@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -223,10 +224,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // support
     Route::prefix('support')->name('support.')->controller(SupportController::class)->group(function () {
-        Route::get('index')->name('index');
-        Route::get('unseen')->name('unseen');
-        Route::get('closed')->name('closed');
-        Route::get('open')->name('open');
+        Route::get('index', 'index')->name('index');
+        Route::get('/show/{support}', 'show')->name('show');
+        Route::post('/{support}', 'store')->name('store');
+        Route::get('unseen', 'unseen')->name('unseen');
+        Route::get('closed', 'closed')->name('closed');
+        Route::get('open', 'open')->name('open');
     });
 
     // notify

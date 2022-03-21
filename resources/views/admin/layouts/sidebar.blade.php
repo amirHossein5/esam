@@ -27,25 +27,25 @@
                 <section class="sidebar-dropdown">
                     <a
                         href="{{ route('admin.market.category.index') }}"
-                        class="@if(request()->is('admin/market/category*')) text-success @endif "
+                        class="@if(request()->is('admin/market/category*')) text-green @endif "
                     >
                         دسته بندی
                     </a>
                     <a
                         href="{{ route('admin.market.attribute.index') }}"
-                        class="@if(request()->is('admin/market/attribute*')) text-success @endif "
+                        class="@if(request()->is('admin/market/attribute*')) text-green @endif "
                     >
                         فرم کالا
                     </a>
                     <a
                         href="{{ route('admin.market.product.index') }}"
-                        class="@if(request()->is('admin/market/product*')) text-success @endif "
+                        class="@if(request()->is('admin/market/product*')) text-green @endif "
                     >
                         کالاها
                     </a>
                     <a
                         href="{{ route('admin.market.questions.index') }}"
-                        class="@if(request()->is('admin/market/questions*')) text-success @endif "
+                        class="@if(request()->is('admin/market/questions*')) text-green @endif "
                     >
                         پرسش و پاسخ های محصولات
                     </a>
@@ -61,37 +61,37 @@
                 <section class="sidebar-dropdown">
                     <a
                         href="{{ route('admin.market.order.newOrders') }}"
-                        class="@if(request()->is('admin/market/order/newOrders*')) text-success @endif "
+                        class="@if(request()->is('admin/market/order/newOrders*')) text-green @endif "
                     >
                          جدید
                     </a>
                     <a
                         href="{{ route('admin.market.order.sending') }}"
-                        class="@if(request()->is('admin/market/order/sending*')) text-success @endif "
+                        class="@if(request()->is('admin/market/order/sending*')) text-green @endif "
                     >
                         در حال ارسال
                     </a>
                     <a
                         href="{{ route('admin.market.order.unpaid') }}"
-                        class="@if(request()->is('admin/market/order/unpaid*')) text-success @endif "
+                        class="@if(request()->is('admin/market/order/unpaid*')) text-green @endif "
                     >
                         پرداخت نشده
                     </a>
                     <a
                         href="{{ route('admin.market.order.canceled') }}"
-                        class="@if(request()->is('admin/market/order/canceled*')) text-success @endif "
+                        class="@if(request()->is('admin/market/order/canceled*')) text-green @endif "
                     >
                         باطل شده
                     </a>
                     <a
                         href="{{ route('admin.market.order.returned') }}"
-                        class="@if(request()->is('admin/market/order/returned*')) text-success @endif "
+                        class="@if(request()->is('admin/market/order/returned*')) text-green @endif "
                     >
                         مرجوعی
                     </a>
                     <a
                         href="{{ route('admin.market.order.all') }}"
-                        class="@if(request()->routeIs('admin.market.order.all')) text-success @endif "
+                        class="@if(request()->routeIs('admin.market.order.all')) text-green @endif "
                     >
                         تمام سفارشات
                     </a>
@@ -107,7 +107,7 @@
                 <section class="sidebar-dropdown">
                     <a
                         href="{{ route('admin.market.payment.index') }}"
-                        class="@if(request()->routeIs('admin.market.payment.index')) text-success @endif "
+                        class="@if(request()->routeIs('admin.market.payment.index')) text-green @endif "
                     >
                         تمام پرداخت ها
                     </a>
@@ -123,13 +123,13 @@
                 <section class="sidebar-dropdown">
                     <a
                         href="{{ route('admin.market.discount.copan') }}"
-                        class="@if(request()->is('admin/market/discount/copan*')) text-success @endif "
+                        class="@if(request()->is('admin/market/discount/copan*')) text-green @endif "
                     >
                         کپن تخفیف
                     </a>
                     <a
                         href="{{ route('admin.market.discount.landingPageCopans.index') }}"
-                        class="@if(request()->is('admin/market/discount/landing-page-copans*')) text-success @endif "
+                        class="@if(request()->is('admin/market/discount/landing-page-copans*')) text-green @endif "
                     >
                         کپن های صفحه اصلی
                     </a>
@@ -146,7 +146,7 @@
             <a
                 href="{{ route('admin.content.faqCategories.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/faq-categories*')) text-success @endif"
+                @if(request()->is('admin/content/faq-categories*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>دسته بندی سوالات متداول</span>
@@ -154,7 +154,7 @@
             <a
                 href="{{ route('admin.content.faqs.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/faqw*')) text-success @endif"
+                @if(request()->is('admin/content/faqw*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>سوالات متداول</span>
@@ -162,7 +162,7 @@
             <a
                 href="{{ route('admin.content.page.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/content/page*')) text-success @endif"
+                @if(request()->is('admin/content/page*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>پیج ساز</span>
@@ -179,7 +179,7 @@
             <a
                 href="{{ route('admin.user.admin-user.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/user/admin-user*')) text-info @endif"
+                @if(request()->is('admin/user/admin-user*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>کاربران ادمین</span>
@@ -187,7 +187,7 @@
             <a
                 href="{{ route('admin.user.customer.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/user/customer*')) text-info @endif"
+                @if(request()->is('admin/user/customer*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>مشتریان</span>
@@ -195,7 +195,7 @@
             <a
                 href="{{ route('admin.user.role.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/user/role*')) text-info @endif"
+                @if(request()->is('admin/user/role*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>سطوح دسترسی</span>
@@ -210,7 +210,7 @@
             </section>
             <a
                 href="{{ route('admin.support.index') }}"
-                class="sidebar-link @if(request()->routeIs('admin.support.index')) text-info @endif"
+                class="sidebar-link @if(request()->routeIs('admin.support.index')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>همه پشتیبانی ها</span>
@@ -218,7 +218,7 @@
 
             <a
                 href="{{ route('admin.support.unseen') }}"
-                class="sidebar-link @if(request()->routeIs('admin.support.unseen')) text-info @endif"
+                class="sidebar-link @if(request()->routeIs('admin.support.unseen')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>پشتیبانی های دیده نشده</span>
@@ -226,7 +226,7 @@
 
             <a
                 href="{{ route('admin.support.closed') }}"
-                class="sidebar-link @if(request()->routeIs('admin.support.closed')) text-info @endif"
+                class="sidebar-link @if(request()->routeIs('admin.support.closed')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>پشتیبانی های بسته شده</span>
@@ -234,7 +234,7 @@
 
             <a
                 href="{{ route('admin.support.open') }}"
-                class="sidebar-link @if(request()->routeIs('admin.support.open')) text-info @endif"
+                class="sidebar-link @if(request()->routeIs('admin.support.open')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>پشتیبانی های باز</span>
@@ -252,7 +252,7 @@
             <a
                 href="{{ route('admin.notify.email.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/notify/email*')) text-success @endif"
+                @if(request()->is('admin/notify/email*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>اعلامیه ایمیلی</span>
@@ -260,7 +260,7 @@
             <a
                 href="{{ route('admin.notify.sms.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/notify/sms*')) text-success @endif"
+                @if(request()->is('admin/notify/sms*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>اعلامیه پیامکی</span>
@@ -275,7 +275,7 @@
             <a
                 href="{{ route('admin.setting.index') }}"
                 class="sidebar-link
-                @if(request()->is('admin/setting*')) text-success @endif"
+                @if(request()->is('admin/setting*')) text-green @endif"
             >
                 <i class="fas fa-bars"></i>
                 <span>تنظیمات</span>
