@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('province_id')
                 ->constrained('provinces')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->timestamps();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->string('name', 64);
+            $table->string('en_name', 64)->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
         });
     }
 
@@ -33,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('cities');
     }
-};
+}
