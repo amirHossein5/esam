@@ -24,10 +24,6 @@ return new class extends Migration
                 ->comment(
                     "0 => can't choose (multi)color for this category products, 1 => can"
                 );
-            $table->tinyInteger('sizable')->default(0)
-                ->comment(
-                    "0 => can't choose (multi)size for this category products, 1 => can"
-                );
             $table->foreignId('parent_id')
                 ->nullable()
                 ->constrained('product_categories')

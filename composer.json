@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.7",
         "mews/purifier": "^3.3",
         "morilog/jalali": "^3.2",
+        "staudenmeir/eloquent-eager-limit": "^1.7",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {

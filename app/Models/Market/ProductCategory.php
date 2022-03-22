@@ -11,6 +11,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductCategory extends Model
 {
@@ -20,9 +21,9 @@ class ProductCategory extends Model
 
     protected $cascadeDeleteMorph = ['attributes'];
 
-    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu', 'sizable', 'parent_id', 'colorable'];
+    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu','parent_id', 'colorable'];
 
-    protected $casts = ['image' => 'array', 'colorable' => 'bool', 'sizable' => 'bool'];
+    protected $casts = ['image' => 'array', 'colorable' => 'bool'];
 
     public function sluggable(): array
     {
@@ -61,5 +62,10 @@ class ProductCategory extends Model
     public function allChildren(): HasMany
     {
         return $this->hasMany($this, 'parent_id')->with('children')->withTrashed();
+    }
+
+    public function selectableMetas(): BelongsToMany
+    {
+        return $this->belongsToMany(SelectableMeta::class, 'category_selectable_meta', 'category_id');
     }
 }

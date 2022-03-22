@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Market\SelectableMetaController;
+use App\Http\Controllers\Admin\Market\UserSelectableAttributeController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -65,11 +67,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/destroy/{color}', 'destroy')->name('destroy');
         });
 
-        // questions-answers
-        Route::prefix('questions')->name('questions.')->controller(QuestionController::class)->group(function () {
+        // user selectable metas
+        Route::prefix('selectable-metas')->name('selectableMetas.')->controller(SelectableMetaController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::get('show/{question}', 'show')->name('show');
-            Route::post('/store/{question}', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{selectableMeta}', 'edit')->name('edit');
+            Route::put('/{selectableMeta}', 'update')->name('update');
+            Route::delete('/destroy/{selectableMeta}', 'destroy')->name('destroy');
         });
 
         //discount

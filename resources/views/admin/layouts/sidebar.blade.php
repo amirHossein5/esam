@@ -50,10 +50,10 @@
                         رنگ ها
                     </a>
                     <a
-                        href="{{ route('admin.market.questions.index') }}"
-                        class="@if(request()->is('admin/market/questions*')) text-green @endif "
+                        href="{{ route('admin.market.selectableMetas.index') }}"
+                        class="@if(request()->is('admin/market/selectable-metas*')) text-green @endif "
                     >
-                        پرسش و پاسخ های محصولات
+                        ویژگی های قابل انتخاب کاربر
                     </a>
                 </section>
             </section>

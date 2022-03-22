@@ -161,24 +161,24 @@
                                     </div>
                                 </section>
 
-                                <section class="col-12 col-md-6 d-flex align-items-center">
-                                    <div class="form-group">
-                                        <input
-                                            type="hidden"
-                                            name="sizable"
-                                            value="0"
-                                            @if(old('sizable') == '0') checked @endif
-                                        >
-                                        <input
-                                            type="checkbox"
-                                            name="sizable"
-                                            id="sizable"
-                                            value="1"
-                                            @if(old('sizable') == '1') checked @endif
-                                        >
-                                        <label class="mx-1" for="sizable">امکان دارا بودن سایز های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
-                                    </div>
-                                </section>
+                                @foreach ($selectableMetas as $meta)
+                                    <section class="col-12 col-md-6 d-flex align-items-center">
+                                        <div class="form-group">
+                                            <input
+                                                type="checkbox"
+                                                name="selectableMetas[{{ $meta->id }}]"
+                                                id="{{ $meta->id }}"
+                                                value="{{ $meta->id }}"
+                                                @checked(in_array($meta->id, old('selectableMetas') ?? []))
+                                            >
+                                            <label class="mx-1" for="{{ $meta->id }}">امکان ثبت  {{ $meta->name }}  متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
+
+                                            @error("selectableMetas.". $meta->id)
+                                                <div class="text-danger my-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </section>
+                                @endforeach
 
                                 <section class="mt-3 col-12">
                                     <button class="btn btn-primary btn-sm">ثبت</button>

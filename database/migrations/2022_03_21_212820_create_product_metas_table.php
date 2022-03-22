@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('selectable_metas', function (Blueprint $table) {
+        Schema::create('product_metas', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('sold_number')->default(0);
             $table->tinyInteger('frozen_number')->default(0);
@@ -23,7 +23,7 @@ return new class extends Migration
                 ->constrained('products')
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('color_id')->nullable()->constrained('product_colors')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('size_id')->nullable()->constrained('product_sizes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('selectable_meta_id')->nullable()->constrained('selectable_metas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('selectable_metas');
+        Schema::dropIfExists('product_metas');
     }
 };

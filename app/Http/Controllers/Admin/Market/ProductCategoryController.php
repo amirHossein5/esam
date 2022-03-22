@@ -56,8 +56,9 @@ class ProductCategoryController extends Controller
     public function create(): View
     {
         $productCategories = DB::table('product_categories')->whereNull('deleted_at')->get(['name', 'id']);
+        $selectableMetas = DB::table('selectable_metas')->get();
 
-        return view('admin.market.category.create', compact('productCategories'));
+        return view('admin.market.category.create', compact('productCategories', 'selectableMetas'));
     }
 
     public function store(StoreProductCategoryRequest $request): RedirectResponse
@@ -75,7 +76,13 @@ class ProductCategoryController extends Controller
             }
         }
 
-        ProductCategory::create($inputs);
+        DB::transaction(function () use ($inputs) {
+            $productCategory = ProductCategory::create($inputs);
+
+            if (isset($inputs['selectableMetas'])) {
+                $productCategory->selectableMetas()->sync($inputs['selectableMetas']);
+            }
+        });
 
         return redirect()->route('admin.market.category.index')
             ->with('sweetalert-mixin-success', 'با موفقیت ذخیره شد');
@@ -83,6 +90,8 @@ class ProductCategoryController extends Controller
 
     public function edit(ProductCategory $productCategory): View
     {
+        $selectableMetas = DB::table('selectable_metas')->get();
+
         $productCategories = DB::table('product_categories')
             ->whereNull('deleted_at')
             ->get(['name', 'id'])
@@ -90,7 +99,9 @@ class ProductCategoryController extends Controller
                 return $col->id === $productCategory->id;
             });
 
-        return view('admin.market.category.edit', compact('productCategories', 'productCategory'));
+        $productCategory->load('selectableMetas:id');
+
+        return view('admin.market.category.edit', compact('productCategories', 'productCategory', 'selectableMetas'));
     }
 
     public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory): RedirectResponse
@@ -118,7 +129,15 @@ class ProductCategoryController extends Controller
             unset($inputs['parent_id']);
         }
 
-        $productCategory->update($inputs);
+        DB::transaction(function () use ($inputs, $productCategory) {
+            $productCategory->update($inputs);
+
+            if (isset($inputs['selectableMetas'])) {
+                $productCategory->selectableMetas()->sync($inputs['selectableMetas']);
+            } else {
+                $productCategory->selectableMetas()->sync([]);
+            }
+        });
 
         return redirect()->route('admin.market.category.index')
             ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');

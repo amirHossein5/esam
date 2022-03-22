@@ -30,7 +30,15 @@ class UpdateProductCategoryRequest extends FormRequest
             'image'       => 'nullable|image|file|max:1000',
             'description' => 'required|string',
             'colorable' => 'required|numeric|in:0,1',
-            'sizable' => 'required|numeric|in:0,1',
+            'selectableMetas' => 'nullable',
+            'selectableMetas.*' => 'required|numeric|exists:selectable_metas,id',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'selectableMetas.*' => 'ویژگی قابل انتخاب'
         ];
     }
 }
