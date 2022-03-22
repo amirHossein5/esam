@@ -7,7 +7,9 @@ use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
+use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\SelectableMetaController;
 use App\Http\Controllers\Admin\Market\UserSelectableAttributeController;
 use App\Http\Controllers\Admin\Notify\EmailController;
@@ -122,6 +124,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store')
+                ->middleware('toEnglishDigits:price');
+            Route::get('/edit/{product}', 'edit')->name('edit');
+            Route::put('/{product}', 'update')->name('update')
                 ->middleware('toEnglishDigits:price');
             Route::put('/restore/{id}', 'restore')->name('restore');
             Route::delete('/destroy/{product}', 'destroy')->name('destroy');

@@ -55,7 +55,7 @@ class AttributeController extends Controller
             });
         });
 
-        return to_route('admin.market.attribute.index')
+        return to_route('admin.market.attribute.create')
             ->with('sweetalert-mixin-success', 'با موفقیت ساخته شد');
     }
 

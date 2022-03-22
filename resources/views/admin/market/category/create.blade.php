@@ -2,8 +2,6 @@
 
 @section('head-tag')
     <title>دسته بندی</title>
-    <link href="{{ asset('admin-assets/select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-assets/select2/css/select2.modification.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
