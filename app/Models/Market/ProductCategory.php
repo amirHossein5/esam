@@ -21,7 +21,7 @@ class ProductCategory extends Model
 
     protected $cascadeDeleteMorph = ['attributes'];
 
-    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu','parent_id', 'colorable'];
+    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu', 'parent_id', 'colorable'];
 
     protected $casts = ['image' => 'array', 'colorable' => 'bool'];
 
@@ -32,6 +32,14 @@ class ProductCategory extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    /**
+     * Relations
+     */
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(ProductAttribute::class, 'category_id');
     }
 
     public function parent(): BelongsTo

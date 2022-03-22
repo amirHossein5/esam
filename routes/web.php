@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\FAQCategoryController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\SelectableMetaController;
@@ -116,40 +117,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //product
-        Route::prefix('product')->name('product.')->group(function () {
-            Route::get('/archive', [ProductController::class, 'archive'])->name('archive');
-            Route::get('/', [ProductController::class, 'index'])->name('index');
-            Route::get('/create', [ProductController::class, 'create'])->name('create');
-            Route::post('/store', [ProductController::class, 'store'])->name('store')
-            ->middleware('toEnglishDigits:price,productColorsPriceIncrease');
-            Route::put('/restore/{id}', [ProductController::class, 'restore'])->name('restore');
-            Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
-            Route::delete('/forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('forceDelete');
+        Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () {
+            Route::get('/archive', 'archive')->name('archive');
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store')
+                ->middleware('toEnglishDigits:price');
+            Route::put('/restore/{id}', 'restore')->name('restore');
+            Route::delete('/destroy/{product}', 'destroy')->name('destroy');
+            Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
             //gallery
-            Route::prefix('{product}')->name('gallery.')->group(function () {
-                Route::get('/gallery', [GalleryController::class, 'index'])->name('index');
-                Route::post('/gallery/store', [GalleryController::class, 'store'])->name('store');
-                Route::delete('/gallery/{gallery}/destroy', [GalleryController::class, 'destroy'])->name('destroy');
+            Route::prefix('{product}')->name('gallery.')->controller(GalleryController::class)->group(function () {
+                Route::get('/gallery', 'index')->name('index');
+                Route::post('/gallery/store', 'store')->name('store');
+                Route::delete('/gallery/{gallery}/destroy', 'destroy')->name('destroy');
             });
         });
 
         //attribute
-        Route::prefix('attribute')->name('attribute.')->group(function () {
-            Route::get('/', [AttributeController::class, 'index'])->name('index');
-            Route::get('/show', [AttributeController::class, 'show'])->name('show');
-            Route::get('/create', [AttributeController::class, 'create'])->name('create');
-            Route::post('/store', [AttributeController::class, 'store'])->name('store');
-            Route::delete('/destroy/{attribute}', [AttributeController::class, 'destroy'])->name('destroy');
-
-            // attribute value
-            Route::prefix("value")->name('value.')->group(function () {
-                Route::get('{attribute}/index/', [AttributeValueController::class, 'index'])->name('index');
-                Route::get('/create/{productCategory}', [AttributeValueController::class, 'create'])->name('create');
-                Route::post('/store', [AttributeValueController::class, 'store'])->name('store');
-                Route::delete('/destroy/{attributeValue}', [AttributeValueController::class, 'destroy'])->name('destroy');
-            });
-
-            Route::post('/getInputParser/', [AttributeController::class, 'getInputParser'])->name('getInputParser');
+        Route::prefix('attribute')->name('attribute.')->controller(AttributeController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/show', 'show')->name('show');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::delete('/destroy/{attribute}/{productCategory}', 'destroy')->name('destroy');
         });
     });
 
