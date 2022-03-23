@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Permissionseeder::class);
         $this->call(ProvincesSeeder::class);
         $this->call(CitiesSeeder::class);
+        $this->call(DeliveryTime::class);
     }
 }

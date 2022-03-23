@@ -64,7 +64,8 @@ class ProductController extends Controller
         $sellTypes = null;
 
         if (request()->has('productCategory')) {
-            $productCategory = ProductCategory::with('attributes.defaultValues')->findOrFail(request('productCategory'));
+            $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableMetas'])
+                ->findOrFail(request('productCategory'));
             $colors = Color::get();
             $sellTypes = SellType::get();
         }
