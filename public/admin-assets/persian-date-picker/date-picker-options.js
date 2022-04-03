@@ -1,4 +1,4 @@
-function datePickerOptions() {
+function datePickerOptions(altField = "#main-date-picker") {
     return {
         inline: false,
         format: "YYYY/MM/DD  H:m:s",
@@ -9,7 +9,7 @@ function datePickerOptions() {
         autoClose: false,
         position: "auto",
         altFormat: "U",
-        altField: "#main-date-picker",
+        altField: altField,
         onlyTimePicker: false,
         onlySelectOnDate: false,
         calendarType: "persian",

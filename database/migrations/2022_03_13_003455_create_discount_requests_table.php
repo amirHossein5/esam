@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('discount_requests', function (Blueprint $table) {
             $table->id();
-            $table->integer('number_of_products_wanted');
+            $table->integer('quantity');
             $table->decimal('requested_price', 20, 3);
             $table->text('description');
             $table->timestamps();

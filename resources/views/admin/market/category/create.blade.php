@@ -139,40 +139,52 @@
                                     </div>
                                 </section>
 
-
-                                <section class="col-12 col-md-6 d-flex align-items-center">
-                                    <div class="form-group">
-                                        <input
-                                            type="hidden"
-                                            name="colorable"
-                                            value="0"
-                                            @if(old('colorable') == '0') checked @endif
-                                        >
-                                        <input
-                                            type="checkbox"
-                                            name="colorable"
-                                            id="colorable"
-                                            value="1"
-                                            @if(old('colorable') == '1') checked @endif
-                                        >
-                                        <label class="mx-1" for="colorable"> امکان داشتن رنگ های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
-                                    </div>
-                                </section>
-
-                                @foreach ($selectableMetas as $meta)
-                                    <section class="col-12 col-md-6 d-flex align-items-center">
-                                        <div class="form-group">
+                                @foreach ($selectableAttributes as $attribute)
+                                    <section class="col-12 my-3">
+                                        <div class="">
                                             <input
                                                 type="checkbox"
-                                                name="selectableMetas[{{ $meta->id }}]"
-                                                id="{{ $meta->id }}"
-                                                value="{{ $meta->id }}"
-                                                @checked(in_array($meta->id, old('selectableMetas') ?? []))
+                                                name="selectableValues[{{ $attribute->id }}][]"
+                                                id="{{ $attribute->id }}"
+                                                class="toggle-input"
+                                                value=""
+                                                data-input-id="#{{ $attribute->name }}-values"
+                                                @checked(in_array($attribute->id, array_keys(old('selectableValues') ?? [])))
                                             >
-                                            <label class="mx-1" for="{{ $meta->id }}">امکان ثبت  {{ $meta->name }}  متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
+                                            <label class="mx-1" for="{{ $attribute->id }}">امکان ثبت  {{ $attribute->name }}  متفاوت </label>
+                                        </div>
 
-                                            @error("selectableMetas.". $meta->id)
-                                                <div class="text-danger my-1">{{ $message }}</div>
+                                        <div>
+                                            <select
+                                                name="selectableValues[{{ $attribute->id }}][]"
+                                                id="{{ $attribute->name }}-values"
+                                                multiple
+                                                class="form-control form-control-sm"
+                                                @unless(in_array($attribute->id, array_keys(old('selectableValues') ?? [])))
+                                                    disabled
+                                                @endunless
+                                            >
+
+                                                @foreach ($attribute->values as $value)
+                                                    <option
+                                                        value="{{ $value->id }}"
+
+                                                        @isset(old('selectableValues')[$attribute->id])
+                                                            @if(is_array(old('selectableValues')[$attribute->id]))
+                                                                @selected(
+                                                                    in_array($value->id, old('selectableValues')[$attribute->id] ?? [])
+                                                                )
+                                                            @endif
+                                                        @endisset
+                                                    >
+                                                        {{ $value->value }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+
+                                            @error("selectableValues.". $attribute->id)
+                                                <div class="text-danger font-weight-bold my-1">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </section>
@@ -199,4 +211,19 @@
         CKEDITOR.replace('description');
     </script>
 
+    <script>
+        $(function () {
+            $('.toggle-input').on('change', () => {
+                let target = event.currentTarget;
+
+                let inputTarget = $(target).data('input-id');
+
+                if ($(target).prop('checked')) {
+                    $(inputTarget).prop('disabled', false)
+                } else {
+                    $(inputTarget).prop('disabled', true)
+                }
+            })
+        })
+    </script>
 @endsection

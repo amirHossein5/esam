@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use \Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -49,6 +51,26 @@ class Product extends Model
     public function sellType(): BelongsTo
     {
         return $this->belongsTo(SellType::class);
+    }
+
+    public function attributeValues(): HasMany
+    {
+        return $this->hasMany(ProductAttributeValue::class);
+    }
+
+    public function auction(): HasOne
+    {
+        return $this->hasOne(Auction::class);
+    }
+
+    public function price(): HasOne
+    {
+        return $this->hasOne(ProductPrice::class);
+    }
+
+    public function metas(): HasMany
+    {
+        return $this->hasMany(ProductMeta::class);
     }
 
     /**

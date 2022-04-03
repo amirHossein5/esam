@@ -44,16 +44,10 @@
                         کالاها
                     </a>
                     <a
-                        href="{{ route('admin.market.colors.index') }}"
-                        class="@if(request()->is('admin/market/colors*')) text-green @endif "
+                        href="{{ route('admin.market.selectableAttributes.index') }}"
+                        class="@if(request()->is('admin/market/selectable-attributes*')) text-green @endif "
                     >
-                        رنگ ها
-                    </a>
-                    <a
-                        href="{{ route('admin.market.selectableMetas.index') }}"
-                        class="@if(request()->is('admin/market/selectable-metas*')) text-green @endif "
-                    >
-                        ویژگی های قابل انتخاب کاربر
+                        ویژگی های قابل انتخاب 
                     </a>
                 </section>
             </section>

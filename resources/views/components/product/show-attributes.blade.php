@@ -2,7 +2,7 @@
 
 <section class="row">
     @foreach ($model->attributes as $attribute)
-        <section class="col-12 col-md-6 my-1">
+        <section class="my-1 col-12 col-md-6">
 
             <label for="{{ $attribute->id }}">
                 {{ $attribute->name }}
@@ -14,17 +14,11 @@
                 <option value="">انتخاب</option>
 
                 @foreach ($attribute->defaultValues as $defaultValue)
-                    <option value="{{ $defaultValue->id }}" @selected(in_array($defaultValue->id, old('attributeValues') ?? []))>
+                    <option value="{{ $defaultValue->id }}">
                         {{ $defaultValue->value }}
                     </option>
                 @endforeach
             </select>
-
-            @error('attributeValues.' . $attribute->id)
-                <div class="my-1 text-danger">
-                    {{ $message }}
-                </div>
-            @enderror
         </section>
     @endforeach
 </section>

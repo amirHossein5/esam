@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin\Market\ProductCategory;
 
+use App\Rules\Admin\Market\ProductCategory\SelectableValuesRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductCategoryRequest extends FormRequest
 {
@@ -29,16 +31,8 @@ class StoreProductCategoryRequest extends FormRequest
             'parent_id' => 'nullable|numeric|regex:/^[0-9]+$/|exists:product_categories,id',
             'image'       => 'required|image|file|max:1000',
             'description' => 'required|string',
-            'colorable' => 'required|numeric|in:0,1',
-            'selectableMetas' => 'nullable',
-            'selectableMetas.*' => 'required|numeric|exists:selectable_metas,id',
-        ];
-    }
 
-    public function attributes(): array
-    {
-        return [
-            'selectableMetas.*' => 'ویژگی قابل انتخاب'
+            'selectableValues.*' => new SelectableValuesRule(),
         ];
     }
 }

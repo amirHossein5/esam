@@ -28,14 +28,14 @@
                 </h5>
             </section>
 
-            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+            <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                 <a href="{{ route('admin.market.product.index') }}" class="btn btn-info btn-sm">بازگشت</a>
             </section>
 
             @if (! request()->has('productCategory'))
                 <form action="{{ route('admin.market.product.create') }}">
                     <div class="form-group">
-                        <div class="col-12 col-md-6 p-0">
+                        <div class="p-0 col-12 col-md-6">
                             <select name="productCategory" class="form-control form-control-sm">
                                 @foreach ($productCategories as $category )
                                     <option value="{{ $category->id }}"> {{ $category->name }} </option>
@@ -56,25 +56,18 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="name">نام کالا</label>
-                                <input type="text" id="name" name="name" class="form-control form-control-sm" value="{{ old('name') }}">
-                                @error('name')
-                                    <div class="my-2 text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" id="name" name="name" class="form-control form-control-sm">
+
+                                <div class="my-1 name-error errors text-danger"></div>
                             </div>
                         </section>
 
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="introduction">توضیح مختصر</label>
-                                <input type="text" name="introduction" id="introduction"  class="form-control form-control-sm" value="{{ old('introduction') }}">
+                                <input type="text" name="introduction" id="introduction"  class="form-control form-control-sm">
 
-                                @error('introduction')
-                                    <div class="my-2 text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <div class="my-1 introduction-error errors text-danger"></div>
                             </div>
                         </section>
 
@@ -82,12 +75,9 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="image">تصویر </label>
-                                <input type="file" id="image" name="image" class="form-control form-control-sm" value="{{ old('image') }}">
-                                @error('image')
-                                    <div class="my-2 text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="file" id="image" name="image" class="form-control form-control-sm">
+
+                                <div class="my-1 image-error errors text-danger"></div>
                             </div>
                         </section>
 
@@ -96,17 +86,12 @@
                                 <div>
                                     <label for="marketable">قابل فروش بودن</label>
                                     <select name="marketable" class="form-control" id="marketable">
-                                        <option value="0" @if (old('marketable') === '0') selected @endif>غیرفعال</option>
-                                        <option value="1" @if (old('marketable') === '1') selected @endif>فعال</option>
+                                        <option value="0" >غیرفعال</option>
+                                        <option value="1" >فعال</option>
                                     </select>
+
                                 </div>
-                                @error('marketable')
-                                    <div class="mt-1">
-                                        <span class="text-danger font-weight-bold">
-                                            {{ $message }}
-                                        </span>
-                                    </div>
-                                @enderror
+                                <div class="my-1 marketable-error errors text-danger"></div>
                             </div>
                         </section>
 
@@ -114,16 +99,11 @@
                             <div class="form-group">
                                 <div>
                                     <label for="tags">تگ ها</label>
-                                    <input type="hidden" id="tags" name="tags" value="{{ old('tags') }}">
+                                    <input type="hidden" id="tags" name="tags">
                                     <select id="select2" class="form-control" style="width: 100%" multiple></select>
                                 </div>
-                                @error('tags')
-                                    <div class="mt-1">
-                                        <span class="text-danger font-weight-bold">
-                                            {{ $message }}
-                                        </span>
-                                    </div>
-                                @enderror
+
+                                <div class="my-1 tags-error errors text-danger"></div>
                             </div>
                         </section>
 
@@ -131,21 +111,18 @@
                             <div class="form-group">
                                 <label for="">تاریخ انتشار</label>
                                 <input type="text" id="view-date-picker" class="form-control direction-ltr form-control-sm">
-                                <input type="text" class="d-none" id="main-date-picker" name="published_at"
-                                value="{{ old('published_at') }}">
+                                <input type="text" class="d-none" id="main-date-picker" name="published_at">
+
+                                <div class="my-1 published_at-error errors text-danger"></div>
                             </div>
                         </section>
 
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="description">توضیحات</label>
-                                <textarea name="description" id="description"  class="form-control form-control-sm" rows="6">{{ old('description') }}
-                                </textarea>
-                                @error('description')
-                                    <div class="my-2 text-danger">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <textarea name="description" id="description"  class="form-control form-control-sm" rows="6"></textarea>
+
+                                <div class="my-1 description-error errors text-danger"></div>
                             </div>
                         </section>
 
@@ -153,8 +130,9 @@
 
                     </section>
 
-                    <section class="mb-3 mt-3  border-bottom py-3">
+                    <section class="py-3 mt-3 mb-3 border-bottom">
                         <h6>خصوصیات</h6>
+                        <div class="my-1 attributeValues-error errors text-danger"></div>
 
                         <x-product.show-attributes :model="$productCategory"/>
                     </section>
@@ -162,14 +140,15 @@
 
                     <h6 class="pt-3">نوع فروش</h6>
 
-                    <section class="row py-2 mb-3">
+                    <section class="py-2 mb-3 row">
+                        <div class="my-1 sell_type_id-error errors text-danger"></div>
 
                         @foreach ($sellTypes as $sellType)
                             <section class="col-12 col-md-6">
                                 <input
                                     type="radio"
                                     id="sellType-{{ $sellType->id }}"
-                                    name="sellType"
+                                    name="sell_type_id"
                                     class="d-none"
                                     value="{{ $sellType->id }}"
                                 />
@@ -193,14 +172,19 @@
                         <section class="col-12 row" id="{{ $sellTypes[0]->name }}" style="display: none">
                             <section class="col-12 ">
                                 <div class="form-group">
-                                    <input type="checkbox" name="" id="">
-                                    <label for="">تخفیف هم میدهم</label>
+                                    <input type="hidden" name="has_request_for_discount" value="0" id="has_request_for_discount">
+
+                                    <input type="checkbox" name="has_request_for_discount" value="1" id="has_request_for_discount">
+
+                                    <label for="has_request_for_discount">تخفیف هم میدهم</label>
+
+                                    <div class="my-1 has_request_for_discount-error errors text-danger"></div>
                                 </div>
                             </section>
 
                             @if ($productCategory->colorable)
                                 <section class="col-12">
-                                    <div class="form-group  product-meta">
+                                    <div class="form-group product-meta">
 
                                         <label for="">رنگ</label>
                                         <select name="" id="colors" class="form-control form-control-sm select2" style="width: 100%">
@@ -211,7 +195,7 @@
                                             @endforeach
                                         </select>
 
-                                        <div class="error my-1">
+                                        <div class="my-1 error">
                                             <span class="text-danger"></span>
                                         </div>
                                     </div>
@@ -237,7 +221,7 @@
                                             @endforeach
                                         </select>
 
-                                        <div class="error my-1">
+                                        <div class="my-1 error">
                                             <span class="text-danger"></span>
                                         </div>
                                     </div>
@@ -248,54 +232,107 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">تعداد</label>
-                                    <input type="number" id="number" name="" class="form-control form-control-sm">
+                                    <input type="number" id="number" name="number" class="form-control form-control-sm">
 
-                                    <div class="my-1">
-                                        <span class="number-error text-danger"></span>
-                                    </div>
+                                    <div class="my-1 number-error errors text-danger"></div>
                                 </div>
                             </section>
 
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="price">قیمت هر عدد (تومان)</label>
-                                    <input type="text" id="price"  class="form-control form-control-sm">
+                                    <input type="text" id="price" name="price"  class="form-control form-control-sm">
 
-                                    <div class="my-1">
-                                        <span class="price-error text-danger"></span>
+                                    <div class="my-1 price-error errors text-danger"></div>
+
+                                </div>
+                            </section>
+
+                            @if ($productCategory->colorable or $productCategory->selectableMetas->isNotEmpty())
+                                <section class="mt-1 col-12">
+                                    <h6 style="font-size: .875rem">حداقل یک قیمت باید برای کالا ثبت کنید.</h6>
+                                    <div class="my-1 productMetas-error errors text-danger "></div>
+                                    <button type="button" class="btn btn-success btn-sm add-to-product-metas">  ثبت قیمت</button>
+                                    <p class="mt-2 add-to-meta-error text-danger"></p>
+
+                                    <div class="mt-2 table-responsive">
+                                        <table class="table table-hover product-metas-table" style="min-width: 31rem">
+                                            <thead>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>قیمت</td>
+                                                    <td>تعداد</td>
+                                                    <td>مشخصه</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                            </section>
-
-                            <section class="col-12 mt-1">
-                                <h6 style="font-size: .875rem">حداقل یک قیمت باید برای کالا ثبت کنید.</h6>
-                                <button type="button" class="btn btn-success btn-sm add-to-product-metas">  ثبت قیمت</button>
-                                <p class="add-to-meta-error text-danger mt-2"></p>
-
-                                <div class="table-responsive mt-2">
-                                    <table class="table table-hover product-metas-table" style="min-width: 31rem">
-                                        <thead>
-                                            <tr>
-                                                <td>#</td>
-                                                <td>قیمت</td>
-                                                <td>تعداد</td>
-                                                <td>مشخصه</td>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </section>
+                                </section>
+                            @endif
                         </section>
 
                         <section class="col-12 row" id="{{ $sellTypes[1]->name }}" style="display: none">
-                            <h1>
-                                {{ $sellTypes[1]->name }}
-                            </h1>
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <label for="start_price">شروع قیمت از   (تومان)</label>
+                                    <input type="text" id="start_price" name="start_price"  class="form-control form-control-sm">
+
+                                    <div class="my-1 start_price-error errors text-danger"></div>
+
+                                </div>
+                            </section>
+
+                            <section class="col-12">
+                                <div class="form-group">
+
+                                    <label for="">مدت</label>
+                                    <select name="auction_period_id" id="auction_period_id" class="form-control form-control-sm select2" style="width: 100%">
+                                        <option value="">انتخاب</option>
+
+                                        @foreach ($auction_periods as $period)
+                                            <option value="{{ $period->id }}">{{ $period->fa }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <div class="my-1 auction_period_id-error errors text-danger"></div>
+                                </div>
+                            </section>
+
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <label for="">تاریخ شروع</label>
+                                    <input type="text" id="start_auction_view"  class="form-control direction-ltr form-control-sm">
+                                    <input type="text" class="d-none" name="start_date" id="start_auction_main">
+
+                                    <div class="my-1 start_date-error errors text-danger"></div>
+
+                                </div>
+                            </section>
+
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <input type="checkbox" id="urgent_price" onchange="active_input()">
+                                    <label for="urgent_price">  قیمت فروش فوری (تومان)</label>
+                                    <input type="text" name="urgent_price"  class="form-control form-control-sm" disabled>
+
+                                    <div class="my-1 urgent_price-error errors text-danger"></div>
+                                </div>
+                            </section>
+
+
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <input type="checkbox" id="reserved_price" onchange="active_input()">
+                                    <label for="reserved_price">  قیمت  رزرو (تومان)</label>
+                                    <input type="text" name="reserved_price"  class="form-control form-control-sm" disabled>
+
+                                    <div class="my-1 reserved_price-error errors text-danger"></div>
+                                </div>
+                            </section>
+
+
                         </section>
 
                     </section>
@@ -362,6 +399,10 @@
             var dp = $("#view-date-picker").pDatepicker(datePickerOptions());
             var time = $('#main-date-picker').val() ? parseInt($('#main-date-picker').val()) : null;
             dp.setDate(time)
+
+            var dp = $("#start_auction_view").pDatepicker(datePickerOptions('#start_auction_main'));
+            var time = $('#start_auction_main').val() ? parseInt($('#start_auction_main').val()) : null;
+            dp.setDate(time)
         });
     </script>
 
@@ -369,10 +410,48 @@
         function be_reload() {
             $('body').append($('.be-reload').clone()[0]);
         }
+
+        function active_input() {
+            var target = event.currentTarget;
+
+            if ($(target).prop('checked')) {
+                $(target).siblings('input').prop('disabled', false);
+            } else {
+                $(target).siblings('input').prop('disabled', true);
+            }
+        }
     </script>
 
     <script class="be-reload">
         var metas = [];
+
+        $('#form').submit(function () {
+            event.preventDefault();
+
+            $('#form').append(`<textarea name="productMetas" class="d-none">${JSON.stringify(metas)}</textarea>`);
+            data = $('#form').serialize();
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.market.product.store') }}",
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                success: function (response) {
+                    console.log(response);
+                }, error: function(xhr, status, error) {
+                    Object.entries(xhr.responseJSON.errors).forEach((error) => {
+                        $('div.errors').text('')
+
+                        setTimeout(() => {
+                            $(`.${error[0]}-error`).text(error[1][0]);
+                        }, 100);
+                    });
+                }
+            });
+        });
 
         function deleteProductMetas(key) {
             metas.splice(key, 1)
@@ -407,7 +486,7 @@
                         ${data.number}
                     </td>
                     <td class="d-flex justify-content-between">
-                        <div class="d-flex flex-wrap" style="gap: .8rem">`
+                        <div class="flex-wrap d-flex" style="gap: .8rem">`
                             + metasHtml +
                         `</div>
                         <div>

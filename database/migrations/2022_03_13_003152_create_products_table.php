@@ -22,12 +22,6 @@ return new class extends Migration
             $table->text('image');
             $table->tinyInteger('marketable')->default(1)->comment('1 => marketable ,0 => unmarketable');
             $table->text('tags');
-            $table->tinyInteger('sold_number')->default(0)
-                ->comment("if it's not auction and there isn't product_metas");
-            $table->tinyInteger('frozen_number')->default(0)
-                ->comment("if it's not auction and there isn't product_metas");
-            $table->tinyInteger('marketable_number')->default(0)
-                ->comment("if it's not auction and there isn't product_metas");
             $table->foreignId('category_id')
                 ->constrained('product_categories')
                 ->onDelete('cascade')

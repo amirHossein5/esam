@@ -2,8 +2,6 @@
 
 @section('head-tag')
     <title>دسته بندی</title>
-    <link href="{{ asset('admin-assets/select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin-assets/select2/css/select2.modification.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -13,7 +11,7 @@
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">دسته بندی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
         </ol>
     </nav>
 
@@ -23,7 +21,7 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        ویرایش دسته بندی
+                        ایجاد دسته بندی
                     </h5>
                 </section>
 
@@ -34,17 +32,17 @@
                 <section>
                     <form action="{{ route('admin.market.category.update', $productCategory->id) }}" id="form" method="post"
                         enctype="multipart/form-data">
-                        @csrf
-                        @method('put')
+                        @csrf @method('put')
                         <section class="row">
 
-                            <section class="col-12 col-md-6">
+                            <section class="my-2 col-12 col-md-6">
                                 <div class="m-1 form-group">
                                     <div>
                                         <label for="name">نام دسته</label>
                                         <input type="text" id="name" class="form-control form-control-sm" name="name"
                                             value="{{ old('name', $productCategory->name) }}">
                                     </div>
+
                                     @error('name')
                                         <div class="mt-1">
                                             <span class="text-danger font-weight-bold">
@@ -56,20 +54,20 @@
                             </section>
 
                             <section class="col-12 col-md-6">
-                                <div class="m-1 form-group">
+                                <div class="form-group">
                                     <label for="parent_id">دسته والد</label>
                                     <select name="parent_id" id="parent_id" class="form-control form-control-sm">
                                         <option value="">دسته اصلی</option>
+
                                         @foreach ($productCategories as $category)
                                             <option
                                                 value="{{ $category->id }}"
-                                                @if ($category->id == old('parent_id', $productCategory->parent_id))
-                                                    selected
-                                                @endif
+                                                @selected($category->id == old('parent_id', $productCategory->parent_id))
                                             >
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach
+
                                     </select>
 
 
@@ -84,27 +82,32 @@
                             </section>
 
 
-                            <section class=" col-12 col-md-6">
+                            <section class="my-2 col-12 col-md-6">
                                 <div class="form-group">
                                     <div>
                                         <label for="show_in_menu">نمایش در منو</label>
                                         <select name="show_in_menu" class="form-control" id="show_in_menu">
                                             <option
                                                 value="0"
-                                                @if (old('show_in_menu', $productCategory->show_in_menu) == '0')selected
+                                                @if (old('show_in_menu', $productCategory->show_in_menu) == '0')
+                                                    selected
                                                 @endif
                                             >
                                                 غیرفعال
                                             </option>
+
                                             <option
                                                 value="1"
-                                                @if (old('show_in_menu', $productCategory->show_in_menu) == '1') selected
+                                                @if (old('show_in_menu', $productCategory->show_in_menu) == '1')
+                                                    selected
                                                 @endif
                                             >
                                                 فعال
                                             </option>
+
                                         </select>
                                     </div>
+
                                     @error('show_in_menu')
                                         <div class="mt-1">
                                             <span class="text-danger font-weight-bold">
@@ -115,17 +118,13 @@
                                 </div>
                             </section>
 
-                                <section class=" col-12 col-md-6">
-                                    <div class="m-1 form-group">
+                                <section class="my-2 col-12 col-md-6">
+                                    <div class="form-group">
                                         <div>
                                             <label for="image">تصویر</label>
                                             <input type="file" id="image" class="form-control form-control-sm" name="image">
                                         </div>
-                                        @if($productCategory->image)
-                                            <div>
-                                                <img src="{{ $productCategory->image['index']['medium'] }}" alt="">
-                                            </div>
-                                        @endif
+
                                         @error('image')
                                             <div class="mt-1">
                                                 <span class="text-danger font-weight-bold">
@@ -133,6 +132,10 @@
                                                 </span>
                                             </div>
                                         @enderror
+
+                                        <div class="my-1">
+                                            <img src="{{ asset($productCategory->image['index']['medium']) }}" width="50" height="50" alt="">
+                                        </div>
                                     </div>
                                 </section>
 
@@ -149,6 +152,7 @@
                                                 {{ old('description', $productCategory->description) }}
                                             </textarea>
                                         </div>
+
                                         @error('description')
                                             <div class="mt-1">
                                                 <span class="text-danger font-weight-bold">
@@ -159,48 +163,59 @@
                                     </div>
                                 </section>
 
-
-                                <section class="col-12 col-md-6 d-flex align-items-center">
-                                    <div class="form-group">
-                                        <input
-                                            type="hidden"
-                                            name="colorable"
-                                            value="0"
-                                            @if(old('colorable', $productCategory->colorable) == '0')         checked
-                                            @endif
-                                        >
-                                        <input
-                                            type="checkbox"
-                                            name="colorable"
-                                            id="colorable"
-                                            value="1"
-                                            @if(old('colorable', $productCategory->colorable) == '1')         checked
-                                            @endif
-                                        >
-                                        <label class="mx-1" for="colorable">امکان داشتن رنگ های متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
-                                    </div>
-                                </section>
-
-
-                                @foreach ($selectableMetas as $meta)
-                                    <section class="col-12 col-md-6 d-flex align-items-center">
-                                        <div class="form-group">
+                                @foreach ($selectableAttributes as $attribute)
+                                    <section class="col-12 my-3">
+                                        <div class="">
                                             <input
                                                 type="checkbox"
-                                                name="selectableMetas[{{ $meta->id }}]"
-                                                id="{{ $meta->id }}"
-                                                value="{{ $meta->id }}"
-                                                @checked(in_array($meta->id, old('selectableMetas', $productCategory->selectableMetas->map(fn ($item) => $item->id)->toArray()) ?? []))
+                                                name="selectableValues[{{ $attribute->id }}][]"
+                                                id="{{ $attribute->id }}"
+                                                class="toggle-input"
+                                                value=""
+                                                data-input-id="#{{ $attribute->name }}-values"
+                                                @checked(
+                                                    in_array(
+                                                        $attribute->id, array_keys(old('selectableValues', $selectedValues) ?? [])
+                                                    )
+                                                )
                                             >
-                                            <label class="mx-1" for="{{ $meta->id }}">امکان ثبت  {{ $meta->name }}  متفاوت (برای زیر دسته این دسته نیز اعمال می شود.)</label>
-
-                                            @error("selectableMetas.". $meta->id)
-                                                <div class="text-danger my-1">{{ $message }}</div>
-                                            @enderror
+                                            <label class="mx-1" for="{{ $attribute->id }}">امکان ثبت  {{ $attribute->name }}  متفاوت </label>
                                         </div>
 
-                                    </section>
+                                        <div>
+                                            <select
+                                                name="selectableValues[{{ $attribute->id }}][]"
+                                                id="{{ $attribute->name }}-values"
+                                                multiple
+                                                class="form-control form-control-sm"
+                                                @unless(in_array($attribute->id, array_keys(old('selectableValues', $selectedValues) ?? [])))
+                                                    disabled
+                                                @endunless
+                                            >
 
+                                                @foreach ($attribute->values as $value)
+                                                    <option
+                                                        value="{{ $value->id }}"
+
+                                                        @isset(old('selectableValues', $selectedValues)[$attribute->id])
+                                                            @if(is_array(old('selectableValues', $selectedValues)[$attribute->id]))
+                                                                @selected(
+                                                                    in_array($value->id, old('selectableValues', $selectedValues)[$attribute->id] ?? [])
+                                                                )
+                                                            @endif
+                                                        @endisset
+                                                    >
+                                                        {{ $value->value }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+
+                                            @error("selectableValues.". $attribute->id)
+                                                <div class="text-danger font-weight-bold my-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </section>
                                 @endforeach
 
                                 <section class="mt-3 col-12">
@@ -224,4 +239,19 @@
         CKEDITOR.replace('description');
     </script>
 
+    <script>
+        $(function () {
+            $('.toggle-input').on('change', () => {
+                let target = event.currentTarget;
+
+                let inputTarget = $(target).data('input-id');
+
+                if ($(target).prop('checked')) {
+                    $(inputTarget).prop('disabled', false)
+                } else {
+                    $(inputTarget).prop('disabled', true)
+                }
+            })
+        })
+    </script>
 @endsection

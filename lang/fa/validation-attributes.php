@@ -77,7 +77,13 @@ return [
         'deliverer'            => 'نام تحویل دهنده',
         'faq_category_id'      => 'دسته بندی سوالات متداول',
         'banner'               => 'بنر',
+        'background'           => 'رنگ',
         'url'                  =>   'آدرس',
         'values'               => 'مقادیر',
+        'reserved_price'       => 'قیمت رزرو ',
+        'urgent_price'         => 'قیمت فروش فوری',
+        'start_date'           => 'تاریخ شروع',
+        'auction_period_id'    => 'مدت',
+        'start_price'          => 'شروع قیمت',
     ],
 ];

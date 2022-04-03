@@ -24,8 +24,6 @@ return new class extends Migration
             $table->integer('number')->default(1);
             $table->decimal('final_product_price', 20, 3)->nullable();
             $table->decimal('final_total_price', 20, 3)->nullable()->comment('number * final_product_price');
-            $table->foreignId('color_id')->nullable()->constrained('product_colors')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('size_id')->nullable()->constrained('product_sizes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

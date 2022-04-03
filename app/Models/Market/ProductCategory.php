@@ -72,8 +72,8 @@ class ProductCategory extends Model
         return $this->hasMany($this, 'parent_id')->with('children')->withTrashed();
     }
 
-    public function selectableMetas(): BelongsToMany
+    public function selectableValues(): BelongsToMany
     {
-        return $this->belongsToMany(SelectableMeta::class, 'category_selectable_meta', 'category_id');
+        return $this->belongsToMany(SelectableAttributeValue::class, 'category_selectable_attribute_value', 'category_id', 'attribute_value_id');
     }
 }

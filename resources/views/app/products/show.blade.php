@@ -68,7 +68,7 @@
                         <section class="p-5 mt-4 bg-white border rounded-md shadow-md">
 
                             {{-- auctions --}}
-                            <section>
+                            <section class="hidden">
                                 <section class="text-base">
                                     <p>زمان باقیمانده:</p>
                                     <div class="text-base text-center text-red-600 sm:text-right sm:mr-20">۲ روز و ۱۳ ساعت و ۱۵ دقیقه</div>
@@ -116,7 +116,7 @@
                             </section>
 
                             {{-- sell --}}
-                            <section class="hidden">
+                            <section class="">
                                 <section class="text-base">
                                     خرید
                                     <input type="number" value="1" class="w-24">

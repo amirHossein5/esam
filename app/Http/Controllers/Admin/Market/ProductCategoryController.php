@@ -11,6 +11,7 @@ use App\Models\Market\ProductCategory;
 use AmirHossein5\LaravelImage\Facades\Image;
 use App\Http\Requests\Admin\Market\ProductCategory\StoreProductCategoryRequest;
 use App\Http\Requests\Admin\Market\ProductCategory\UpdateProductCategoryRequest;
+use App\Models\Market\SelectableAttribute;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -56,14 +57,15 @@ class ProductCategoryController extends Controller
     public function create(): View
     {
         $productCategories = DB::table('product_categories')->whereNull('deleted_at')->get(['name', 'id']);
-        $selectableMetas = DB::table('selectable_metas')->get();
+        $selectableAttributes = SelectableAttribute::with('values')->get();
 
-        return view('admin.market.category.create', compact('productCategories', 'selectableMetas'));
+        return view('admin.market.category.create', compact('productCategories', 'selectableAttributes'));
     }
 
     public function store(StoreProductCategoryRequest $request): RedirectResponse
     {
         $inputs = $request->validated();
+
         $inputs['description'] = Purifier::clean($inputs['description']);
 
         if ($request->hasFile('image')) {
@@ -79,8 +81,18 @@ class ProductCategoryController extends Controller
         DB::transaction(function () use ($inputs) {
             $productCategory = ProductCategory::create($inputs);
 
-            if (isset($inputs['selectableMetas'])) {
-                $productCategory->selectableMetas()->sync($inputs['selectableMetas']);
+            if (isset($inputs['selectableValues'])) {
+
+                $productCategory->selectableValues()->detach();
+
+                foreach ($inputs['selectableValues'] as $attribute_id => $values) {
+                    $values = collect($values)->filter()->toArray();
+
+                    $productCategory->selectableValues()->attach(
+                        $values, ['attribute_id' => $attribute_id]
+                    );
+                }
+
             }
         });
 
@@ -90,7 +102,7 @@ class ProductCategoryController extends Controller
 
     public function edit(ProductCategory $productCategory): View
     {
-        $selectableMetas = DB::table('selectable_metas')->get();
+        $selectableAttributes = SelectableAttribute::with('values')->get();
 
         $productCategories = DB::table('product_categories')
             ->whereNull('deleted_at')
@@ -99,9 +111,18 @@ class ProductCategoryController extends Controller
                 return $col->id === $productCategory->id;
             });
 
-        $productCategory->load('selectableMetas:id');
+        $productCategory->load('selectableValues');
 
-        return view('admin.market.category.edit', compact('productCategories', 'productCategory', 'selectableMetas'));
+        $selectedValues = collect($productCategory->selectableValues->toArray())
+            ->groupBy('selectable_attribute_id');
+
+        foreach ($selectedValues as $attribute => $values) {
+            $selectedValues[$attribute] = $values->pluck('id')->toArray();
+        }
+
+        $selectedValues = $selectedValues->toArray();
+
+        return view('admin.market.category.edit', compact('productCategories', 'productCategory', 'selectableAttributes', 'selectedValues'));
     }
 
     public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory): RedirectResponse
@@ -132,10 +153,20 @@ class ProductCategoryController extends Controller
         DB::transaction(function () use ($inputs, $productCategory) {
             $productCategory->update($inputs);
 
-            if (isset($inputs['selectableMetas'])) {
-                $productCategory->selectableMetas()->sync($inputs['selectableMetas']);
-            } else {
-                $productCategory->selectableMetas()->sync([]);
+            if ($productCategory->selectableValues()->exists()) {
+                $productCategory->selectableValues()->detach();
+            }
+
+            if (isset($inputs['selectableValues'])) {
+
+                foreach ($inputs['selectableValues'] as $attribute_id => $values) {
+                    $values = collect($values)->filter()->toArray();
+
+                    $productCategory->selectableValues()->attach(
+                        $values,
+                        ['attribute_id' => $attribute_id]
+                    );
+                }
             }
         });
 

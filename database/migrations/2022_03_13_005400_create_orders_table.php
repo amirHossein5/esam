@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('payment_type')->default(0);
             $table->tinyInteger('payment_status')->default(0);
             $table->decimal('delivery_amount', 20, 3)->nullable();
+            $table->timestamp('delivery_time');
             $table->decimal('order_final_amount', 20, 3)->nullable();
             $table->decimal('order_discount_amount', 20, 3)->nullable();
             $table->foreignId('copan_id')->nullable()->constrained('copans')->onDelete('cascade')->onUpdate('cascade');

@@ -10,8 +10,8 @@ use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductController;
-use App\Http\Controllers\Admin\Market\SelectableMetaController;
-use App\Http\Controllers\Admin\Market\UserSelectableAttributeController;
+use App\Http\Controllers\Admin\Market\SelectableAttributeController;
+use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -62,22 +62,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/changeShowInMenu/{productCategory}', 'changeShowInMenu')->name('changeShowInMenu');
         });
 
-        //colors
-        Route::prefix('colors')->name('colors.')->controller(ColorController::class)->group(function () {
+        // selectable attributes
+        Route::prefix('selectable-attributes')->name('selectableAttributes.')->controller(SelectableAttributeController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
-            Route::delete('/destroy/{color}', 'destroy')->name('destroy');
-        });
-
-        // user selectable metas
-        Route::prefix('selectable-metas')->name('selectableMetas.')->controller(SelectableMetaController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
-            Route::get('/edit/{selectableMeta}', 'edit')->name('edit');
-            Route::put('/{selectableMeta}', 'update')->name('update');
-            Route::delete('/destroy/{selectableMeta}', 'destroy')->name('destroy');
+            Route::get('/edit/{selectableAttribute}', 'edit')->name('edit');
+            Route::put('/{selectableAttribute}', 'update')->name('update');
+            Route::delete('/destroy/{selectableAttribute}', 'destroy')->name('destroy');
         });
 
         //discount
@@ -123,8 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store')
-                ->middleware('toEnglishDigits:price');
+            Route::post('/store', 'store')->name('store');
             Route::get('/edit/{product}', 'edit')->name('edit');
             Route::put('/{product}', 'update')->name('update')
                 ->middleware('toEnglishDigits:price');
@@ -307,7 +298,6 @@ Route::get('/', function () {
 })->name('app.index');
 
 Route::name('app.service.')->prefix('service')->group(function () {
-
     Route::get('/', function () {
         return view('app.service.index');
     })->name('index');
