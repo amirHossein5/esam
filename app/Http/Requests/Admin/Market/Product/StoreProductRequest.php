@@ -8,6 +8,7 @@ use App\Models\Market\ProductCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\Admin\Market\ProductMetasRule;
 use App\Rules\Admin\Market\AttributeValueRule;
+use App\Rules\Admin\Market\ProductVariantsRule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -28,12 +29,12 @@ class StoreProductRequest extends FormRequest
      */
     public function rules()
     {
-        $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableMetas'])
+        $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableValues.selectableAttribute'])
             ->findOrFail($this->productCategory_id);
 
         $sellType = SellType::findOrFail(request('sell_type_id'));
         $isAuction = $sellType->name == SellType::AUCTION;
-        $hasProductMetas = $productCategory->colorable or $productCategory->selectableMetas->isNotEmpty();
+        $hasSelectableAttributes = $productCategory->selectableValues()->exists();
 
         return [
             'productCategory_id' => 'required|numeric|exists:product_categories,id',
@@ -51,20 +52,20 @@ class StoreProductRequest extends FormRequest
             'sell_type_id' => 'required|numeric|exists:sell_types,id',
 
             // fix_price
+            'number' => Rule::when(!$isAuction and !$hasSelectableAttributes, 'required|integer|min:1|max:100'),
+            'price' => Rule::when(!$isAuction and !$hasSelectableAttributes, 'required|numeric|min:1'),
             'has_request_for_discount' => Rule::when(!$isAuction, 'required|numeric|in:0,1'),
-            'productMetas' => Rule::when(
-                !$isAuction and $hasProductMetas,
-                [new ProductMetasRule(request('productMetas'), $productCategory)]
+            'productVariants' => Rule::when(
+                !$isAuction and $hasSelectableAttributes,
+                [new ProductVariantsRule($productCategory)]
             ),
-            'number' => Rule::when(!$isAuction and !$hasProductMetas, 'required|integer|min:1'),
-            'price' => Rule::when(!$isAuction and !$hasProductMetas, 'required|numeric|min:1'),
 
             // auction
             'start_price' => Rule::when($isAuction, 'required|numeric|min:1'),
             'auction_period_id' => Rule::when($isAuction, 'required|integer|exists:auction_periods,id'),
             'start_date' => Rule::when($isAuction, 'required|numeric'),
-            'urgent_price' => Rule::when($isAuction, 'nullable|numeric|min:1'),
-            'reserved_price' => Rule::when($isAuction, 'nullable|numeric|min:1'),
+            'urgent_price' => Rule::when($isAuction, 'sometimes|required|numeric|min:1'),
+            'reserved_price' => Rule::when($isAuction, 'sometimes|required|numeric|min:1'),
         ];
     }
 }

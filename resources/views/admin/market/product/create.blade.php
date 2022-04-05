@@ -58,7 +58,7 @@
                                 <label for="name">نام کالا</label>
                                 <input type="text" id="name" name="name" class="form-control form-control-sm">
 
-                                <div class="my-1 name-error errors text-danger"></div>
+                                <div class="my-1 name-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -67,7 +67,7 @@
                                 <label for="introduction">توضیح مختصر</label>
                                 <input type="text" name="introduction" id="introduction"  class="form-control form-control-sm">
 
-                                <div class="my-1 introduction-error errors text-danger"></div>
+                                <div class="my-1 introduction-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -77,7 +77,7 @@
                                 <label for="image">تصویر </label>
                                 <input type="file" id="image" name="image" class="form-control form-control-sm">
 
-                                <div class="my-1 image-error errors text-danger"></div>
+                                <div class="my-1 image-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -91,7 +91,7 @@
                                     </select>
 
                                 </div>
-                                <div class="my-1 marketable-error errors text-danger"></div>
+                                <div class="my-1 marketable-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -100,10 +100,11 @@
                                 <div>
                                     <label for="tags">تگ ها</label>
                                     <input type="hidden" id="tags" name="tags">
-                                    <select id="select2" class="form-control" style="width: 100%" multiple></select>
+                                    <select class="form-control" id="select2" style="width: 100%" multiple></select>
+
                                 </div>
 
-                                <div class="my-1 tags-error errors text-danger"></div>
+                                <div class="my-1 tags-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -113,7 +114,7 @@
                                 <input type="text" id="view-date-picker" class="form-control direction-ltr form-control-sm">
                                 <input type="text" class="d-none" id="main-date-picker" name="published_at">
 
-                                <div class="my-1 published_at-error errors text-danger"></div>
+                                <div class="my-1 published_at-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -122,7 +123,7 @@
                                 <label for="description">توضیحات</label>
                                 <textarea name="description" id="description"  class="form-control form-control-sm" rows="6"></textarea>
 
-                                <div class="my-1 description-error errors text-danger"></div>
+                                <div class="my-1 description-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
 
@@ -130,12 +131,14 @@
 
                     </section>
 
-                    <section class="py-3 mt-3 mb-3 border-bottom">
-                        <h6>خصوصیات</h6>
-                        <div class="my-1 attributeValues-error errors text-danger"></div>
+                    @if ($productCategory->attributes()->exists())
+                        <section class="py-3 my-3 border-bottom border-top">
+                            <h6>خصوصیات</h6>
+                            <div class="my-3 attributeValues-error font-weight-bold errors text-danger"></div>
 
-                        <x-product.show-attributes :model="$productCategory"/>
-                    </section>
+                            <x-product.show-attributes :model="$productCategory"/>
+                        </section>
+                    @endif
 
 
                     <h6 class="pt-3">نوع فروش</h6>
@@ -163,60 +166,40 @@
                             </section>
                         @endforeach
 
-                        <section class="my-2 col-12" style="font-size: .875rem">
+                        <section class="mt-2 mb-4 col-12" style="font-size: .875rem">
                             زمان ارسال:
                             <span>تا ۴۸ ساعت کاری</span>
-                            <p class="mt-1 text-danger">جهت تغییر زمان ارسال با مراجعه به پروفایل کاربری تنظیمات زمان ارسال را تغییر دهید.</p>
+                            <p class="mt-1 text-success">جهت تغییر زمان ارسال با مراجعه به پروفایل کاربری تنظیمات زمان ارسال را تغییر دهید.</p>
                         </section>
 
                         <section class="col-12 row" id="{{ $sellTypes[0]->name }}" style="display: none">
                             <section class="col-12 ">
                                 <div class="form-group">
-                                    <input type="hidden" name="has_request_for_discount" value="0" id="has_request_for_discount">
+                                    <input type="hidden" name="has_request_for_discount" value="0">
 
                                     <input type="checkbox" name="has_request_for_discount" value="1" id="has_request_for_discount">
 
                                     <label for="has_request_for_discount">تخفیف هم میدهم</label>
 
-                                    <div class="my-1 has_request_for_discount-error errors text-danger"></div>
+                                    <div class="my-1 has_request_for_discount-error errors  font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
-                            @if ($productCategory->colorable)
-                                <section class="col-12">
-                                    <div class="form-group product-meta">
-
-                                        <label for="">رنگ</label>
-                                        <select name="" id="colors" class="form-control form-control-sm select2" style="width: 100%">
-                                            <option value="">انتخاب</option>
-
-                                            @foreach ($colors as $color)
-                                                <option value="{{ $color->id }}">{{ $color->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        <div class="my-1 error">
-                                            <span class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </section>
-                            @endif
-
-                            @foreach ($productCategory->selectableMetas as $meta)
+                            @foreach ($selectableValues as $values)
                                 <section class="col-12 ">
 
-                                    <div class="form-group product-meta">
-                                        <label for="">
-                                            {{ $meta->name }}
+                                    <div class="form-group product-variant">
+                                        <label for="" data-attribute-id="{{ $values[0]['selectable_attribute']['id'] }}">
+                                            {{ $values[0]['selectable_attribute']['name'] }}
                                         </label>
 
                                         <select name="" id=""
-                                            class="form-control form-control-sm select2" style="width: 100%">
+                                            class="form-control form-control-sm select2-class" style="width: 100%">
                                             <option value="">انتخاب</option>
 
-                                            @foreach ($meta->values as $value)
-                                                <option value="{{ $value->id }}">
-                                                    {{ $value->value }}
+                                            @foreach ($values as $value)
+                                                <option value="{{ $value['id'] }}">
+                                                    {{ $value['value'] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -232,9 +215,9 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">تعداد</label>
-                                    <input type="number" id="number" name="number" class="form-control form-control-sm">
+                                    <input type="text" id="number" name="number" class="form-control form-control-sm">
 
-                                    <div class="my-1 number-error errors text-danger"></div>
+                                    <div class="my-1 number-error errors font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
@@ -243,23 +226,23 @@
                                     <label for="price">قیمت هر عدد (تومان)</label>
                                     <input type="text" id="price" name="price"  class="form-control form-control-sm">
 
-                                    <div class="my-1 price-error errors text-danger"></div>
+                                    <div class="my-1 price-error errors font-weight-bold text-danger"></div>
 
                                 </div>
                             </section>
 
-                            @if ($productCategory->colorable or $productCategory->selectableMetas->isNotEmpty())
+                            @if ($productCategory->selectableValues()->exists())
                                 <section class="mt-1 col-12">
                                     <h6 style="font-size: .875rem">حداقل یک قیمت باید برای کالا ثبت کنید.</h6>
-                                    <div class="my-1 productMetas-error errors text-danger "></div>
-                                    <button type="button" class="btn btn-success btn-sm add-to-product-metas">  ثبت قیمت</button>
-                                    <p class="mt-2 add-to-meta-error text-danger"></p>
+                                    <button type="button" class="btn btn-success btn-sm add-to-product-variants">  ثبت قیمت</button>
+                                    <div class="my-2 productVariants-error errors font-weight-bold text-danger "></div>
+                                    <p class="mt-2 add-to-variant-error text-danger"></p>
 
                                     <div class="mt-2 table-responsive">
-                                        <table class="table table-hover product-metas-table" style="min-width: 31rem">
+                                        <table class="table table-hover product-variants-table" style="min-width: 31rem">
                                             <thead>
                                                 <tr>
-                                                    <td>#</td>
+                                                    <td>اصلی</td>
                                                     <td>قیمت</td>
                                                     <td>تعداد</td>
                                                     <td>مشخصه</td>
@@ -279,7 +262,7 @@
                                     <label for="start_price">شروع قیمت از   (تومان)</label>
                                     <input type="text" id="start_price" name="start_price"  class="form-control form-control-sm">
 
-                                    <div class="my-1 start_price-error errors text-danger"></div>
+                                    <div class="my-1 start_price-error errors font-weight-bold text-danger"></div>
 
                                 </div>
                             </section>
@@ -288,7 +271,7 @@
                                 <div class="form-group">
 
                                     <label for="">مدت</label>
-                                    <select name="auction_period_id" id="auction_period_id" class="form-control form-control-sm select2" style="width: 100%">
+                                    <select name="auction_period_id" id="auction_period_id" class="form-control form-control-sm select2-class" style="width: 100%">
                                         <option value="">انتخاب</option>
 
                                         @foreach ($auction_periods as $period)
@@ -296,7 +279,7 @@
                                         @endforeach
                                     </select>
 
-                                    <div class="my-1 auction_period_id-error errors text-danger"></div>
+                                    <div class="my-1 auction_period_id-error errors font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
@@ -306,7 +289,7 @@
                                     <input type="text" id="start_auction_view"  class="form-control direction-ltr form-control-sm">
                                     <input type="text" class="d-none" name="start_date" id="start_auction_main">
 
-                                    <div class="my-1 start_date-error errors text-danger"></div>
+                                    <div class="my-1 start_date-error errors font-weight-bold text-danger"></div>
 
                                 </div>
                             </section>
@@ -317,7 +300,11 @@
                                     <label for="urgent_price">  قیمت فروش فوری (تومان)</label>
                                     <input type="text" name="urgent_price"  class="form-control form-control-sm" disabled>
 
-                                    <div class="my-1 urgent_price-error errors text-danger"></div>
+                                    <p class="my-1 text-success" style="font-size: .875rem">
+                                        تا زمانی که سقف پیشنهادات مزایده به نصف این قیمت نرسیده باشد کاربران می توانند کالا را با این قیمت خریداری کنند.
+                                    </p>
+
+                                    <div class="my-1 urgent_price-error errors font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
@@ -328,7 +315,11 @@
                                     <label for="reserved_price">  قیمت  رزرو (تومان)</label>
                                     <input type="text" name="reserved_price"  class="form-control form-control-sm" disabled>
 
-                                    <div class="my-1 reserved_price-error errors text-danger"></div>
+                                    <p class="my-1 text-success" style="font-size: .875rem">
+                                        اگر قیمت های مزایده به این قیمت نرسد شما میتوانید محصول را ارسال نکنید.
+                                    </p>
+
+                                    <div class="my-1 reserved_price-error errors font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
@@ -339,7 +330,7 @@
 
 
                         <section class="mt-5">
-                            <button class="btn btn-primary btn-sm">  ثبت کالا</button>
+                            <button class="btn btn-primary btn-sm disable-on-ajax" type="submit">  ثبت کالا</button>
                         </section>
                 </form>
             </section>
@@ -363,7 +354,21 @@
         CKEDITOR.replace('description');
         select2TagsInForm();
 
-        $('.select2').select2();
+        $('.select2-class').select2();
+    </script>
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
     </script>
 
     <script>
@@ -423,29 +428,43 @@
     </script>
 
     <script class="be-reload">
-        var metas = [];
+        var variants = [];
 
         $('#form').submit(function () {
             event.preventDefault();
 
-            $('#form').append(`<textarea name="productMetas" class="d-none">${JSON.stringify(metas)}</textarea>`);
-            data = $('#form').serialize();
+            $('.disable-on-ajax').prop('disabled', true);
+            $('#form').append(`<textarea name="productVariants" class="d-none">${JSON.stringify(variants)}</textarea>`);
+            var data = new FormData(this);
 
             $.ajax({
                 type: "post",
                 url: "{{ route('admin.market.product.store') }}",
                 data: data,
+                processData: false,
+                contentType: false,
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}",
                     "Accept": "application/json"
                 },
                 success: function (response) {
-                    console.log(response);
+                    $('.disable-on-ajax').prop('disabled', false);
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    })
+
+                    setTimeout(() => {
+                        window.location.href = "{{ route('admin.market.product.gallery.index', ':id') }}"
+                            .replace(':id', response.id);
+                    }, 1500);
                 }, error: function(xhr, status, error) {
                     Object.entries(xhr.responseJSON.errors).forEach((error) => {
                         $('div.errors').text('')
 
                         setTimeout(() => {
+                            $('.disable-on-ajax').prop('disabled', false);
                             $(`.${error[0]}-error`).text(error[1][0]);
                         }, 100);
                     });
@@ -453,20 +472,27 @@
             });
         });
 
-        function deleteProductMetas(key) {
-            metas.splice(key, 1)
-            $('.product-metas-table tbody tr').remove()
+        function deleteProductVariants(key) {
+            variants.splice(key, 1)
+            $('.product-variants-table tbody tr').remove()
 
-            metas.forEach((data, index) => {
+            variants.forEach((data, index) => {
                 addToTable(data, index);
             })
         }
 
-        function addToTable(data, deleteKey) {
-            let metasHtml = '';
+        function activeProductVariant(key) {
+            variants.forEach((data, index) => {
+                data.active = false;
+            })
+            variants[key].active = true;
+        }
+
+        function addToTable(data, key) {
+            let variantsHtml = '';
 
             data.items.forEach((item) => {
-                metasHtml +=`
+                variantsHtml +=`
                 <div>
                     <span>${item.label}:</span>
                     <span style="font-size: 1rem">${item.value}</span>
@@ -474,10 +500,10 @@
                 `
             })
 
-            $('.product-metas-table tbody').append(`
+            $('.product-variants-table tbody').append(`
                 <tr>
                     <td style="vertical-align: baseline">
-                        <input type="radio" name="" id="">
+                        <input type="radio" onchange="activeProductVariant(${key})" name="activeVariant" id="">
                     </td>
                     <td>
                         <span>${data.price} تومان</spab>
@@ -487,10 +513,10 @@
                     </td>
                     <td class="d-flex justify-content-between">
                         <div class="flex-wrap d-flex" style="gap: .8rem">`
-                            + metasHtml +
+                            + variantsHtml +
                         `</div>
                         <div>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteProductMetas(${deleteKey})">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteProductVariants(${key})">
                                 حذف
                             </button>
                         </div>
@@ -499,7 +525,7 @@
             `)
         }
 
-        $('.add-to-product-metas').on('click', () => {
+        $('.add-to-product-variants').on('click', () => {
             let data = {};
 
             // add price
@@ -510,13 +536,6 @@
                 return false;
             } else if (parseInt(price) < 1) {
                 $('.price-error').text('قیمت باید بیشتر از صفر باشد.')
-                return false;
-            } else {
-                $('.price-error').text('')
-            }
-
-            if (! Number.isInteger(parseInt(price))) {
-                $('.price-error').text('قیمت اشتباه است.')
                 return false;
             } else {
                 $('.price-error').text('')
@@ -537,25 +556,18 @@
                 $('.number-error').text('')
             }
 
-            if (! Number.isInteger(parseInt(number))) {
-                $('.number-error').text('تعداد اشتباه است.')
-                return false;
-            } else {
-                $('.number-error').text('')
-            }
-
             data.number = number;
 
-            // add selectable metas
+            // add selectable variants
             data.items = [];
 
-            let sections = Object.values($('.product-meta'))
+            let sections = Object.values($('.product-variant'))
             let hasError = false;
-            let isSame = false;
             sections.pop(); sections.pop();
 
             sections.every((item) => {
                 let label = $(item).find('label').text().trim()
+                let attribute_id = $(item).find('label').data('attribute-id')
                 let value = $(item).find('select option:selected').text().trim();
                 let mainValue = $(item).find('select').val();
 
@@ -567,23 +579,16 @@
                     $(item).find('.error').find('span').text('');
                 }
 
-                data.items.push({ label: label, value: value, mainValue: mainValue });
+                data.items.push({ label: label, attribute_id: attribute_id, value: value, mainValue: mainValue });
                 return true;
             });
-
-            if (isSame) {
-                $('.add-to-meta-error').text(` ایتم های تکراری انتخاب کرده اید.`);
-                return false;
-            } else {
-                $('.add-to-meta-error').text('');
-            }
 
             if (hasError) {
                 return false;
             }
 
-            metas.push(data)
-            addToTable(metas[metas.length - 1], metas.length - 1);
+            variants.push(data)
+            addToTable(variants[variants.length - 1], variants.length - 1);
 
             be_reload();
         });

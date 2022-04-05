@@ -115,10 +115,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
-            Route::post('/store', 'store')->name('store');
+            Route::post('/store', 'store')->name('store')
+                ->middleware(['json_decode:productVariants,true', 'toEnglishDigits:productVariants.*.price,productVariants.*.number,number,price,start_price,urgent_price,reserved_price']);
             Route::get('/edit/{product}', 'edit')->name('edit');
-            Route::put('/{product}', 'update')->name('update')
-                ->middleware('toEnglishDigits:price');
+            Route::put('/{product}', 'update')->name('update');
             Route::put('/restore/{id}', 'restore')->name('restore');
             Route::delete('/destroy/{product}', 'destroy')->name('destroy');
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
@@ -195,8 +195,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
-            Route::get('{admin}/permissions/', [PermissionController::class,'edit'])->name('permissions');
-            Route::put('{admin}/permissions/', [PermissionController::class,'update'])->name('permissions.update');
+            Route::get('{admin}/permissions/', [PermissionController::class, 'edit'])->name('permissions');
+            Route::put('{admin}/permissions/', [PermissionController::class, 'update'])->name('permissions.update');
             Route::get('/edit/{admin}', 'edit')->name('edit');
             Route::put('/update/{admin}', 'update')->name('update');
             Route::delete('/destroy/{admin}', 'destroy')->name('destroy');

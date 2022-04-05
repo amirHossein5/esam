@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models\Market;
+
+use App\Casts\ToEnglishMoney;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ProductVariant extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['sold_number', 'frozen_number', 'marketable_number', 'price', 'product_id','active'];
+
+    protected $casts = [
+        'price' => ToEnglishMoney::class,
+    ];
+
+    /**
+     * Relations
+     */
+    public function selectableAttributes(): HasMany
+    {
+        return $this->hasMany(ProductVariantSelectableAttribute::class, 'variant_id');
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+}

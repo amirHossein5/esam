@@ -21,9 +21,9 @@ class ProductCategory extends Model
 
     protected $cascadeDeleteMorph = ['attributes'];
 
-    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu', 'parent_id', 'colorable'];
+    protected $fillable = ['name', 'description', 'slug', 'image', 'show_in_menu', 'parent_id'];
 
-    protected $casts = ['image' => 'array', 'colorable' => 'bool'];
+    protected $casts = ['image' => 'array'];
 
     public function sluggable(): array
     {

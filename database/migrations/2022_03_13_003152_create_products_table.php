@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->text('image');
             $table->tinyInteger('marketable')->default(1)->comment('1 => marketable ,0 => unmarketable');
+            $table->tinyInteger('has_request_for_discount')->default(0);
             $table->text('tags');
             $table->foreignId('category_id')
                 ->constrained('product_categories')

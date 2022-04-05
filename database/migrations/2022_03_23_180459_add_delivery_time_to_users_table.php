@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('delivery_time_id')
+                ->after('role_id')
                 ->constrained('delivery_times')
                 ->cascadeOnUpdate()->cascadeOnDelete();
         });

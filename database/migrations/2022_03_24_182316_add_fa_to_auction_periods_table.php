@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('auction_periods', function (Blueprint $table) {
-            $table->removeColumn('fa');
+            $table->dropColumn(['fa']);
         });
     }
 };

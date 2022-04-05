@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Lang;
 
 class ToEnglishDigits
 {
@@ -16,21 +19,28 @@ class ToEnglishDigits
      */
     public function handle(Request $request, Closure $next, string ...$fields)
     {
-        $request = $request->toArray();
-
         foreach ($fields as $field) {
-            if (isset($request[$field])) {
-                if (is_string($request[$field])) {
-                    $request[$field] = faTOen($request[$field]);
-                } else {
-                    foreach ($request[$field] as $key => $price) {
-                        $request[$field][$key] = faTOen($price);
-                    }
+            if ($request->has($field)) {
+                if (is_string($request->input($field))) {
+                    request()->merge([$field => faTOen($request->$field)]);
                 }
             }
-        }
 
-        request()->replace($request);
+            if (preg_match("/\.|\*/", $field)) {
+
+                if (preg_match('/(\w+)\./', $field, $rootField)) {
+                    $field = str_replace($rootField[0], '', $field);
+                    $data = request($rootField[1]);
+
+                    data_set_closure($data, $field, function ($data) {
+                        return faTOen($data);
+                    });
+
+                    request()->merge([$rootField[1] => $data]);
+                }
+
+            }
+        }
 
         return $next(request());
     }

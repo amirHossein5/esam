@@ -63,14 +63,9 @@ class Product extends Model
         return $this->hasOne(Auction::class);
     }
 
-    public function price(): HasOne
+    public function variants(): HasMany
     {
-        return $this->hasOne(ProductPrice::class);
-    }
-
-    public function metas(): HasMany
-    {
-        return $this->hasMany(ProductMeta::class);
+        return $this->hasMany(ProductVariant::class);
     }
 
     /**
