@@ -32,13 +32,14 @@
                     </a>
                 </section>
 
-                <section class="table-responsive">
+                <section class="table-responsive" style="min-height: 30rem;">
                     <table id="table" style="width: 100%" class="hover compact display">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>نام کالا</th>
-                                <th> قیمت</th>
+                                <th> حالت فروش</th>
+                                <th> قابل فروش</th>
                                 <th> تصویر کالا</th>
                                 <th>دسته </th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
@@ -83,9 +84,17 @@
                         },
                     },
                     {
-                        "data": "price",
+                        "data": "auction_exists",
                         "render": function(data, type, row, meta) {
-                            return data + ' تومان';
+                            return data
+                                ? 'مزایده'
+                                : 'فروش';
+                        }
+                    },
+                    {
+                        "data": "marketable",
+                        "render": function(data, type, row, meta) {
+                            return row.marketable_readable;
                         }
                     },
                     {
@@ -101,7 +110,7 @@
                         "orderable": false
                     },
                     {
-                        "data": "category.name",
+                        "data": "product_category.name",
                         "render": function(data, type, row, meta) {
                             return strlimit(data , 0, 15);
                         }
@@ -112,9 +121,11 @@
                                 .replace(':id', row.id);
                             // var showRoute = ""
                             //     .replace(':id', row.id);
-                            var editRoute = ""
+                            var editRoute = "{{ route('admin.market.product.edit', ':id') }}"
                                 .replace(':id', row.id);
                             var destroyRoute = "{{ route('admin.market.product.destroy', ':id')}}"
+                                .replace(':id', row.id);
+                            var changeMarketableRoute = "{{ route('admin.market.product.changeMarketable', ':id')}}"
                                 .replace(':id', row.id);
 
                             return `
@@ -126,15 +137,20 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <a href="${galleryRoute}" class="dropdown-item text-right"><i class="fa fa-images"></i>
-                                                گالری</a>
+                                                گالری
+                                            </a>
+                                            <a href="${changeMarketableRoute}" class="dropdown-item text-right">
+                                                <i class="fa fa-list-ul"></i>
+                                                تغییر امکان فروش
+                                            </a>
                                             <a href="" class="dropdown-item text-right">
                                                 <i class="fa fa-list-ul"></i>
                                                 مشاهده
                                             </a>
-                                           {{--  <a href="${editRoute}" class="dropdown-item text-right">
+                                            <a href="${editRoute}" class="dropdown-item text-right">
                                                 <i class="fa fa-edit"></i>
                                                 ویرایش
-                                            </a> --}}
+                                            </a>
                                             <form action="${destroyRoute}" method="POST">
                                                 @csrf @method('delete')
                                                 <button

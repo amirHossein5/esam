@@ -29,13 +29,13 @@
                     <a href="{{ route('admin.market.product.index') }}" class="btn btn-info btn-sm">بازگشت </a>
                 </section>
 
-                <section class="table-responsive">
+                <section class="table-responsive" style="min-height: 30rem;">
                     <table id="table" style="width: 100%" class="hover compact display">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>نام کالا</th>
-                                <th> قیمت</th>
+                                <th> حالت فروش</th>
                                 <th> تصویر کالا</th>
                                 <th>دسته </th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
@@ -81,9 +81,11 @@
                         },
                     },
                     {
-                        "data": "price",
+                        "data": "auction_exists",
                         "render": function(data, type, row, meta) {
-                            return data + ' تومان';
+                            return data
+                                ? 'مزایده'
+                                : 'فروش';
                         }
                     },
                     {
@@ -99,7 +101,7 @@
                         "orderable": false
                     },
                     {
-                        "data": "category.name",
+                        "data": "product_category.name",
                         "render": function(data, type, row, meta) {
                             return strlimit(data , 0, 15);
                         }

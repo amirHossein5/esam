@@ -3,6 +3,7 @@
 namespace App\Models\Market;
 
 use App\Casts\ToEnglishMoney;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,10 @@ class ProductVariant extends Model
         'price' => ToEnglishMoney::class,
     ];
 
+    protected $appends = [
+        'price_readable'
+    ];
+
     /**
      * Relations
      */
@@ -29,5 +34,15 @@ class ProductVariant extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Accessors
+     */
+    public function priceReadable(): Attribute
+    {
+        return new Attribute(
+            get: fn() => fa_price($this->price)
+        );
     }
 }

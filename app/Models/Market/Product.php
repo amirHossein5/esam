@@ -26,6 +26,10 @@ class Product extends Model
         'marketable_number' => 'integer'
     ];
 
+    protected $appends = [
+        'marketable_readable'
+    ];
+
     public function sluggable(): array
     {
         return [
@@ -45,7 +49,7 @@ class Product extends Model
 
     public function productCategory(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
     public function sellType(): BelongsTo
@@ -68,13 +72,18 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function gallery(): HasMany
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+
     /**
      * Accessors
      */
     public function marketableReadable(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => (bool) $value ? 'هست' : 'نیست'
+            get: fn () => (bool) $this->marketable ? 'هست' : 'نیست'
         );
     }
 }

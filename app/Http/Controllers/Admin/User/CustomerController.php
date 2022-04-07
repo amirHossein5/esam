@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AmirHossein5\LaravelImage\Facades\Image;
 use App\Http\Requests\Admin\User\StoreCustomerRequest;
 use App\Http\Requests\Admin\User\UpdateCustomerRequest;
+use App\Models\DeliveryTime;
 use Illuminate\Http\Response;
 
 class CustomerController extends Controller
@@ -64,7 +65,9 @@ class CustomerController extends Controller
             $request['profile_photo_path'] = $avatar;
         }
 
-        User::create($request + ['user_type' => 0]);
+        $delivery_time_id = DeliveryTime::first()->id;
+
+        User::create($request + ['user_type' => 0, 'delivery_time_id' => $delivery_time_id]);
 
         return redirect()
             ->route('admin.user.customer.index')

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>ایجاد کالا</title>
+    <title>ویرایش کالا</title>
     <link href="{{ asset('admin-assets/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-assets/select2/css/select2.modification.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin-assets/persian-date-picker/persian-datepicker.min.css') }}" rel="stylesheet" />
@@ -14,7 +14,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">کالا </a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد کالا</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش کالا</li>
     </ol>
   </nav>
 
@@ -24,7 +24,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                  ایجاد کالا
+                  ویرایش کالا
                 </h5>
             </section>
 
@@ -32,31 +32,15 @@
                 <a href="{{ route('admin.market.product.index') }}" class="btn btn-info btn-sm">بازگشت</a>
             </section>
 
-            @if (! request()->has('productCategory'))
-                <form action="{{ route('admin.market.product.create') }}">
-                    <div class="form-group">
-                        <div class="p-0 col-12 col-md-6">
-                            <select name="productCategory" class="form-control form-control-sm">
-                                @foreach ($productCategories as $category )
-                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-sm btn-success">بعدی</button>
-                </form>
-            @else
-
             <section>
-                <form action="{{ route('admin.market.product.store') }}" id="form" method="post" enctype="multipart/form-data">
-                    @csrf
+                <form action="{{ route('admin.market.product.update', $product->id) }}" id="form" method="post" enctype="multipart/form-data">
+                    @csrf @method('put')
                     <section class="row">
 
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="name">نام کالا</label>
-                                <input type="text" id="name" name="name" class="form-control form-control-sm">
+                                <input type="text" id="name" name="name" value="{{ $product->name }}" class="form-control form-control-sm">
 
                                 <div class="my-1 name-error errors font-weight-bold text-danger"></div>
                             </div>
@@ -65,7 +49,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="introduction">توضیح مختصر</label>
-                                <input type="text" name="introduction" id="introduction"  class="form-control form-control-sm">
+                                <input type="text" name="introduction" value="{{ $product->introduction }}" id="introduction"  class="form-control form-control-sm">
 
                                 <div class="my-1 introduction-error errors font-weight-bold text-danger"></div>
                             </div>
@@ -77,6 +61,10 @@
                                 <label for="image">تصویر </label>
                                 <input type="file" id="image" name="image" class="form-control form-control-sm">
 
+                                <div class="my-1">
+                                    <img src="{{ asset($product->image['index']['medium']) }}" width="50" height="50" alt="">
+                                </div>
+
                                 <div class="my-1 image-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
@@ -86,8 +74,8 @@
                                 <div>
                                     <label for="marketable">قابل فروش بودن</label>
                                     <select name="marketable" class="form-control" id="marketable">
-                                        <option value="0" >غیرفعال</option>
-                                        <option value="1" >فعال</option>
+                                        <option value="0" @selected($product->marketable == '0')>غیرفعال</option>
+                                        <option value="1" @selected($product->marketable == '1')>فعال</option>
                                     </select>
 
                                 </div>
@@ -99,7 +87,7 @@
                             <div class="form-group">
                                 <div>
                                     <label for="tags">تگ ها</label>
-                                    <input type="hidden" id="tags" name="tags">
+                                    <input type="hidden" id="tags" name="tags" value="{{ $product->tags }}">
                                     <select class="form-control" id="select2" style="width: 100%" multiple></select>
 
                                 </div>
@@ -112,7 +100,7 @@
                             <div class="form-group">
                                 <label for="">تاریخ انتشار</label>
                                 <input type="text" id="view-date-picker" class="form-control direction-ltr form-control-sm">
-                                <input type="text" class="d-none" id="main-date-picker" name="published_at">
+                                <input type="text" class="d-none" value="{{ $product->published_at }}" id="main-date-picker" name="published_at">
 
                                 <div class="my-1 published_at-error errors font-weight-bold text-danger"></div>
                             </div>
@@ -121,13 +109,11 @@
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="description">توضیحات</label>
-                                <textarea name="description" id="description"  class="form-control form-control-sm" rows="6"></textarea>
+                                <textarea name="description" id="description"  class="form-control form-control-sm" rows="6">{{ $product->description }}</textarea>
 
                                 <div class="my-1 description-error errors font-weight-bold text-danger"></div>
                             </div>
                         </section>
-
-                        <input type="hidden" name="productCategory_id" value="{{ request()->get('productCategory') }}">
 
                     </section>
 
@@ -136,7 +122,10 @@
                             <h6>خصوصیات</h6>
                             <div class="my-3 attributeValues-error font-weight-bold errors text-danger"></div>
 
-                            <x-product.show-attributes :model="$productCategory"/>
+                            <x-product.show-attributes
+                                :model="$productCategory"
+                                :attributeValues="$product->attributeValues->pluck('value_id')->toArray()"
+                            />
                         </section>
                     @endif
 
@@ -154,6 +143,7 @@
                                     name="sell_type_id"
                                     class="d-none"
                                     value="{{ $sellType->id }}"
+                                    @checked($sellType->id == $product->sell_type_id)
                                 />
                                 <label
                                     for="sellType-{{ $sellType->id }}"
@@ -168,7 +158,7 @@
 
                         <section class="mt-2 mb-4 col-12" style="font-size: .875rem">
                             زمان ارسال:
-                            <span>تا ۴۸ ساعت کاری</span>
+                            <span>تا {{ '48' }} ساعت کاری</span>
                             <p class="mt-1 text-success">جهت تغییر زمان ارسال با مراجعه به پروفایل کاربری تنظیمات زمان ارسال را تغییر دهید.</p>
                         </section>
 
@@ -177,7 +167,7 @@
                                 <div class="form-group">
                                     <input type="hidden" name="has_request_for_discount" value="0">
 
-                                    <input type="checkbox" name="has_request_for_discount" value="1" id="has_request_for_discount">
+                                    <input type="checkbox" name="has_request_for_discount" value="1" id="has_request_for_discount" @checked($product->has_request_for_discount)>
 
                                     <label for="has_request_for_discount">تخفیف هم میدهم</label>
 
@@ -212,24 +202,59 @@
                                 </section>
                             @endforeach
 
-                            <section class="col-12">
-                                <div class="form-group">
-                                    <label for="">تعداد</label>
-                                    <input type="text" id="number" name="number" class="form-control form-control-sm">
+                            @if (!$productCategory->selectableValues()->exists() and !$product->auction()->exists())
+                                <section class="col-12">
+                                    <div class="form-group">
+                                        <label for="">تعداد</label>
 
-                                    <div class="my-1 number-error errors font-weight-bold text-danger"></div>
-                                </div>
-                            </section>
+                                        <input
+                                            type="text"
+                                            id="number"
+                                            name="number"
+                                            class="form-control form-control-sm"
+                                            value="{{ $product->variants->first()->marketable_number }}"
+                                        >
 
-                            <section class="col-12">
-                                <div class="form-group">
-                                    <label for="price">قیمت هر عدد (تومان)</label>
-                                    <input type="text" id="price" name="price"  class="form-control form-control-sm">
+                                        <div class="my-1 number-error errors font-weight-bold text-danger"></div>
+                                    </div>
+                                </section>
 
-                                    <div class="my-1 price-error errors font-weight-bold text-danger"></div>
+                                <section class="col-12">
+                                    <div class="form-group">
+                                        <label for="price">قیمت هر عدد (تومان)</label>
 
-                                </div>
-                            </section>
+                                        <input
+                                            type="text"
+                                            id="price"
+                                            name="price"
+                                            class="form-control form-control-sm"
+                                            value="{{ $product->variants->first()->price_readable }}"
+                                        >
+
+                                        <div class="my-1 price-error errors font-weight-bold text-danger"></div>
+
+                                    </div>
+                                </section>
+                            @else
+                                <section class="col-12">
+                                        <div class="form-group">
+                                            <label for="">تعداد</label>
+                                            <input type="text" id="number" name="number" class="form-control form-control-sm">
+
+                                            <div class="my-1 number-error errors font-weight-bold text-danger"></div>
+                                        </div>
+                                    </section>
+
+                                    <section class="col-12">
+                                        <div class="form-group">
+                                            <label for="price">قیمت هر عدد (تومان)</label>
+                                            <input type="text" id="price" name="price"  class="form-control form-control-sm">
+
+                                            <div class="my-1 price-error errors font-weight-bold text-danger"></div>
+
+                                        </div>
+                                    </section>
+                            @endif
 
                             @if ($productCategory->selectableValues()->exists())
                                 <section class="mt-1 col-12">
@@ -260,7 +285,7 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="start_price">شروع قیمت از   (تومان)</label>
-                                    <input type="text" id="start_price" name="start_price"  class="form-control form-control-sm">
+                                    <input type="text" id="start_price" name="start_price" value="{{ $product->auction?->start_price_readable }}"  class="form-control form-control-sm">
 
                                     <div class="my-1 start_price-error errors font-weight-bold text-danger"></div>
 
@@ -271,11 +296,16 @@
                                 <div class="form-group">
 
                                     <label for="">مدت</label>
-                                    <select name="auction_period_id" id="auction_period_id" class="form-control form-control-sm select2-class" style="width: 100%">
+                                    <select name="auction_period_id" id="auction_period_id"  class="form-control form-control-sm select2-class" style="width: 100%">
                                         <option value="">انتخاب</option>
 
                                         @foreach ($auction_periods as $period)
-                                            <option value="{{ $period->id }}">{{ $period->fa }}</option>
+                                            <option
+                                                value="{{ $period->id }}"
+                                                @selected($period->id ==$product->auction?->period_id)
+                                            >
+                                                {{ $period->fa }}
+                                            </option>
                                         @endforeach
                                     </select>
 
@@ -287,7 +317,8 @@
                                 <div class="form-group">
                                     <label for="">تاریخ شروع</label>
                                     <input type="text" id="start_auction_view"  class="form-control direction-ltr form-control-sm">
-                                    <input type="text" class="d-none" name="start_date" id="start_auction_main">
+                                    <input type="text" class="d-none" name="start_date" id="start_auction_main"
+                                    value="{{ $product->auction?->start_date }}">
 
                                     <div class="my-1 start_date-error errors font-weight-bold text-danger"></div>
 
@@ -296,9 +327,12 @@
 
                             <section class="col-12">
                                 <div class="form-group">
-                                    <input type="checkbox" id="urgent_price" onchange="active_input()">
+                                    <input type="checkbox" id="urgent_price" onchange="active_input()"
+                                    @checked($product->auction?->urgent_price)>
                                     <label for="urgent_price">  قیمت فروش فوری (تومان)</label>
-                                    <input type="text" name="urgent_price"  class="form-control form-control-sm" disabled>
+
+                                    <input type="text" name="urgent_price"  class="form-control form-control-sm"
+                                    @disabled(!$product->auction?->urgent_price) value="{{ $product->auction?->urgent_price_readable }}">
 
                                     <p class="my-1 text-success" style="font-size: .875rem">
                                         تا زمانی که سقف پیشنهادات مزایده به نصف این قیمت نرسیده باشد کاربران می توانند کالا را با این قیمت خریداری کنند.
@@ -311,9 +345,12 @@
 
                             <section class="col-12">
                                 <div class="form-group">
-                                    <input type="checkbox" id="reserved_price" onchange="active_input()">
+                                    <input type="checkbox" id="reserved_price" onchange="active_input()"
+                                    @checked($product->auction?->reserved_price)>
                                     <label for="reserved_price">  قیمت  رزرو (تومان)</label>
-                                    <input type="text" name="reserved_price"  class="form-control form-control-sm" disabled>
+
+                                    <input type="text" name="reserved_price"  class="form-control form-control-sm"
+                                    @disabled(!$product->auction?->reserved_price) value="{{ $product->auction?->reserved_price_readable }}">
 
                                     <p class="my-1 text-success" style="font-size: .875rem">
                                         اگر قیمت های مزایده به این قیمت نرسد شما میتوانید محصول را ارسال نکنید.
@@ -337,7 +374,6 @@
                 </form>
             </section>
 
-            @endif
         </section>
     </section>
 </section>
@@ -396,19 +432,39 @@
 
     <script>
         $(function(){
-            $('[data-id=fix_price]')[0].click()
-            $($('[data-id=fix_price]')[0]).addClass('text-white')
+            $('[data-id="{{ $product->sellType->name }}"]')[0].click()
+            $($('[data-id="{{ $product->sellType->name }}"]')[0]).addClass('text-white')
         })
     </script>
 
     <script>
         $(document).ready(function () {
             var dp = $("#view-date-picker").pDatepicker(datePickerOptions());
-            var time = $('#main-date-picker').val() ? parseInt($('#main-date-picker').val()) : null;
-            dp.setDate(time)
+            var time = null;
+            var mainDatePickerValue = $("#main-date-picker").attr("value");
+
+            if (mainDatePickerValue) {
+                if (mainDatePickerValue.split("-").length !== 1) {
+                    time = Date.parse(mainDatePickerValue);
+                } else {
+                    time = parseInt(mainDatePickerValue);
+                }
+            }
+
+            dp.setDate(time);
 
             var dp = $("#start_auction_view").pDatepicker(datePickerOptions('#start_auction_main'));
-            var time = $('#start_auction_main').val() ? parseInt($('#start_auction_main').val()) : null;
+            var time = null;
+            var mainDatePickerValue = $("#start_auction_main").attr("value");
+
+            if (mainDatePickerValue) {
+                if (mainDatePickerValue.split("-").length !== 1) {
+                    time = Date.parse(mainDatePickerValue);
+                } else {
+                    time = parseInt(mainDatePickerValue);
+                }
+            }
+
             dp.setDate(time)
         });
     </script>
@@ -430,7 +486,7 @@
     </script>
 
     <script class="be-reload">
-        var variants = [];
+        var variants = JSON.parse('{!! $jsProductVariants !!}');
 
         $('#form').submit(function () {
             event.preventDefault();
@@ -442,7 +498,7 @@
 
             $.ajax({
                 type: "post",
-                url: "{{ route('admin.market.product.store') }}",
+                url: "{{ route('admin.market.product.update', $product->id) }}",
                 data: data,
                 processData: false,
                 contentType: false,
@@ -503,10 +559,14 @@
                 `
             })
 
+            let isChecked = data.active
+                ? 'checked'
+                : '';
+
             $('.product-variants-table tbody').append(`
                 <tr>
                     <td style="vertical-align: baseline">
-                        <input type="radio" onchange="activeProductVariant(${key})" name="activeVariant" id="">
+                        <input type="radio" onchange="activeProductVariant(${key})" ${isChecked} name="activeVariant" id="">
                     </td>
                     <td>
                         <span>${data.price} تومان</spab>
@@ -596,6 +656,12 @@
             be_reload();
         });
 
+    </script>
+
+    <script>
+        variants.forEach((data, index) => {
+            addToTable(data, index);
+        })
     </script>
 
 @endsection

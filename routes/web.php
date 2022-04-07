@@ -118,10 +118,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/store', 'store')->name('store')
                 ->middleware(['json_decode:productVariants,true', 'toEnglishDigits:productVariants.*.price,productVariants.*.number,number,price,start_price,urgent_price,reserved_price']);
             Route::get('/edit/{product}', 'edit')->name('edit');
-            Route::put('/{product}', 'update')->name('update');
+            Route::put('/{product}', 'update')->name('update')
+                ->middleware(['json_decode:productVariants,true', 'toEnglishDigits:productVariants.*.price,productVariants.*.number,number,price,start_price,urgent_price,reserved_price']);
             Route::put('/restore/{id}', 'restore')->name('restore');
             Route::delete('/destroy/{product}', 'destroy')->name('destroy');
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::get('/changeMarketable/{product}', 'changeMarketable')->name('changeMarketable');
+
             //gallery
             Route::prefix('{product}')->name('gallery.')->controller(GalleryController::class)->group(function () {
                 Route::get('/gallery', 'index')->name('index');

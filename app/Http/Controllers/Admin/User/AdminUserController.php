@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use AmirHossein5\LaravelImage\Facades\Image;
 use App\Http\Requests\Admin\User\StoreAdminUserRequest;
 use App\Http\Requests\Admin\User\UpdateAdminUserRequest;
+use App\Models\DeliveryTime;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -76,9 +77,9 @@ class AdminUserController extends Controller
             $request['profile_photo_path'] = $avatar;
         }
 
-        DB::transaction(function () use ($request) {
-            $user = User::create($request + ['user_type' => 1]);
-        });
+        $delivery_time_id = DeliveryTime::first()->id;
+
+        User::create($request + ['user_type' => 1, 'delivery_time_id' => $delivery_time_id]);
 
         return redirect()
             ->route('admin.user.admin-user.index')

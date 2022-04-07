@@ -33,7 +33,7 @@ class ToEnglishDigits
                     $data = request($rootField[1]);
 
                     data_set_closure($data, $field, function ($data) {
-                        return faTOen($data);
+                        return str_replace([',', '٫', '.'], '', faTOen($data));
                     });
 
                     request()->merge([$rootField[1] => $data]);

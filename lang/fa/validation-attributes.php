@@ -73,6 +73,7 @@ return [
         'productColors'        => 'رنگ های محصول',
         'priceIncrease'        => 'افزایش قیمت',
         'marketable_number'    => 'تعداد قابل فروش',
+        'number'               => 'تعداد',
         'receiver'             => 'نام تحویل گیرنده',
         'deliverer'            => 'نام تحویل دهنده',
         'faq_category_id'      => 'دسته بندی سوالات متداول',

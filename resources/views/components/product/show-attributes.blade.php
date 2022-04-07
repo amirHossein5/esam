@@ -1,4 +1,4 @@
-@props(['model'])
+@props(['model', 'attributeValues' => null])
 
 <section class="row">
     @foreach ($model->attributes as $attribute)
@@ -14,7 +14,7 @@
                 <option value="">انتخاب</option>
 
                 @foreach ($attribute->defaultValues as $defaultValue)
-                    <option value="{{ $defaultValue->id }}">
+                    <option value="{{ $defaultValue->id }}" @selected(in_array($defaultValue->id, $attributeValues))>
                         {{ $defaultValue->value }}
                     </option>
                 @endforeach
