@@ -1,7 +1,9 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>کالاها</title>
+<title>
+                     گالری کالای ({{ $product->name }})
+</title>
 @endsection
 
 @section('content')
@@ -19,7 +21,7 @@
     <section class="col-12">
         <section class="main-body-container">
             <section class="main-body-container-header">
-                <a href="{{ route('admin.market.product.index') }}" class="mb-3 btn btn-info btn-sm"> بازگشت</a>
+                <a href="{{ route('admin.market.product.index') }}" class="mb-3 btn btn-info btn-sm"> محصولات</a>
 
                 <h5>
                  گالری کالای ({{ $product->name }})

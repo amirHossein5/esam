@@ -22,7 +22,9 @@ class ToEnglishDigits
         foreach ($fields as $field) {
             if ($request->has($field)) {
                 if (is_string($request->input($field))) {
-                    request()->merge([$field => faTOen($request->$field)]);
+                    request()->merge([
+                        $field => preg_replace('/,|\.|٫/', '', faTOen($request->$field))
+                    ]);
                 }
             }
 
@@ -33,7 +35,7 @@ class ToEnglishDigits
                     $data = request($rootField[1]);
 
                     data_set_closure($data, $field, function ($data) {
-                        return str_replace([',', '٫', '.'], '', faTOen($data));
+                        return preg_replace('/,|\.|٫/', '', faTOen($data));
                     });
 
                     request()->merge([$rootField[1] => $data]);

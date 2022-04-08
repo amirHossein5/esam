@@ -30,7 +30,7 @@ class GalleryController extends Controller
                 if (!$image) {
                     return $this->imageError();
                 }
-
+                
                 $product->galleries()->create(['image' => $image]);
             }
         }

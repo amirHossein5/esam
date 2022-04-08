@@ -1,7 +1,7 @@
 @props(['model', 'attributeValues' => null])
 
 <section class="row">
-    @foreach ($model->attributes as $attribute)
+    @forelse ($model->attributes as $attribute)
         <section class="my-1 col-12 col-md-6">
 
             <label for="{{ $attribute->id }}">
@@ -14,11 +14,13 @@
                 <option value="">انتخاب</option>
 
                 @foreach ($attribute->defaultValues as $defaultValue)
-                    <option value="{{ $defaultValue->id }}" @selected(in_array($defaultValue->id, $attributeValues))>
+                    <option value="{{ $defaultValue->id }}" @selected(in_array($defaultValue->id, $attributeValues ?? []))>
                         {{ $defaultValue->value }}
                     </option>
                 @endforeach
             </select>
         </section>
-    @endforeach
+    @empty
+
+    @endforelse
 </section>

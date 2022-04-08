@@ -24,7 +24,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                  ویرایش کالا
+                        ویرایش کالا (دسته بندی: {{ $productCategory->name }})
                 </h5>
             </section>
 
@@ -519,11 +519,19 @@
                             .replace(':id', response.id);
                     }, 1000);
                 }, error: function(xhr, status, error) {
+                    $('.disable-on-ajax').prop('disabled', false);
+
+                    if (!xhr.responseJSON.errors) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'مشکلی پیش آمده دوباره امتحان کنید'
+                        })
+                    }
+
                     Object.entries(xhr.responseJSON.errors).forEach((error) => {
                         $('div.errors').text('')
 
                         setTimeout(() => {
-                            $('.disable-on-ajax').prop('disabled', false);
                             $(`.${error[0]}-error`).text(error[1][0]);
                         }, 100);
                     });
