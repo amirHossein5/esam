@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
@@ -99,15 +100,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //payment
-        Route::prefix('payment')->name('payment.')->group(function () {
-            Route::get('/', [PaymentController::class, 'index'])->name('index');
-            Route::get('/online', [PaymentController::class, 'online'])->name('online');
-            Route::get('/offline', [PaymentController::class, 'offline'])->name('offline');
-            Route::get('/cash', [PaymentController::class, 'cash'])->name('cash');
-            Route::get('/reject/{payment}', [PaymentController::class, 'reject'])->name('reject');
-            Route::get('/return/{payment}', [PaymentController::class, 'return'])->name('return');
-            Route::get('/paid/{payment}', [PaymentController::class, 'paid'])->name('paid');
-            Route::get('/notPaid/{payment}', [PaymentController::class, 'notPaid'])->name('notPaid');
+        Route::prefix('payment')->name('payment.')->controller(PaymentController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/changeStatus/{payment}/{status_number}', 'changeStatus')->name('changeStatus');
         });
 
         //product

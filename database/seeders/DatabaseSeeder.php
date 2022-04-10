@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call(SellTypesSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(SettingsSeeder::class);
@@ -23,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CitiesSeeder::class);
         $this->call(DeliveryTimeSeeder::class);
         $this->call(AuctionPeriodSeeder::class);
+        $this->call(PaymentTypeSeeder::class);
+        \App\Models\User::factory(2)->create();
     }
 }
