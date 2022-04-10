@@ -84,7 +84,10 @@ return [
         'reserved_price'       => 'قیمت رزرو ',
         'urgent_price'         => 'قیمت فروش فوری',
         'start_date'           => 'تاریخ شروع',
+        'end_date'             => 'تاریخ پایان',
         'auction_period_id'    => 'مدت',
         'start_price'          => 'شروع قیمت',
+        'product_id'           => 'محصول',
+        'percentage'           => 'درصد',
     ],
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Content\FAQCategoryController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Admin\Market\AmazingSaleController;
 use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\GalleryController;
@@ -135,6 +136,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::delete('/destroy/{attribute}/{productCategory}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('descount')->name('discount.')->group(function () {
+            // amzing sale
+            Route::prefix('amazing-sale')->name('amazingSale.')->controller(AmazingSaleController::class)->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/edit/{amazingSale}', 'edit')->name('edit');
+                Route::put('/{amazingSale}', 'update')->name('update');
+                Route::delete('/{amazingSale}', 'destroy')->name('destroy');
+                Route::get('/changeStatus/{amazingSale}', 'changeStatus')->name('changeStatus');
+            });
         });
     });
 

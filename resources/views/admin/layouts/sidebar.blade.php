@@ -122,7 +122,7 @@
                 </section>
                 <section class="sidebar-dropdown">
                     <a
-                        href=""
+                        href="{{ route('admin.market.discount.amazingSale.index') }}"
                         class="@if(request()->is('admin/market/discount/amazing-sale*')) text-green @endif "
                     >
                         تخفیف شگفت انگیز
