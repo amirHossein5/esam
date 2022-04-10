@@ -47,7 +47,7 @@
                         href="{{ route('admin.market.selectableAttributes.index') }}"
                         class="@if(request()->is('admin/market/selectable-attributes*')) text-green @endif "
                     >
-                        ویژگی های قابل انتخاب 
+                        ویژگی های قابل انتخاب
                     </a>
                 </section>
             </section>
@@ -228,14 +228,6 @@
             >
                 <i class="fas fa-bars"></i>
                 <span>همه پشتیبانی ها</span>
-            </a>
-
-            <a
-                href="{{ route('admin.support.unseen') }}"
-                class="sidebar-link @if(request()->routeIs('admin.support.unseen')) text-green @endif"
-            >
-                <i class="fas fa-bars"></i>
-                <span>پشتیبانی های دیده نشده</span>
             </a>
 
             <a

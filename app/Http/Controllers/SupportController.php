@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Support;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use Mews\Purifier\Facades\Purifier;
 
 class SupportController extends Controller
 {
@@ -16,95 +20,196 @@ class SupportController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                Support::answers()
+                Support::questions()
+                    ->with('product')
                     ->skip(request()->start)
                     ->take(request()->length)
                     ->get()
             )->toJson();
         }
 
-        return view('admin.support.index');
+        DB::table('supports')
+            ->where('seen', 0)
+            ->update(['seen' => 1]);
+
+        $supportMod = 'همه پشتیبانی ها';
+
+        return view('admin.support.index', compact('supportMod'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a closed listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function closed()
     {
-        return view('admin.content.page.create');
+        if (request()->wantsJson()) {
+            return datatables(
+                Support::questions()
+                    ->isClose()
+                    ->with('product')
+                    ->skip(request()->start)
+                    ->take(request()->length)
+                    ->get()
+            )->toJson();
+        }
+
+        DB::table('supports')
+            ->where('seen', 0)
+            ->update(['seen' => 1]);
+
+        $supportMod = 'پشتیبانی های بسته';
+
+        return view('admin.support.index', compact('supportMod'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display a open listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PageRequest $request)
+    public function open()
     {
-        $request = $request->validated();
-        $request['body'] = Purifier::clean($request['body']);
-        Page::create($request);
+        if (request()->wantsJson()) {
+            return datatables(
+                Support::questions()
+                    ->isOpen()
+                    ->with('product')
+                    ->skip(request()->start)
+                    ->take(request()->length)
+                    ->get()
+            )->toJson();
+        }
 
-        return redirect()
-            ->route('admin.content.page.index')
-            ->with('sweetalert-mixin-success', 'با موفقیت ساخته شد');
+        DB::table('supports')
+            ->where('seen', 0)
+            ->update(['seen' => 1]);
+
+        $supportMod = 'پشتیبانی های باز';
+
+        return view('admin.support.index', compact('supportMod'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Shows the question.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $question
+     * @return \Illuminate\View\View
      */
-    public function edit(Page $page)
+    public function show(int $question): View
     {
-        return view('admin.content.page.edit', compact('page'));
+        $question = Support::questions()
+            ->with('answers.user', 'user', 'product')
+            ->findOrFail($question);
+
+        $question->seen = Support::SEEN;
+        $question->save();
+
+        return view('admin.support.show', compact('question'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $question
      * @return \Illuminate\Http\Response
      */
-    public function update(PageRequest $request, Page $page)
+    public function store(Request $request, int $question)
     {
-        $request = $request->validated();
-        $request['body'] = Purifier::clean($request['body']);
+        $question = Support::questions()
+            ->findOrFail($question);
 
-        $page->update($request);
+        $request = $request->validate([
+            'description' => 'required|string'
+        ]);
 
-        return redirect()
-            ->route('admin.content.page.index')
-            ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
+        $request['title'] = $question->title;
+        $request['user_id'] = 2;
+        $request['product_id'] = $question->product_id;
+        $request['description'] = Purifier::clean($request['description']);
+
+        $question->answers()->create($request);
+
+        return back()
+            ->with('sweetalert-mixin-success', 'با موفقیت ثبت  شد');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Edit page of editing an answer.
      *
-     * @param  int  $id
+     * @param int $answer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function edit(int $answer)
     {
-        $page->delete();
+        $answer = Support::justAnswers()
+            ->findOrFail($answer);
+
+        return view('admin.support.edit', compact('answer'));
+    }
+
+    /**
+     * Update an answer.
+     *
+     * @param int $answer
+     * @param Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $answer)
+    {
+        $answer = Support::justAnswers()
+            ->findOrFail($answer);
+
+        $request = $request->validate([
+            'description' => 'required|string'
+        ]);
+
+        $answer->update($request);
+
+        return to_route('admin.support.show', $answer->question_id)
+            ->with('sweetalert-mixin-success', 'با موفقیت ویرایش  شد');
+    }
+
+    /**
+     * Destroy an answer.
+     *
+     * @param int $answer
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $answer)
+    {
+        $answer = Support::justAnswers()
+            ->findOrFail($answer);
+
+        $answer->delete();
 
         return back()
             ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
     }
 
-    public function changeStatus(Page $page)
+    /**
+     * Changes support's statuses.
+     *
+     * @param string|int $question
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(string|int $question)
     {
-        $page->status = !$page->status;
-        $result = $page->save();
+        $question = Support::questions()
+            ->findOrFail($question);
 
-        return $result
-            ? response(['checked' => $page->status])
-            : response('', 500);
+        $question->status = !$question->status;
+        $result = $question->save();
+
+        if (request()->wantsJson()) {
+            return $result
+                ? response(['checked' => $question->status])
+                : response('', 500);
+        }
+
+        return back()
+            ->with('sweetalert-mixin-success', 'با موفقیت تغییر داده شد');
     }
 }
-

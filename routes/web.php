@@ -227,11 +227,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // support
     Route::prefix('support')->name('support.')->controller(SupportController::class)->group(function () {
         Route::get('index', 'index')->name('index');
-        Route::get('/show/{support}', 'show')->name('show');
-        Route::post('/{support}', 'store')->name('store');
         Route::get('unseen', 'unseen')->name('unseen');
         Route::get('closed', 'closed')->name('closed');
         Route::get('open', 'open')->name('open');
+        Route::get('/show/{question}', 'show')->name('show');
+        Route::post('/{question}', 'store')->name('store');
+        Route::get('/edit/{answer}', 'edit')->name('edit');
+        Route::put('/{answer}', 'update')->name('update');
+        Route::delete('/{answer}', 'destroy')->name('destroy');
+        Route::get('changeStatus/{question}', 'changeStatus')->name('changeStatus');
     });
 
     // notify

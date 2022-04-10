@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('supports', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description');
             $table->foreignId('product_id')
                 ->constrained('products')
                 ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('description');
-            $table->foreignId('support_id')
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('question_id')
+                ->nullable()
                 ->constrained('supports')
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->tinyInteger('status')->default(0)->comment('0 => open, 1 => closed');
