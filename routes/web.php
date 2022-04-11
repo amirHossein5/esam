@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\AmazingSaleController;
 use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
+use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -74,18 +76,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/destroy/{selectableAttribute}', 'destroy')->name('destroy');
         });
 
-        //discount
-        Route::prefix('discount')->name('discount.')->group(function () {
-            Route::get('/copan', [DiscountController::class, 'copan'])->name('copan');
-            Route::get('/copan/create', [DiscountController::class, 'copanCreate'])->name('copan.create');
-
-            Route::prefix('landing-page-copans')->name('landingPageCopans.')->controller(LandingPageCopans::class)->group(function () {
-                Route::get('', 'index')->name('index');
-                Route::post('store', 'store')->name('store');
-                Route::delete('destroy/{landingPageCopan}', 'destroy')->name('destroy');
-            });
-        });
-
         //order
         Route::prefix('order')->name('order.')->group(function () {
             Route::get('/', [OrderController::class, 'all'])->name('all');
@@ -138,7 +128,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/destroy/{attribute}/{productCategory}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('descount')->name('discount.')->group(function () {
+        //discount
+        Route::prefix('discount')->name('discount.')->group(function () {
+
             // amzing sale
             Route::prefix('amazing-sale')->name('amazingSale.')->controller(AmazingSaleController::class)->group(function () {
                 Route::get('', 'index')->name('index');
@@ -148,6 +140,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::put('/{amazingSale}', 'update')->name('update');
                 Route::delete('/{amazingSale}', 'destroy')->name('destroy');
                 Route::get('/changeStatus/{amazingSale}', 'changeStatus')->name('changeStatus');
+            });
+
+            //copans
+            Route::prefix('copan')->name('copan.')->controller(CopanController::class)->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store')->middleware('toEnglishDigits:discount_ceiling,amount');
+                Route::get('/edit/{copan}', 'edit')->name('edit');
+                Route::put('/{copan}', 'update')->name('update')->middleware('toEnglishDigits:discount_ceiling,amount');
+                Route::delete('/{copan}', 'destroy')->name('destroy');
+                Route::get('/changeStatus/{copan}', 'changeStatus')->name('changeStatus');
+            });
+
+            // landing page copans
+            Route::prefix('landing-page-copans')->name('landingPageCopans.')->controller(LandingPageCopans::class)->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::post('store', 'store')->name('store');
+                Route::delete('destroy/{landingPageCopan}', 'destroy')->name('destroy');
             });
         });
     });

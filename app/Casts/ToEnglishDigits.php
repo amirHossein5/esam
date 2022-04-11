@@ -17,7 +17,7 @@ class ToEnglishDigits implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return enToFa($value);
+        return $value;
     }
 
     /**
@@ -31,6 +31,6 @@ class ToEnglishDigits implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return faTOen($value);
+        return $value ? faTOen($value) : null;
     }
 }

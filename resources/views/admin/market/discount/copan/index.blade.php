@@ -25,7 +25,7 @@
                 </section>
 
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="{{ route('admin.market.copan.create') }}" class="btn btn-info btn-sm">ایجاد
+                    <a href="{{ route('admin.market.discount.copan.create') }}" class="btn btn-info btn-sm">ایجاد
                         کپن تخفیف</a>
                 </section>
 
@@ -79,25 +79,25 @@
                         "searchable": false
                     },
                     {
-                        "data": "amount",
+                        "data": "amount_readable",
                         "render": function(data, type, row, meta) {
                             return  data;
                         }
                     },
                     {
-                        "data": "amount_type_accessor",
+                        "data": "amount_type_readable",
                         "render": function(data, type, row, meta) {
                             return  data;
                         }
                     },
                     {
-                        "data": "discount_ceiling",
+                        "data": "discount_ceiling_readable",
                         "render": function(data, type, row, meta) {
-                            return data + ' تومان';
+                            return data ? data + ' تومان' : '-';
                         }
                     },
                     {
-                        "data": "type_accessor",
+                        "data": "type_readable",
                         "render": function(data, type, row, meta) {
                             return strlimit(data , 0, 10);
                         }
@@ -123,7 +123,7 @@
                     {
                         "data": "status",
                         "render": function(data, type, row, meta) {
-                            var route = "{{ route('admin.market.copan.changeStatus', ':id')}}".replace(':id', row.id);
+                            var route = "{{ route('admin.market.discount.copan.changeStatus', ':id')}}".replace(':id', row.id);
                             var tag = `<input type="checkbox" onclick="changeStatus(event)" data-url="${route}"`;
 
                             if(data) {
@@ -136,8 +136,8 @@
                     },
                     {
                         "render": function(data, type, row, meta) {
-                            var editRoute = "{{ route('admin.market.copan.edit', ':id')}}".replace(':id', row.id);
-                            var destroyRoute = "{{ route('admin.market.copan.destroy', ':id') }}".replace(':id', row.id);
+                            var editRoute = "{{ route('admin.market.discount.copan.edit', ':id')}}".replace(':id', row.id);
+                            var destroyRoute = "{{ route('admin.market.discount.copan.destroy', ':id') }}".replace(':id', row.id);
 
                             return `
                                 <section class="text-left">

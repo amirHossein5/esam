@@ -89,5 +89,10 @@ return [
         'start_price'          => 'شروع قیمت',
         'product_id'           => 'محصول',
         'percentage'           => 'درصد',
+        'discount_ceiling'     => 'حداکثر تخفیف',
+        'code'                 => 'کد',
+        'amount_type'          => ' نوع قیمت ',
+        'user_id'              => 'کاربر',
+        'discount_type'        => 'نوع تخفیف',
     ],
 ];

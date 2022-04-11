@@ -128,7 +128,7 @@
                         تخفیف شگفت انگیز
                     </a>
                     <a
-                        href="{{ route('admin.market.discount.copan') }}"
+                        href="{{ route('admin.market.discount.copan.index') }}"
                         class="@if(request()->is('admin/market/discount/copan*')) text-green @endif "
                     >
                         کپن تخفیف

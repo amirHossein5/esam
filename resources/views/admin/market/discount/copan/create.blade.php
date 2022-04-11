@@ -28,11 +28,11 @@
                 </section>
 
                 <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
-                    <a href="{{ route('admin.market.copan.index') }}" class="btn btn-info btn-sm">بازگشت</a>
+                    <a href="{{ route('admin.market.discount.copan.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
                 <section>
-                    <form action="{{ route('admin.market.copan.store') }}" method="post">
+                    <form action="{{ route('admin.market.discount.copan.store') }}" method="post">
                         @csrf
                         <section class="row">
 
@@ -252,6 +252,24 @@
                     $('select.user_id_selection').prop('disabled', true);
                 } else {
                     $('select.user_id_selection').prop('disabled', false);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(function () {
+            amountTypeChanged();
+
+            $('select#amount_type').on('change', function() {
+                amountTypeChanged();
+            });
+
+            function amountTypeChanged() {
+                if ($('select#amount_type').val() === "{{ App\Models\Market\Copan::PRICEUNIT }}") {
+                    $('input[name=discount_ceiling]').prop('disabled', true);
+                } else {
+                    $('input[name=discount_ceiling]').prop('disabled', false);
                 }
             }
         });

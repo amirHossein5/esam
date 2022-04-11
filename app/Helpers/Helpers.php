@@ -68,7 +68,7 @@ function enToFa(string $string)
  */
 function fa_price(string|int|null $price): ?string
 {
-    return $price ? enToFa(number_format($price, 0)) : $price;
+    return $price ? strtr(enToFa(number_format($price, 0)), ['٫' => ',']) : $price;
 }
 
 function is_json(string $string)
