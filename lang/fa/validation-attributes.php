@@ -94,5 +94,6 @@ return [
         'amount_type'          => ' نوع قیمت ',
         'user_id'              => 'کاربر',
         'discount_type'        => 'نوع تخفیف',
+        'copan_id'             => 'کپن',
     ],
 ];

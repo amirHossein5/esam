@@ -22,8 +22,8 @@ return new class extends Migration
                 ->constrained('copans')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }

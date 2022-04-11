@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
@@ -154,10 +155,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
 
             // landing page copans
-            Route::prefix('landing-page-copans')->name('landingPageCopans.')->controller(LandingPageCopans::class)->group(function () {
+            Route::prefix('landing-page-copans')->name('landingPageCopans.')->controller(LandingPageCopanController::class)->group(function () {
                 Route::get('', 'index')->name('index');
-                Route::post('store', 'store')->name('store');
-                Route::delete('destroy/{landingPageCopan}', 'destroy')->name('destroy');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/edit/{landingPageCopan}', 'edit')->name('edit');
+                Route::put('/{landingPageCopan}', 'update')->name('update');
+                Route::delete('/{landingPageCopan}', 'destroy')->name('destroy');
+                Route::get('/changeStatus/{landingPageCopan}', 'changeStatus')->name('changeStatus');
             });
         });
     });

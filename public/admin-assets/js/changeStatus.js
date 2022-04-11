@@ -1,8 +1,9 @@
-function changeStatus(event, caseName = 'وضعیت') {
+function changeStatus(event, caseName = 'وضعیت', showErrorMessage = false) {
     var target = event.target;
     $(target).prop('disabled', true)
     var wasChecked = !$(target).prop('checked');
     var url = $(target).attr('data-url');
+    var event = new CustomEvent("changeStatusResponseReceived");
 
     $.ajax({
         type: 'get',
@@ -18,11 +19,20 @@ function changeStatus(event, caseName = 'وضعیت') {
             var resultText = `${caseName} با موفقیت ${resultText} شد`;
 
             sendSuccessToastAlert(resultText);
+
+            document.dispatchEvent(event);
         },
-        error: function () {
+        error: function (xhr, status, error) {
             $(target).prop('disabled', false)
             $(target).prop('checked', wasChecked);
-            sendErrorToastAlert('مشکلی پیش آمده دوباره امتحان کنید');
+
+            if (showErrorMessage) {
+                sendErrorToastAlert(xhr.responseJSON.message ?? 'مشکلی پیش آمده دوباره امتحان کنید');
+            } else {
+                sendErrorToastAlert('مشکلی پیش آمده دوباره امتحان کنید');
+            }
+
+            document.dispatchEvent(event);
         }
     });
 
