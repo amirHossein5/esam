@@ -95,5 +95,7 @@ return [
         'user_id'              => 'کاربر',
         'discount_type'        => 'نوع تخفیف',
         'copan_id'             => 'کپن',
+        'weight_id'            => 'وزن',
+        'deliveryIsFree'       => 'نحوه ارسال',
     ],
 ];

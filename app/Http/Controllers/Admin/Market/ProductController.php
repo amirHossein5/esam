@@ -17,6 +17,7 @@ use App\Models\Market\Auction;
 use App\Models\Market\ProductAttributeDefaultValue;
 use App\Models\Market\ProductAttributeValue;
 use App\Models\Market\ProductVariantSelectableAttribute;
+use App\Models\Market\ProductWeight;
 use App\Services\Admin\Market\ProductVariantSeeder;
 use App\Services\Admin\Market\ProductVariantService;
 use Mews\Purifier\Facades\Purifier;
@@ -80,6 +81,7 @@ class ProductController extends Controller
         $auction_periods = null;
         $sellTypes = null;
         $selectableValues = null;
+        $productWeights = null;
 
         if (request()->has('productCategory')) {
             $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableValues.selectableAttribute'])
@@ -91,11 +93,12 @@ class ProductController extends Controller
 
             $sellTypes = SellType::get();
             $auction_periods = AuctionPeriod::get();
+            $productWeights = ProductWeight::get();
         } else {
             $productCategories = DB::table('product_categories')->get(['name', 'id']);
         }
 
-        return view('admin.market.product.create', compact('productCategories', 'productCategory', 'sellTypes', 'auction_periods', 'selectableValues'));
+        return view('admin.market.product.create', compact('productCategories', 'productCategory', 'sellTypes', 'auction_periods', 'selectableValues', 'productWeights'));
     }
 
     /**
@@ -110,7 +113,7 @@ class ProductController extends Controller
 
         // prepare product
         $productInputs = collect($request)
-            ->only(['name', 'introduction', 'image', 'marketable', 'tags', 'published_at', 'description', 'sell_type_id', 'productCategory_id', 'has_request_for_discount'])
+            ->only(['name', 'introduction', 'image', 'marketable', 'tags', 'published_at', 'description', 'sell_type_id', 'productCategory_id', 'has_request_for_discount', 'weight_id'])
             ->toArray();
 
         $productInputs['published_at'] = date('Y-m-d H:i:s', substr($productInputs['published_at'], 0, 10));
@@ -127,6 +130,11 @@ class ProductController extends Controller
 
         /** begin transaction */
         DB::beginTransaction();
+
+        if ($request['deliveryIsFree'] == false) {
+            $productInputs['delivery_amount'] = ProductWeight::findOrFail($productInputs['weight_id'])
+                ->delivery_amount;
+        }
 
         $product = Product::create($productInputs);
         $productId = $product->id;
@@ -220,6 +228,7 @@ class ProductController extends Controller
         $product->load('variants.selectableAttributes.attribute', 'sellType', 'attributeValues', 'auction');
         $sellTypes = SellType::get();
         $auction_periods = AuctionPeriod::get();
+        $productWeights = ProductWeight::get();
 
         $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableValues.selectableAttribute'])
             ->findOrFail($product->category_id);
@@ -245,7 +254,7 @@ class ProductController extends Controller
                 ];
             })->toJson();
 
-        return view('admin.market.product.edit', compact('product', 'jsProductVariants', 'productCategory', 'sellTypes', 'auction_periods', 'selectableValues'));
+        return view('admin.market.product.edit', compact('product', 'jsProductVariants', 'productCategory', 'sellTypes', 'auction_periods', 'selectableValues', 'productWeights'));
     }
 
     /**
@@ -261,7 +270,7 @@ class ProductController extends Controller
 
         // prepare product
         $productInputs = collect($request)
-            ->only(['name', 'introduction', 'marketable', 'tags', 'published_at', 'description', 'sell_type_id', 'has_request_for_discount'])
+            ->only(['name', 'introduction', 'marketable', 'tags', 'published_at', 'description', 'sell_type_id', 'has_request_for_discount', 'weight_id'])
             ->toArray();
 
         $productInputs['published_at'] = date('Y-m-d H:i:s', substr($productInputs['published_at'], 0, 10));
@@ -284,6 +293,12 @@ class ProductController extends Controller
         if (isset($productInputs['image'])) {
             $productImage = $product->image;
         }
+
+        if ($request['deliveryIsFree'] == false) {
+            $productInputs['delivery_amount'] = ProductWeight::findOrFail($productInputs['weight_id'])
+                ->delivery_amount;
+        }
+
         $product->update($productInputs);
         $productId = $product->id;
 

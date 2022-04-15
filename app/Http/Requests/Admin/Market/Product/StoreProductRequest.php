@@ -66,6 +66,10 @@ class StoreProductRequest extends FormRequest
             'start_date' => Rule::when($isAuction, 'required|numeric'),
             'urgent_price' => Rule::when($isAuction, 'sometimes|required|numeric|min:1'),
             'reserved_price' => Rule::when($isAuction, 'sometimes|required|numeric|min:1'),
+
+            // delivery
+            'weight_id' => 'required|numeric|exists:product_weights,id',
+            'deliveryIsFree' => 'required|numeric|in:0,1',
         ];
     }
 }

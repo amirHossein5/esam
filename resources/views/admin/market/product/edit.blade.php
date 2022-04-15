@@ -365,12 +365,73 @@
 
                     </section>
 
+                    <h6 class="pt-3 my-3 border-top">نحوه محاسبه هزینه ارسال</h6>
 
-                        <section class="mt-5">
-                            <button class="btn btn-primary btn-sm disable-on-ajax" type="submit">
-                                گالری کالا - مرحله بعد
-                            </button>
-                        </section>
+                    <section>
+
+                        <div class="form-group">
+                            <label for="weight">وزن تقریبی مرسوله</label>
+
+                            <select name="weight_id" id="weight" class="form-control form-control-sm calculate_delivery_amount">
+                                <option value="">انتخاب وزن تقریبی</option>
+
+                                @foreach ($productWeights as $weight)
+                                    <option
+                                        value="{{ $weight->id }}"
+                                        @selected($weight->id == $product->weight_id)
+                                        data-price="{{ $weight->delivery_amount }}"
+                                    >
+                                        {{ $weight->showable }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <div class="my-1 weight_id-error errors font-weight-bold text-danger"></div>
+
+                        </div>
+
+                        <div>
+                            <input
+                                type="radio"
+                                id="deliveryIsFree-0"
+                                name="deliveryIsFree"
+                                class="d-none"
+                                value="0"
+                            />
+                            <label
+                                for="deliveryIsFree-0"
+                                class="btn btn-outline-secondary btn-sm click-btn-secondary  "
+                            >
+                                بعهده خریدار
+                            </label>
+
+                            <input
+                                type="radio"
+                                id="deliveryIsFree-1"
+                                name="deliveryIsFree"
+                                class="d-none"
+                                value="1"
+                            />
+                            <label
+                                for="deliveryIsFree-1"
+                                class="btn btn-outline-secondary btn-sm click-btn-secondary "
+                            >
+                                ارسال رایگان
+                            </label>
+
+                            <div class="my-1 deliveryIsFree-error errors font-weight-bold text-danger"></div>
+                        </div>
+
+                        <p class="font-weight-bold show_delivery_amount">هزینه ارسال: <span>0</span></p>
+
+                    </section>
+
+
+                    <section class="mt-5">
+                        <button class="btn btn-primary btn-sm disable-on-ajax" type="submit">
+                            گالری کالا - مرحله بعد
+                        </button>
+                    </section>
                 </form>
             </section>
 
@@ -411,6 +472,39 @@
 
     <script>
         $(function () {
+           $('.click-btn-secondary').click(function() {
+                $(this).siblings('.click-btn-secondary').removeClass('btn-secondary');
+                $(this).siblings('.click-btn-secondary').removeClass('text-white');
+
+                $(this).removeClass('btn-secondary');
+                $(this).removeClass('text-white');
+
+                $(this).addClass('btn-secondary');
+                $(this).addClass('text-white');
+            });
+
+            $('.calculate_delivery_amount').change(function (){
+                let target = event.currentTarget;
+
+                if ($('#deliveryIsFree-1').prop('checked') == true) {
+                    return true;
+                }
+
+                if ($(target).val()) {
+                    $('.show_delivery_amount span').text($(target).find('option:selected').data('price') + ' تومان');
+                } else {
+                    $('.show_delivery_amount span').text('0');
+                }
+            });
+
+            $('#deliveryIsFree-1').click(function() {
+                $('.show_delivery_amount span').text('رایگان');
+            })
+
+            $('#deliveryIsFree-0').click(function() {
+                $('.calculate_delivery_amount')[0].dispatchEvent(new Event('change'));
+            })
+
             $('.click-btn-info').click(function() {
                 $('.click-btn-info').removeClass('btn-info');
                 $('.click-btn-info').removeClass('text-white');
@@ -434,6 +528,9 @@
         $(function(){
             $('[data-id="{{ $product->sellType->name }}"]')[0].click()
             $($('[data-id="{{ $product->sellType->name }}"]')[0]).addClass('text-white')
+
+            $('[for=deliveryIsFree-{{ $product->deliveryIsFree }}]')[0].click()
+            $($('[for=deliveryIsFree-{{ $product->deliveryIsFree }}]')[0]).addClass('text-white')
         })
     </script>
 

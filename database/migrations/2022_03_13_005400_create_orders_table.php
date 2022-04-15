@@ -20,8 +20,6 @@ return new class extends Migration
             $table->longText('address_object')->nullable();
             $table->foreignId('payment_id')->nullable()->constrained('payments')->onDelete('cascade')->onUpdate('cascade');
             $table->longText('payment_object')->nullable();
-            $table->tinyInteger('payment_type')->default(0);
-            $table->tinyInteger('payment_status')->default(0);
             $table->decimal('delivery_amount', 20, 3)->nullable();
             $table->timestamp('delivery_time');
             $table->decimal('order_final_amount', 20, 3)->nullable();

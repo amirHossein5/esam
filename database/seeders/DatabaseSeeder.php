@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DeliveryTimeSeeder::class);
         $this->call(AuctionPeriodSeeder::class);
         $this->call(PaymentTypeSeeder::class);
+        $this->call(ProductWeightSeeder::class);
         \App\Models\User::factory(2)->create();
     }
 }

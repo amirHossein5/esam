@@ -2,8 +2,10 @@
 
 namespace App\Models\Market;
 
+use App\Casts\ToEnglishMoney;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +25,8 @@ class Product extends Model
         'marketable' => 'boolean',
         'sold_number' => 'integer',
         'frozen_number' => 'integer',
-        'marketable_number' => 'integer'
+        'marketable_number' => 'integer',
+        'delivery_amount' => ToEnglishMoney::class,
     ];
 
     protected $appends = [
@@ -77,6 +80,19 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id');
     }
 
+    public function weight(): BelongsTo
+    {
+        return $this->belongsTo(ProductWeight::class);
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeFreeDelivery(Builder $query): Builder
+    {
+        return $query->where('delivery_amount', 0);
+    }
+
     /**
      * Accessors
      */
@@ -84,6 +100,13 @@ class Product extends Model
     {
         return new Attribute(
             get: fn () => (bool) $this->marketable ? 'هست' : 'نیست'
+        );
+    }
+
+    public function deliveryIsFree(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->delivery_amount == true ? 0 : 1
         );
     }
 }
