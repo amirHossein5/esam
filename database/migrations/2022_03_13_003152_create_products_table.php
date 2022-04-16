@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('has_request_for_discount')->default(0);
             $table->text('tags');
             $table->foreignId('weight_id')->constrained('product_weights')->onDelete('cascade')->onUpdate('cascade');
-            $table->decimal('delivery_amount', 20, 3)->default(0);
+            $table->decimal('delivery_amount', 20, 3)   ->default(0);
             $table->foreignId('category_id')
                 ->constrained('product_categories')
                 ->onDelete('cascade')

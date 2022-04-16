@@ -60,12 +60,6 @@
                 </section>
                 <section class="sidebar-dropdown">
                     <a
-                        href="{{ route('admin.market.order.newOrders') }}"
-                        class="@if(request()->is('admin/market/order/newOrders*')) text-green @endif "
-                    >
-                         جدید
-                    </a>
-                    <a
                         href="{{ route('admin.market.order.sending') }}"
                         class="@if(request()->is('admin/market/order/sending*')) text-green @endif "
                     >
@@ -78,8 +72,8 @@
                         پرداخت نشده
                     </a>
                     <a
-                        href="{{ route('admin.market.order.canceled') }}"
-                        class="@if(request()->is('admin/market/order/canceled*')) text-green @endif "
+                        href="{{ route('admin.market.order.rejected') }}"
+                        class="@if(request()->is('admin/market/order/rejected*')) text-green @endif "
                     >
                         باطل شده
                     </a>
@@ -90,8 +84,8 @@
                         مرجوعی
                     </a>
                     <a
-                        href="{{ route('admin.market.order.all') }}"
-                        class="@if(request()->routeIs('admin.market.order.all')) text-green @endif "
+                        href="{{ route('admin.market.order.index') }}"
+                        class="@if(request()->routeIs('admin.market.order.index')) text-green @endif "
                     >
                         تمام سفارشات
                     </a>

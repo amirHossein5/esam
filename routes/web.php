@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\LandingPageCopans;
+use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -78,17 +79,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //order
-        Route::prefix('order')->name('order.')->group(function () {
-            Route::get('/', [OrderController::class, 'all'])->name('all');
-            Route::get('/new-order', [OrderController::class, 'newOrders'])->name('newOrders');
-            Route::get('/sending', [OrderController::class, 'sending'])->name('sending');
-            Route::get('/unpaid', [OrderController::class, 'unpaid'])->name('unpaid');
-            Route::get('/canceled', [OrderController::class, 'canceled'])->name('canceled');
-            Route::get('/returned', [OrderController::class, 'returned'])->name('returned');
-            Route::get('/show', [OrderController::class, 'show'])->name('show');
-            Route::get('/change-send-status', [OrderController::class, 'changeSellStatus'])->name('changeSellStatus');
-            Route::get('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('changeOrderStatus');
-            Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+        Route::prefix('order')->name('order.')->controller(OrderController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{order}/items', 'orderItems')->name('orderItems');
+            Route::get('/sending', 'sending')->name('sending');
+            Route::get('/unpaid', 'unpaid')->name('unpaid');
+            Route::get('/rejected', 'rejected')->name('rejected');
+            Route::get('/returned', 'returned')->name('returned');
+
+            // change statuses
+            // delivery status
+            Route::get('/order-sent/{order}', 'orderSent')->name('orderSent');
+            Route::get('/order-not-sent/{order}', 'orderNotSent')->name('orderNotSent');
+            Route::get('/order-received/{order}', 'orderReceived')->name('orderReceived');
+            Route::get('/order-is-sending/{order}', 'orderIsSending')->name('orderIsSending');
+
+            // order status
+            Route::get('/not-accepted/{order}', 'notAccepted')->name('notAccepted');
+            Route::get('/accepted/{order}', 'accepted')->name('accepted');
+            Route::get('/waiting-for-accept/{order}', 'waitingForAccept')->name('waitingForAccept');
+
+            // payment status
+            Route::get('/changeStatus/{order}/{status_number}', 'changeStatus')->name('payment.changeStatus');
+
+            Route::get('/{order}', 'show')->name('show');
         });
 
         //payment

@@ -90,7 +90,7 @@
                             values = '';
 
                             data.forEach((value, index) => {
-                                console.log(value);
+                                
                                 if (index > 2) {
                                     values += '...';
                                     return;

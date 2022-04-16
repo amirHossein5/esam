@@ -39,7 +39,7 @@ class PaymentController extends Controller
 
         return $result
             ? response([''])
-            : response();
+            : response([], 500);
     }
 
     // /**

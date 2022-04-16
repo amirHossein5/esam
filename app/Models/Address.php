@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class City extends Model
+class Address extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
 
     public function province(): BelongsTo
     {
