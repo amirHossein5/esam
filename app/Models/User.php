@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,6 +54,14 @@ class User extends Authenticatable
     protected $appends = [
         'fullName'
     ];
+
+    /**
+     * Relations
+     */
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
 
     public function allPermissions(): ?Collection
     {

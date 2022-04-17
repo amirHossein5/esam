@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
-use AmirHossein5\LaravelImage\Facades\Image;
-use App\Http\Requests\Admin\User\StoreCustomerRequest;
-use App\Http\Requests\Admin\User\UpdateCustomerRequest;
 use App\Models\DeliveryTime;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use AmirHossein5\LaravelImage\Facades\Image;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Admin\User\StoreCustomerRequest;
+use App\Http\Requests\Admin\User\UpdateCustomerRequest;
+use App\Notifications\Admin\User\CustomerStoredNotification;
 
 class CustomerController extends Controller
 {
@@ -67,7 +69,11 @@ class CustomerController extends Controller
 
         $delivery_time_id = DeliveryTime::first()->id;
 
-        User::create($request + ['user_type' => 0, 'delivery_time_id' => $delivery_time_id]);
+        $user = User::create($request + ['user_type' => 0, 'delivery_time_id' => $delivery_time_id]);
+
+        Notification::send(User::admins()->get(), new CustomerStoredNotification([
+            "message" => "کاربر جدیدی با نام {$user->fullName} ساخته شد."
+        ]));
 
         return redirect()
             ->route('admin.user.customer.index')

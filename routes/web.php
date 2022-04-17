@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Notify\SMSController;
@@ -50,6 +51,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+
+    Route::put('/notificationsMarkAsSeen/', [NotificationController::class, 'notificationsMarkAsSeen'])
+        ->name('notificationsMarkAsSeen');
 
     // market
     Route::prefix('market')->name('market.')->group(function () {
