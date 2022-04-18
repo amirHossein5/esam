@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'email_verified_at', 'role_id','current_team_id', 'remember_token','delivery_time_id'
+        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'role_id','current_team_id', 'remember_token','delivery_time_id'
     ];
 
     /**
@@ -58,6 +59,11 @@ class User extends Authenticatable
     /**
      * Relations
      */
+    public function otps(): HasMany
+    {
+        return $this->hasMany(Otp::class);
+    }
+
     public function notifications(): MorphMany
     {
         return $this->morphMany(Notification::class, 'notifiable');

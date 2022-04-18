@@ -1,34 +1,35 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Content\BannerController;
-use App\Http\Controllers\Admin\Content\FAQCategoryController;
+use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\PageController;
-use App\Http\Controllers\Admin\Market\AmazingSaleController;
-use App\Http\Controllers\Admin\Market\AttributeController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\CopanController;
-use App\Http\Controllers\Admin\Market\GalleryController;
-use App\Http\Controllers\Admin\Market\LandingPageCopanController;
-use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\OrderController;
-use App\Http\Controllers\Admin\Market\PaymentController;
-use App\Http\Controllers\Admin\Market\ProductCategoryController;
-use App\Http\Controllers\Admin\Market\ProductController;
-use App\Http\Controllers\Admin\Market\SelectableAttributeController;
-use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\Notify\EmailController;
-use App\Http\Controllers\Admin\Notify\EmailFileController;
-use App\Http\Controllers\Admin\Notify\SMSController;
-use App\Http\Controllers\Admin\Setting\SettingController;
-use App\Http\Controllers\Admin\User\AdminUserController;
+use App\Http\Controllers\Customer\Auth\AuthController;
 use App\Http\Controllers\Admin\User\CustomerController;
+use App\Http\Controllers\Admin\Content\BannerController;
+use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\LandingPageCopans;
+use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Admin\User\AdminUserController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\PermissionController;
-use App\Http\Controllers\Admin\User\RoleController;
-use App\Http\Controllers\SupportController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Market\AttributeController;
+use App\Http\Controllers\Admin\Notify\EmailFileController;
+use App\Http\Controllers\Admin\Market\AmazingSaleController;
+use App\Http\Controllers\Admin\Content\FAQCategoryController;
+use App\Http\Controllers\Admin\Market\ProductCategoryController;
+use App\Http\Controllers\Admin\Market\LandingPageCopanController;
+use App\Http\Controllers\Admin\Market\SelectableAttributeController;
+use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -337,37 +338,53 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| App Routes
+| Customer Routes
 |--------------------------------------------------------------------------
 |
 */
 
+// add in customer *****
 Route::get('/', function () {
-    return view('app.index');
-})->name('app.index');
+    return view('customer.index');
+})->name('customer.index');
 
-Route::name('app.service.')->prefix('service')->group(function () {
+Route::name('customer.service.')->prefix('service')->group(function () {
     Route::get('/', function () {
-        return view('app.service.index');
+        return view('customer.service.index');
     })->name('index');
 
     Route::get('/show/10', function () {
-        return view('app.service.show');
+        return view('customer.service.show');
     })->name('index');
 });
 
 Route::name('product.')->group(function () {
     Route::get('item/10/mac', function () {
-        return view('app.products.show');
+        return view('customer.products.show');
     })->name('item');
 
     Route::get('search', function () {
-        return view('app.products.search');
+        return view('customer.products.search');
     })->name('item');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// auth routes
+Route::name('customer.')->group(function () {
 
-require __DIR__ . '/auth.php';
+    Route::prefix('/login-register')->middleware('guest')->name('auth.')->controller(AuthController::class)->group(function () {
+        Route::get('', 'loginRegisterForm')->name('loginRegisterForm');
+        Route::post('', 'loginRegister')->name('loginRegister');
+        Route::get('/{otp:token}', 'confirmationForm')->name('confirmationForm');
+        Route::post('/{otp:token}', 'confirmation')->name('confirmation');
+        Route::get('/resend-code/{otp:token}', 'resendCode')->name('resendCode');
+    });
+    
+});
+
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+// require __DIR__ . '/auth.php';
