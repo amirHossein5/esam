@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
 
 class OtpMail extends Mailable
@@ -29,8 +30,7 @@ class OtpMail extends Mailable
     public function build()
     {
         return $this->subject('کد فعال سازی')
-            ->view('emails.send-otp')
-            ->with([
+            ->markdown('emails.send-otp', [
                 'title' => 'کد فعال سازی'
             ]);
     }
