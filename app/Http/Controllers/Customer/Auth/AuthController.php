@@ -119,4 +119,11 @@ class AuthController extends Controller
         return back()
             ->with('sent', 'با موفقیت دوباره ارسال شد.');
     }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return to_route('customer.index');
+    }
 }

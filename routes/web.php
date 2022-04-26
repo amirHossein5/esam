@@ -371,14 +371,19 @@ Route::name('product.')->group(function () {
 // auth routes
 Route::name('customer.')->group(function () {
 
-    Route::prefix('/login-register')->middleware('guest')->name('auth.')->controller(AuthController::class)->group(function () {
-        Route::get('', 'loginRegisterForm')->name('loginRegisterForm');
-        Route::post('', 'loginRegister')->name('loginRegister');
-        Route::get('/{otp:token}', 'confirmationForm')->name('confirmationForm');
-        Route::post('/{otp:token}', 'confirmation')->name('confirmation');
-        Route::get('/resend-code/{otp:token}', 'resendCode')->name('resendCode');
+    Route::name('auth.')->controller(AuthController::class)->group(function () {
+
+        Route::prefix('/login-register')->middleware('guest')->group(function () {
+            Route::get('', 'loginRegisterForm')->name('loginRegisterForm');
+            Route::post('', 'loginRegister')->name('loginRegister');
+            Route::get('/{otp:token}', 'confirmationForm')->name('confirmationForm');
+            Route::post('/{otp:token}', 'confirmation')->name('confirmation')->middleware('throttle:12');
+            Route::get('/resend-code/{otp:token}', 'resendCode')->name('resendCode');
+        });
+        
+        Route::get('/logout', 'logout')->name('logout');
     });
-    
+
 });
 
 

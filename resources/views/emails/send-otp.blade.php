@@ -1,4 +1,7 @@
-ایسام
 
-## {{ $title }} :
-### {{  $code }}
+@component('mail::message')
+
+# {{ $title }} :
+## {{  $code }}
+
+@endcomponent

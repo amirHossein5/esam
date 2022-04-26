@@ -41,13 +41,19 @@
 
             <section class="left-0 w-56 my-2 bg-white border rounded-md shadow-md top-full dropdown-zone"
                 data-open="false">
-                <div class="border-b">
-                    <a href="" class="block px-3 py-2 text-lg">ورود</a>
-                    <a href="" class="block px-3 py-2 text-lg">ثبت نام</a>
-                </div>
-                <div class="border-b">
-                    <a href="" class="block px-3 py-2 text-lg">ورود</a>
-                    <a href="" class="block px-3 py-2 text-lg">ثبت نام</a>
+                <div class="py-1 border-b">
+                    @guest
+                        <a
+                            href="{{ route('customer.auth.loginRegisterForm') }}"
+                            class="block px-3 py-2 text-base transition hover:bg-gray-100"
+                        >
+                            ورود / ثبت نام
+                        </a>
+                    @endguest
+                    @auth
+                        <a href="" class="block px-3 py-2 text-base transition hover:bg-gray-100">داشبورد</a>
+                        <a href="{{ route('customer.auth.logout') }}" class="block px-3 py-2 text-base transition hover:bg-gray-100">خروج</a>
+                    @endauth
                 </div>
             </section>
         </div>

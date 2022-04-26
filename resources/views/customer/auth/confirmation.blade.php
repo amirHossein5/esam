@@ -11,7 +11,7 @@
                 </section>
                 <section class="login-title">
                     <a href="{{ route('customer.auth.loginRegisterForm') }}" class="btn btn-sm btn-success">برگشت</a>
-                    <a href="{{ route('customer.auth.resendCode', $otp->token) }}" class="btn btn-sm btn-warning">ارسال مجدد کد</a>
+                    <a href="{{ route('customer.auth.resendCode', $otp->token) }}" disabled class="btn btn-sm btn-warning" id="timer">ارسال مجدد کد</a>
                 </section>
                 <section class="login-info">   کد ارسال شده به ایمیل را وارد کنید.</section>
                 <section class="login-input-text">
@@ -39,4 +39,43 @@
 
         </form>
     </section>
+@endsection
+
+@section('scripts')
+
+    <script>
+        function startTimer(duration, display, endText, url) {
+            var timer = duration, minutes, seconds;
+            var interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                $(display).addClass('bg-secondary').addClass('text-white');
+                display.href = '#'
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    display.textContent = endText;
+                    $(display).removeClass('bg-secondary').removeClass('text-white');
+                    display.href = url
+                    clearInterval(interval)
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var durationPerSecond = {{ $otp->updated_at->addMinutes(2)->timestamp - now()->timestamp }},
+                display = document.querySelector('#timer');
+            var endText = $(display).text();
+            var url = display.href;
+
+            if (durationPerSecond > 0) {
+                startTimer(durationPerSecond, display, endText, url);
+            }
+        };
+    </script>
+
 @endsection
