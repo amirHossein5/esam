@@ -6,15 +6,15 @@
 
 @section('content')
     <section class="p-4">
-        <section class="md:flex block gap-6">
+        <section class="block gap-6 md:flex">
             <section class="w-full md:w-3/12">
 
                 {{-- if didn't choose any group --}}
                 <section class="p-3 bg-white border shadow-md">
-                    <div class="border-b pb-3">
+                    <div class="pb-3 border-b">
                         گروه ها
                     </div>
-                    <div class="flex mt-3 flex-col gap-2">
+                    <div class="flex flex-col gap-2 mt-3">
                         <a href="" class="a-hover">
                             مینی کامپیوتر (مینی کیس)
                         </a>
@@ -28,80 +28,64 @@
                 </section>
 
                 {{-- if choosed any category group --}}
-                <section class="px-3 pt-3 pb-0 bg-white drop-list mt-2 border shadow-md" data-open="false">
-                    <div class="cursor-pointer drop-list-click-open border-b pb-3">
+                <section class="px-3 pt-3 pb-0 mt-2 bg-white border shadow-md drop-list" data-open="false">
+                    <div class="pb-3 border-b cursor-pointer drop-list-click-open">
                         <i class="icofont-caret-down"></i>
                         برند
                     </div>
 
-                    <section class="drop-list-zone py-3">
-                        <section class="flex-col gap-3 flex">
+                    <section class="py-3 drop-list-zone">
+                        <section class="flex flex-col gap-3">
                             <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ایسوس</x-label>
-                            </div>
-                            <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ایسوس</x-label>
-                            </div>
-                            <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ایسوس</x-label>
-                            </div>
-                            <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ایسوس</x-label>
-                            </div>
-                            <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ایسوس</x-label>
+                                <x-input type="checkbox" class="p-2 rounded-sm" id="" />
+                                <x-label class="inline mr-1 font-semibold">ایسوس</x-label>
                             </div>
                         </section>
                     </section>
                 </section>
 
 
-                <section class="mt-2 p-3 bg-white border shadow-md">
-                    <div class="border-b pb-3">
+                <section class="p-3 mt-2 bg-white border shadow-md">
+                    <div class="pb-3 border-b">
                         بازه قیمت (تومان)
                     </div>
-                    <div class="flex mt-3 flex-col gap-2">
+                    <div class="flex flex-col gap-2 mt-3">
 
-                        <section class="flex flex-wrap gap-y-4 items-center ">
-                            <section class="w-full sm:w-48 md:w-full flex items-center gap-3 pr-3">
+                        <section class="flex flex-wrap items-center gap-y-4 ">
+                            <section class="flex items-center w-full gap-3 pr-3 sm:w-48 md:w-full">
                                 از
                                 <x-input type="text" class="w-full h-10" />
                             </section>
-                            <section class="w-full sm:w-48 md:w-full flex items-center gap-3  pr-3">
+                            <section class="flex items-center w-full gap-3 pr-3 sm:w-48 md:w-full">
                                 تا
                                 <x-input type="text" class="w-full h-10" />
                             </section>
-                            <section class="w-full sm:w-auto md:w-full flex justify-center pr-3">
-                                <x-button class=" w-20 flex justify-center">
+                            <section class="flex justify-center w-full pr-3 sm:w-auto md:w-full">
+                                <x-button class="flex justify-center w-20 ">
                                     <i class="icofont-filter"></i>
                                 </x-button>
                             </section>
                         </section>
 
-                        <section class="flex py-3 flex-col gap-3 mt-4">
+                        <section class="flex flex-col gap-3 py-3 mt-4">
                             <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold">ارسال رایگان</x-label>
+                                <x-input type="checkbox" class="p-2 rounded-sm" id="free-delivery" />
+                                <x-label class="inline mr-1 font-semibold" for="free-delivery">ارسال رایگان</x-label>
                             </div>
                             <div>
-                                <x-input type="checkbox" class="rounded-sm p-2" />
-                                <x-label class="mr-1 inline font-semibold"> تخفیف دارد </x-label>
+                                <x-input type="checkbox" class="p-2 rounded-sm" id="has-discount" />
+                                <x-label class="inline mr-1 font-semibold" for="has-discount"> تخفیف دارد </x-label>
                             </div>
                         </section>
                     </div>
                 </section>
 
                 {{-- filters --}}
-                <section class="mt-10 flex flex-wrap gap-1">
+                <section class="flex flex-wrap gap-1 mt-10">
 
                     <a href=""
-                        class="flex gap-2 items-center px-4 py-2 bg-gray-800 border rounded-md font-semibold text-xs text-white focus:outline-none focus:ring ring-gray-300 transition ">
-                        <i class="icofont-delete text-red-600 text-2xl"></i>
+                        class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white transition bg-gray-800 border rounded-md focus:outline-none focus:ring ring-gray-300 ">
+                        <i class="text-2xl text-red-600 icofont-delete"></i>
                         <span>
                             برند:
                             اپل - apple
@@ -109,8 +93,8 @@
                     </a>
 
                     <a href=""
-                        class="flex gap-2 items-center px-4 py-2 bg-gray-800 border rounded-md font-semibold text-xs text-white focus:outline-none focus:ring ring-gray-300 transition ">
-                        <i class="icofont-delete text-red-600 text-2xl"></i>
+                        class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white transition bg-gray-800 border rounded-md focus:outline-none focus:ring ring-gray-300 ">
+                        <i class="text-2xl text-red-600 icofont-delete"></i>
                         <span>
                             برند:
                             اپل - apple
@@ -118,8 +102,8 @@
                     </a>
 
                     <a href=""
-                        class="flex gap-2 items-center px-4 py-2 bg-gray-800 border rounded-md font-semibold text-xs text-white focus:outline-none focus:ring ring-gray-300 transition ">
-                        <i class="icofont-delete text-red-600 text-2xl"></i>
+                        class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white transition bg-gray-800 border rounded-md focus:outline-none focus:ring ring-gray-300 ">
+                        <i class="text-2xl text-red-600 icofont-delete"></i>
                         <span>
                             حذف همه فیلتر ها
                         </span>
@@ -129,29 +113,29 @@
             </section>
 
             <section class="w-full md:w-9/12 md:mt-0 mt-7">
-                <section class="p-3 bg-white border flex flex-wrap gap-10 items-center">
+                <section class="flex flex-wrap items-center gap-10 p-3 bg-white border">
                     <section class="flex border">
-                        <button class="border-l py-3 px-6">فروش عادی</button>
-                        <button class="border-l py-3 px-6">مزایده</button>
-                        <button class=" py-3 px-6 bg-blue-300">هردو</button>
+                        <button class="px-6 py-3 border-l">فروش عادی</button>
+                        <button class="px-6 py-3 border-l">مزایده</button>
+                        <button class="px-6 py-3 bg-blue-300 ">هردو</button>
                     </section>
 
                     <section>
                         وضعیت کالا:
-                        <x-select class="w-36 text-sm" dir="rtl">
+                        <x-select class="text-sm w-36" dir="rtl">
                             <option value="">وضعیت کالا</option>
                         </x-select>
                     </section>
 
                     <section>
                         ترتیب:
-                        <x-select class="w-36 text-sm" dir="rtl">
+                        <x-select class="text-sm w-36" dir="rtl">
                             <option value="">بهترین نتیجه</option>
                         </x-select>
                     </section>
                 </section>
 
-                <section class="p-3 bg-white border rounded-md mt-1">
+                <section class="p-3 mt-1 bg-white border rounded-md">
                     <p class="text-red-600 ">تعداد کالاها در این دسته بندی: <span>۱۰</span></p>
                     <p class="mt-1">در:
                         <a href="" class="a-hover">همه گروه ها</a>

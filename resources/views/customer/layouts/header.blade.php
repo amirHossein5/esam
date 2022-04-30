@@ -20,7 +20,7 @@
                 <i class="text-3xl opacity-75 icofont-navigation-menu"></i>
             </div>
 
-            <a href="" class="cursor-pointer h-[inherit]">
+            <a href="{{ route('customer.index') }}" class="cursor-pointer h-[inherit]">
                 <img src="{{ asset('app-assets/images/mdLogo.webp') }}" class="max-h-full" alt="logo">
             </a>
         </div>
@@ -35,28 +35,37 @@
             </form>
         </div>
 
-        <div class="relative gap-3 p-2 rounded-md cursor-pointer bg-slate-gray md:p-3 dropdown">
-            <i class="icofont-ui-user"></i>
-            <i class="icofont-simple-down"></i>
+        <section class="flex gap-2">
 
-            <section class="left-0 w-56 my-2 bg-white border rounded-md shadow-md top-full dropdown-zone"
-                data-open="false">
-                <div class="py-1 border-b">
-                    @guest
-                        <a
-                            href="{{ route('customer.auth.loginRegisterForm') }}"
-                            class="block px-3 py-2 text-base transition hover:bg-gray-100"
-                        >
-                            ورود / ثبت نام
-                        </a>
-                    @endguest
-                    @auth
-                        <a href="" class="block px-3 py-2 text-base transition hover:bg-gray-100">داشبورد</a>
-                        <a href="{{ route('customer.auth.logout') }}" class="block px-3 py-2 text-base transition hover:bg-gray-100">خروج</a>
-                    @endauth
-                </div>
-            </section>
-        </div>
+            <div class="relative gap-3 p-2 rounded-md cursor-pointer bg-slate-gray md:p-3 dropdown">
+                <i class="icofont-ui-user"></i>
+                <i class="icofont-simple-down"></i>
+
+                <section class="left-0 w-56 my-2 bg-white border rounded-md shadow-md top-full dropdown-zone"
+                    data-open="false">
+                    <div class="py-1 border-b">
+                        @guest
+                            <a
+                                href="{{ route('customer.auth.loginRegisterForm') }}"
+                                class="block px-3 py-2 text-base transition hover:bg-gray-100"
+                            >
+                                ورود / ثبت نام
+                            </a>
+                        @endguest
+                        @auth
+                            <a href="{{ route('customer.dashboard.index') }}" class="block px-3 py-2 text-base transition hover:bg-gray-100">داشبورد</a>
+                            <a href="{{ route('customer.auth.logout') }}" class="block px-3 py-2 text-base transition hover:bg-gray-100">خروج</a>
+                        @endauth
+                    </div>
+                </section>
+            </div>
+
+            <a href="{{ route('customer.cart.index') }}" class="flex flex-row-reverse justify-center p-2 rounded-md cursor-pointer relative bg-slate-gray md:p-3">
+                <i class="icofont-cart-alt text-2xl"></i>
+                <span class="bg-red-600 text-gray-200 font-bold relative flex items-center top-1 px-2 rounded-full">6</span>
+            </a>
+        </section>
+
     </section>
 
     <section class="menu fixed w-64 sm:w-72 md:w-96 border-l top-0 h-screen bg-white hidden -mr-[100%] z-[100]">

@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
+use App\Http\Controllers\Customer\Dashboard\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -343,34 +344,56 @@ Route::prefix('admin')->name('admin.')->group(function () {
 |
 */
 
-// add in customer *****
-Route::get('/', function () {
-    return view('customer.index');
-})->name('customer.index');
 
-Route::name('customer.service.')->prefix('service')->group(function () {
-    Route::get('/', function () {
-        return view('customer.service.index');
-    })->name('index');
-
-    Route::get('/show/10', function () {
-        return view('customer.service.show');
-    })->name('index');
-});
-
-Route::name('product.')->group(function () {
-    Route::get('item/10/mac', function () {
-        return view('customer.products.show');
-    })->name('item');
-
-    Route::get('search', function () {
-        return view('customer.products.search');
-    })->name('item');
-});
-
-// auth routes
 Route::name('customer.')->group(function () {
 
+    Route::get('/', function () {
+        return view('customer.index');
+    })->name('index');
+
+    Route::name('service.')->prefix('service')->group(function () {
+        Route::get('/', function () {
+            return view('customer.service.index');
+        })->name('index');
+
+        Route::get('/show/10', function () {
+            return view('customer.service.show');
+        })->name('index');
+    });
+
+    Route::name('product.')->group(function () {
+        Route::get('item/10/mac', function () {
+            return view('customer.products.show');
+        })->name('item');
+
+        Route::get('search', function () {
+            return view('customer.products.search');
+        })->name('item');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::prefix('cart')->name('cart.')->group(function () {
+            Route::view('/', 'customer.cart')->name('index');
+        });
+
+        Route::prefix('payment')->name('payment.')->group(function () {
+            Route::view('/address', 'customer.payment.address')->name('address');
+            Route::view('/', 'customer.payment.payment')->name('payment');
+        });
+
+        // customer dashboard
+        Route::prefix('/dashboard')->name('dashboard.')->controller(DashboardController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+
+            Route::get('/my-orders', 'myOrders')->name('myOrders');
+            Route::get('/my-addresses', 'myAddresses')->name('myAddresses');
+            Route::get('/favorites', 'favorites')->name('favorites');
+            Route::get('/account', 'account')->name('account');
+        });
+    });
+
+
+    // auth routes
     Route::name('auth.')->controller(AuthController::class)->group(function () {
 
         Route::prefix('/login-register')->middleware('guest')->group(function () {
@@ -380,10 +403,9 @@ Route::name('customer.')->group(function () {
             Route::post('/{otp:token}', 'confirmation')->name('confirmation')->middleware('throttle:12');
             Route::get('/resend-code/{otp:token}', 'resendCode')->name('resendCode');
         });
-        
-        Route::get('/logout', 'logout')->name('logout');
-    });
 
+        Route::get('/logout', 'logout')->name('logout')->middleware('auth');
+    });
 });
 
 

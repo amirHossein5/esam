@@ -96,8 +96,12 @@ class AuthController extends Controller
         $otp->user->update(['email_verified_at' => now()]);
         auth()->login($otp->user);
         $otp->delete();
+        $session = session('url.intended');
+        session()->forget('url');
 
-        return redirect()->route('customer.index');
+        return $session
+            ? redirect($session)
+            : redirect()->route('customer.index');
     }
 
     public function resendCode(Otp $otp): RedirectResponse
