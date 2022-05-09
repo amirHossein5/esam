@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_favorite_products', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')
-                ->constrained('products')
-                ->cascadeOnDelete()->cascadeOnUpdate();
-
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->decimal('cash', 20, 3)->default(0);
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_favorite_products');
+        Schema::table('users', function (Blueprint $table) {
+            $table->removeColumn('cash');
+        });
     }
 };

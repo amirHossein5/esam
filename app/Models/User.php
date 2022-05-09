@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Casts\ToEnglishMoney;
+use App\Models\Market\Order;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,7 +28,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'role_id','current_team_id', 'remember_token','delivery_time_id'
+        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'role_id', 'current_team_id', 'remember_token', 'delivery_time_id'
     ];
 
     /**
@@ -45,6 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'cash' => ToEnglishMoney::class,
     ];
 
     /**
@@ -62,6 +66,16 @@ class User extends Authenticatable
     public function otps(): HasMany
     {
         return $this->hasMany(Otp::class);
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function notifications(): MorphMany
@@ -88,12 +102,24 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
+    public function favoriteProducts(): HasMany
+    {
+        return $this->hasMany(UserFavoriteProduct::class);
+    }
+
     /**
      * Accessors
      */
     public function getFullNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function cashReadable(): Attribute
+    {
+        return new Attribute(
+            get: fn () => fa_price($this->cash)
+        );
     }
 
     /**

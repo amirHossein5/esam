@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('disposable_codes', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
+        Schema::table('user_favorite_products', function (Blueprint $table) {
             $table->foreignId('user_id')
                 ->constrained('users')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamp('created_at')->nullable();
+                ->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -30,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disposable_codes');
+        Schema::table('user_favorite_products', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('user_id');
+        });
     }
 };

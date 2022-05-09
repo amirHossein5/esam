@@ -22,7 +22,7 @@
 
             @include('customer.layouts.discount')
 
-            <section class="gap-4 flex flex-col md:flex-row">
+            <section class="flex flex-col gap-4 md:flex-row">
 
                 @include('customer.dashboard.layouts.side')
 
@@ -39,6 +39,7 @@
     </section>
 
     @include('customer.layouts.script')
+    @include('alerts.sweetalert.all')
 
     @yield('scripts')
     @stack('scripts')

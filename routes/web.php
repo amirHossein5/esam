@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
 use App\Http\Controllers\Customer\Dashboard\DashboardController;
+use App\Http\Controllers\Customer\Dashboard\MyAddressesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -384,11 +385,23 @@ Route::name('customer.')->group(function () {
         // customer dashboard
         Route::prefix('/dashboard')->name('dashboard.')->controller(DashboardController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::put('enhance-cash', 'enhanceCash')->name('enhanceCash')->middleware('toEnglishDigits:cash');
 
             Route::get('/my-orders', 'myOrders')->name('myOrders');
-            Route::get('/my-addresses', 'myAddresses')->name('myAddresses');
+
+            Route::prefix('/my-addresses')->name('myAddresses.')->controller(MyAddressesController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/cityOfProvince/{province}', 'cityOfProvince')->name('cityOfProvince');
+                Route::post('store/', 'store')->name('store')->middleware('toEnglishDigits:postal_code,no,unit,mobile');
+                Route::get('/edit/{address}', 'edit')->name('edit');
+                Route::put('update/{address}', 'update')->name('update')->middleware('toEnglishDigits:postal_code,no,unit,mobile');
+                Route::delete('destroy/{address}', 'destroy')->name('destroy');
+            });
+
             Route::get('/favorites', 'favorites')->name('favorites');
+            Route::delete('/favorite/{userFavoriteProduct}', 'destroyFavorite')->name('destroyFavorite');
             Route::get('/account', 'account')->name('account');
+            Route::put('/editAccount', 'editAccount')->name('editAccount')->middleware('toEnglishDigits:mobile');
         });
     });
 

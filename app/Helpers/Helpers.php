@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 function toCarbon(string $time, string $format = 'Y-m-d H:i:s'): Carbon\Carbon
 {
@@ -147,4 +148,17 @@ function data_set_closure(mixed &$target, string|array $key, mixed $value, bool 
     }
 
     return $target;
+}
+
+/**
+ * Limit the number of characters in a string.
+ *
+ * @param  string  $value
+ * @param  int  $limit
+ * @param  string  $end
+ * @return string
+ */
+function strlimit(string $value, int $limit = 100, string $end = '...'): string
+{
+    return Str::limit($value, $limit, $end);
 }

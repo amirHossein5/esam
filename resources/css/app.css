@@ -25,12 +25,16 @@
 }
 
 @layer components {
+    .error{
+        @apply mt-4 text-xs font-bold text-red-600;
+    }
+
     .a-hover {
-        @apply hover:text-orange-700 transition-all;
+        @apply transition-all hover:text-orange-700;
     }
 
     .bg-hover {
-        @apply hover:bg-orange-200 transition-all;
+        @apply transition-all hover:bg-orange-200;
     }
 
     .bg-slate-gray {
@@ -38,11 +42,11 @@
     }
 
     .dropdown-zone {
-        @apply absolute hidden z-50;
+        @apply absolute z-50 hidden;
     }
 
     .title {
-        @apply text-red-600 text-xl md:text-2xl font-bold py-4;
+        @apply py-4 text-xl font-bold text-red-600 md:text-2xl;
     }
 
     .rtl {

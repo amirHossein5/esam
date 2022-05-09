@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Customer\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryTime;
+use App\Models\Market\Order;
+use App\Models\User;
+use App\Models\UserFavoriteProduct;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DashboardController extends Controller
 {
@@ -18,13 +23,19 @@ class DashboardController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Increases cash of user.
      *
      * @return \Illuminate\Http\Response
      */
-    public function myOrders()
+    public function enhanceCash(Request $request)
     {
-        return view('customer.dashboard.my-orders');
+        $request = $request->validate([
+            'cash' => 'required|numeric|min:100'
+        ]);
+
+        User::where('id', auth()->id())->increment('cash', $request['cash']);
+
+        return back()->with('sweetalert-mixin-success', 'با موفقیت افزوده شد');
     }
 
     /**
@@ -32,9 +43,13 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function myAddresses()
+    public function myOrders()
     {
-        return view('customer.dashboard.my-addresses');
+        $orders = Order::where('user_id', auth()->id())
+            ->with('items.product')
+            ->paginate(6);
+
+        return view('customer.dashboard.my-orders', compact('orders'));
     }
 
     /**
@@ -44,7 +59,23 @@ class DashboardController extends Controller
      */
     public function favorites()
     {
-        return view('customer.dashboard.favorites');
+        $favoriteProducts = auth()->user()->favoriteProducts;
+
+        return view('customer.dashboard.favorites', compact('favoriteProducts'));
+    }
+
+    /**
+     * Destroy a specific item.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyFavorite(UserFavoriteProduct $userFavoriteProduct)
+    {
+        //gate
+
+        $userFavoriteProduct->delete();
+
+        return back()->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
     }
 
     /**
@@ -54,6 +85,30 @@ class DashboardController extends Controller
      */
     public function account()
     {
-        return view('customer.dashboard.account');
+        $delievryTimes = DeliveryTime::all();
+
+        return view('customer.dashboard.account', compact('delievryTimes'));
+    }
+
+    /**
+     * Update a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editAccount(Request $request)
+    {
+        $request = $request->validate([
+            'first_name' => 'nullable|min:2|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
+            'last_name' => 'nullable|min:2|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
+            'mobile' => 'nullable|numeric',
+            'delivery_time_id' => 'required|numeric|exists:delivery_times,id',
+            'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->id()), 'email'],
+        ]);
+
+        User::where('id', auth()->id())
+            ->update($request);
+
+        return back()
+            ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
     }
 }
