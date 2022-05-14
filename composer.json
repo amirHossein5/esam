@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "amir-hossein5/laravel-image": "^2.1",
+        "amir-hossein5/request-translator": "^1.0",
         "cesargb/laravel-cascade-delete": "^1.3",
         "cviebrock/eloquent-sluggable": "^9.0",
         "doctrine/dbal": "^3.3",

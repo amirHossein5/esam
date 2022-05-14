@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbff28f2e3614abff7d039853a8e449f",
+    "content-hash": "a89e94c8abe2ebcf1dae257054e2174d",
     "packages": [
         {
             "name": "amir-hossein5/laravel-image",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amirHossein5/laravel-image.git",
-                "reference": "81f65844afc7fc000e3758a59cdea6eb1a632217"
+                "reference": "70cfd2206ad56284db0af1e69348a7a4d46d1410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amirHossein5/laravel-image/zipball/81f65844afc7fc000e3758a59cdea6eb1a632217",
-                "reference": "81f65844afc7fc000e3758a59cdea6eb1a632217",
+                "url": "https://api.github.com/repos/amirHossein5/laravel-image/zipball/70cfd2206ad56284db0af1e69348a7a4d46d1410",
+                "reference": "70cfd2206ad56284db0af1e69348a7a4d46d1410",
                 "shasum": ""
             },
             "require": {
@@ -53,9 +53,58 @@
             ],
             "support": {
                 "issues": "https://github.com/amirHossein5/laravel-image/issues",
-                "source": "https://github.com/amirHossein5/laravel-image/tree/v2.1.1"
+                "source": "https://github.com/amirHossein5/laravel-image/tree/v2.2.0"
             },
-            "time": "2022-03-21T15:20:57+00:00"
+            "time": "2022-05-09T13:57:36+00:00"
+        },
+        {
+            "name": "amir-hossein5/request-translator",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amirHossein5/request-translator.git",
+                "reference": "e3cdc89483745fe60958ea9c57aeff105c60b0eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amirHossein5/request-translator/zipball/e3cdc89483745fe60958ea9c57aeff105c60b0eb",
+                "reference": "e3cdc89483745fe60958ea9c57aeff105c60b0eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AmirHossein5\\RequestTranslator\\TranslatorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AmirHossein5\\RequestTranslator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "amirHossein5",
+                    "email": "adada5116@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/amirHossein5/request-translator/issues",
+                "source": "https://github.com/amirHossein5/request-translator/tree/v1.0.0"
+            },
+            "time": "2022-05-13T14:29:50+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -9196,5 +9245,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
