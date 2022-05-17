@@ -56,6 +56,11 @@
                 </div>
             @endforelse
 
+
+            <section class="flex justify-center my-4">
+                {{ $favoriteProducts->links() }}
+            </section>
+
         </section>
     </section>
 @endsection

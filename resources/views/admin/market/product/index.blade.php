@@ -25,7 +25,7 @@
                     </h5>
                 </section>
 
-                <section class="d-flex align-items-center mt-4 mb-3 border-bottom pb-2">
+                <section class="pb-2 mt-4 mb-3 d-flex align-items-center border-bottom">
                     <a href="{{ route('admin.market.product.create') }}" class="btn btn-info btn-sm">ایجاد کالای جدید </a>
                     <a href="{{ route('admin.market.product.archive') }}" class="mx-2">
                         <u>آرشیو</u>
@@ -42,7 +42,7 @@
                                 <th> قابل فروش</th>
                                 <th> تصویر کالا</th>
                                 <th>دسته </th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,7 +102,7 @@
                         "render": function(data, type, row, meta) {
                             if (data) {
                                 var assetRoute = "{{ asset(':asset') }}"
-                                    .replace(':asset', data.index.medium);
+                                    .replace(':asset', data.index);
                             }
                             return `<img src="${assetRoute}" class="max-height-2rem">`;
                         },
@@ -136,18 +136,18 @@
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a href="${galleryRoute}" class="dropdown-item text-right"><i class="fa fa-images"></i>
+                                            <a href="${galleryRoute}" class="text-right dropdown-item"><i class="fa fa-images"></i>
                                                 گالری
                                             </a>
-                                            <a href="${changeMarketableRoute}" class="dropdown-item text-right">
+                                            <a href="${changeMarketableRoute}" class="text-right dropdown-item">
                                                 <i class="fa fa-list-ul"></i>
                                                 تغییر امکان فروش
                                             </a>
-                                            <a href="" class="dropdown-item text-right">
+                                            <a href="" class="text-right dropdown-item">
                                                 <i class="fa fa-list-ul"></i>
                                                 مشاهده
                                             </a>
-                                            <a href="${editRoute}" class="dropdown-item text-right">
+                                            <a href="${editRoute}" class="text-right dropdown-item">
                                                 <i class="fa fa-edit"></i>
                                                 ویرایش
                                             </a>
@@ -155,7 +155,7 @@
                                                 @csrf @method('delete')
                                                 <button
                                                     type="submit"
-                                                    class="dropdown-item text-right"
+                                                    class="text-right dropdown-item"
                                                     onclick="confirm(event)"
                                                 >
                                                     <i class="fa fa-window-close"></i>

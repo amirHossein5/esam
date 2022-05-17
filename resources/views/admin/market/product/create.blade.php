@@ -170,7 +170,7 @@
 
                         <section class="mt-2 mb-4 col-12" style="font-size: .875rem">
                             زمان ارسال:
-                            <span>تا ۴۸ ساعت کاری</span>
+                            <span>تا {{ auth()->user()->deliveryTime->time }} کاری</span>
                             <p class="mt-1 text-success">جهت تغییر زمان ارسال با مراجعه به پروفایل کاربری تنظیمات زمان ارسال را تغییر دهید.</p>
                         </section>
 

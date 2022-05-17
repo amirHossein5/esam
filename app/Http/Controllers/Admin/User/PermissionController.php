@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionController extends Controller
 {
@@ -19,6 +20,10 @@ class PermissionController extends Controller
      */
     public function edit(User $admin)
     {
+        if (!$admin->isAdmin()) {
+            return abort(Response::HTTP_UNAUTHORIZED);
+        }
+        
         $permissions = DB::table('permissions')->get();
 
         return view('admin.user.admin-user.permissions', compact('permissions', 'admin'));
@@ -33,6 +38,10 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, User $admin)
     {
+        if (!$admin->isAdmin()) {
+            return abort(Response::HTTP_UNAUTHORIZED);
+        }
+
         DB::transaction(function () use ($request, $admin) {
             if (! $request->has('permissions')) {
                 $admin->update(['role_id' => null]);

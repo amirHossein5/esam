@@ -35,7 +35,7 @@
                         <i class="text-lg icofont-clock-time"></i>
 
                         <div class="text-gray-600">
-                            {{ $order->payment->statusReadable }}
+                            {{ $order->payment?->status_readable }}
                         </div>
                     </div>
 
@@ -76,7 +76,10 @@
                 </div>
             @endforelse
 
-            {{ $orders->links() }}
+
+            <section class="flex justify-center my-4">
+                {{ $orders->links() }}
+            </section>
         </section>
     </section>
 @endsection

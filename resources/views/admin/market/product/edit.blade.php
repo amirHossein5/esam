@@ -62,7 +62,7 @@
                                 <input type="file" id="image" name="image" class="form-control form-control-sm">
 
                                 <div class="my-1">
-                                    <img src="{{ asset($product->image['index']['medium']) }}" width="50" height="50" alt="">
+                                    <img src="{{ asset($product->image['index']) }}" width="50" height="50" alt="">
                                 </div>
 
                                 <div class="my-1 image-error errors font-weight-bold text-danger"></div>
@@ -158,7 +158,7 @@
 
                         <section class="mt-2 mb-4 col-12" style="font-size: .875rem">
                             زمان ارسال:
-                            <span>تا {{ '48' }} ساعت کاری</span>
+                            <span>تا {{ auth()->user()->deliveryTime->time }} کاری</span>
                             <p class="mt-1 text-success">جهت تغییر زمان ارسال با مراجعه به پروفایل کاربری تنظیمات زمان ارسال را تغییر دهید.</p>
                         </section>
 
@@ -171,7 +171,7 @@
 
                                     <label for="has_request_for_discount">تخفیف هم میدهم</label>
 
-                                    <div class="my-1 has_request_for_discount-error errors  font-weight-bold text-danger"></div>
+                                    <div class="my-1 has_request_for_discount-error errors font-weight-bold text-danger"></div>
                                 </div>
                             </section>
 
@@ -285,7 +285,7 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="start_price">شروع قیمت از   (تومان)</label>
-                                    <input type="text" id="start_price" name="start_price" value="{{ $product->auction?->start_price_readable }}"  class="form-control form-control-sm">
+                                    <input type="text" id="start_price" name="start_price" value="{{ $product->auction?->start_price_readable }}" class="form-control form-control-sm">
 
                                     <div class="my-1 start_price-error errors font-weight-bold text-danger"></div>
 
@@ -400,7 +400,7 @@
                             />
                             <label
                                 for="deliveryIsFree-0"
-                                class="btn btn-outline-secondary btn-sm click-btn-secondary  "
+                                class="btn btn-outline-secondary btn-sm click-btn-secondary "
                             >
                                 بعهده خریدار
                             </label>

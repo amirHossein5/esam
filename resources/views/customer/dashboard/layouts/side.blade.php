@@ -2,6 +2,11 @@
     <section class="sticky flex flex-col gap-3 top-2">
 
         <section class="p-2 bg-white border rounded-md shadow-lg">
+            <a href="{{ route('customer.dashboard.products.index') }}"
+                class="block text-gray-600 transition border-b p-7 hover:bg-gray-200 last:border-b-0">
+                کالاها
+            </a>
+
             <a href="{{ route('customer.dashboard.myOrders') }}"
                 class="block text-gray-600 transition border-b p-7 hover:bg-gray-200 last:border-b-0">
                 سفارش های من

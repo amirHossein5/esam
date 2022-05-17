@@ -16,9 +16,11 @@ use App\Http\Controllers\Customer\Auth\AuthController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Customer\Dashboard\GalleryController as DashboardGalleryController;
 use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Customer\Dashboard\ProductController as DashboardProductController;
 use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\PermissionController;
@@ -124,10 +126,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store')
-                ->middleware(['json_decode:productVariants,true', 'toEnglishDigits:productVariants.*.price,productVariants.*.number,number,price,start_price,urgent_price,reserved_price']);
+                ->middleware(['json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product']);
             Route::get('/edit/{product}', 'edit')->name('edit');
             Route::put('/{product}', 'update')->name('update')
-                ->middleware(['json_decode:productVariants,true', 'toEnglishDigits:productVariants.*.price,productVariants.*.number,number,price,start_price,urgent_price,reserved_price']);
+                ->middleware(['json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product']);
             Route::put('/restore/{id}', 'restore')->name('restore');
             Route::delete('/destroy/{product}', 'destroy')->name('destroy');
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
@@ -385,23 +387,46 @@ Route::name('customer.')->group(function () {
         // customer dashboard
         Route::prefix('/dashboard')->name('dashboard.')->controller(DashboardController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::put('enhance-cash', 'enhanceCash')->name('enhanceCash')->middleware('toEnglishDigits:cash');
+            Route::put('enhance-cash', 'enhanceCash')->name('enhanceCash')
+                ->middleware('translate_from:money_translation.php', 'translate:cash');
 
             Route::get('/my-orders', 'myOrders')->name('myOrders');
 
             Route::prefix('/my-addresses')->name('myAddresses.')->controller(MyAddressesController::class)->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/cityOfProvince/{province}', 'cityOfProvince')->name('cityOfProvince');
-                Route::post('store/', 'store')->name('store')->middleware('toEnglishDigits:postal_code,no,unit,mobile');
+                Route::post('store/', 'store')->name('store')->middleware('translate:postal_code,no,unit,mobile');
                 Route::get('/edit/{address}', 'edit')->name('edit');
-                Route::put('update/{address}', 'update')->name('update')->middleware('toEnglishDigits:postal_code,no,unit,mobile');
+                Route::put('update/{address}', 'update')->name('update')->middleware('translate:postal_code,no,unit,mobile');
                 Route::delete('destroy/{address}', 'destroy')->name('destroy');
+            });
+
+            Route::prefix('products')->name('products.')->controller(DashboardProductController::class)->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store')
+                    ->middleware([
+                        'json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product'
+                    ]);
+                Route::get('/edit/{product}', 'edit')->name('edit');
+                Route::put('/{product}', 'update')->name('update')
+                    ->middleware([
+                        'json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product'
+                    ]);
+                Route::delete('{product}', 'destroy')->name('destroy');
+
+                //gallery
+                Route::prefix('{product}')->name('gallery.')->controller(DashboardGalleryController::class)->group(function () {
+                    Route::get('/gallery', 'index')->name('index');
+                    Route::post('/gallery/store', 'store')->name('store');
+                    Route::delete('/gallery/{gallery}/destroy', 'destroy')->name('destroy');
+                });
             });
 
             Route::get('/favorites', 'favorites')->name('favorites');
             Route::delete('/favorite/{userFavoriteProduct}', 'destroyFavorite')->name('destroyFavorite');
             Route::get('/account', 'account')->name('account');
-            Route::put('/editAccount', 'editAccount')->name('editAccount')->middleware('toEnglishDigits:mobile');
+            Route::put('/editAccount', 'editAccount')->name('editAccount')->middleware('translate:mobile');
         });
     });
 

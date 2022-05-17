@@ -59,7 +59,7 @@ class DashboardController extends Controller
      */
     public function favorites()
     {
-        $favoriteProducts = auth()->user()->favoriteProducts;
+        $favoriteProducts = auth()->user()->favoriteProducts()->paginate(6);
 
         return view('customer.dashboard.favorites', compact('favoriteProducts'));
     }
@@ -100,7 +100,7 @@ class DashboardController extends Controller
         $request = $request->validate([
             'first_name' => 'nullable|min:2|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
             'last_name' => 'nullable|min:2|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
-            'mobile' => 'nullable|numeric',
+            'mobile' => ['nullable', 'numeric', Rule::unique('users', 'mobile')->ignore(auth()->id())],
             'delivery_time_id' => 'required|numeric|exists:delivery_times,id',
             'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->id()), 'email'],
         ]);

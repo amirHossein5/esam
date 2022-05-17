@@ -37,7 +37,11 @@ class AmazingSaleController extends Controller
      */
     public function create()
     {
-        $products = DB::table('products')->get(['name', 'id']);
+        $auctions = DB::table('auctions')->get(['id'])->pluck('product_id')->toArray();
+        $products = DB::table('products')
+            ->get(['name', 'id'])
+            ->reject(fn ($product) => in_array($product->id, $auctions));
+
 
         return view('admin.market.discount.amazing-sale.create', compact('products'));
     }
@@ -72,7 +76,11 @@ class AmazingSaleController extends Controller
      */
     public function edit(AmazingSale $amazingSale)
     {
-        $products = DB::table('products')->get(['name', 'id']);
+        $auctions = DB::table('auctions')->get(['product_id', 'id'])->pluck('product_id')->toArray();
+        $products = DB::table('products')
+            ->get(['name', 'id'])
+            ->reject(fn ($product) => in_array($product->id, $auctions));
+
 
         return view('admin.market.discount.amazing-sale.edit', compact('amazingSale', 'products'));
     }

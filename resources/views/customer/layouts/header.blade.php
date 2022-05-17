@@ -8,7 +8,7 @@
             </div>
 
             <div class="absolute hidden md:block left-1 top-3 ">
-                <a class="px-4 py-2 text-gray-600 bg-blue-300 rounded-md">فروش کالا</a>
+                <a href="{{ route('customer.dashboard.products.create') }}" class="px-4 py-2 text-gray-600 bg-blue-300 rounded-md">فروش کالا</a>
             </div>
         </section>
     </section>

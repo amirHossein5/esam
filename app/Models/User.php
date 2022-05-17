@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\ToEnglishMoney;
 use App\Models\Market\Order;
+use App\Models\Market\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -60,12 +61,27 @@ class User extends Authenticatable
         'fullName'
     ];
 
+    public function isAdmin(): bool
+    {
+        return $this->user_type === 1;
+    }
+
     /**
      * Relations
      */
     public function otps(): HasMany
     {
         return $this->hasMany(Otp::class);
+    }
+
+    public function deliveryTime(): BelongsTo
+    {
+        return $this->belongsTo(DeliveryTime::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 
     public function addresses(): HasMany

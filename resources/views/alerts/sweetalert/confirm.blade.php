@@ -1,11 +1,11 @@
 <script>
-    function confirm(event, message = 'به آرشیو منتقل خواهد شد.') {
+    function confirm(event, message = 'به آرشیو منتقل خواهد شد.', confirmButtonClass = 'btn btn-success', cancelButtonClass = 'btn btn-danger') {
         event.preventDefault();
 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-success mr-1',
-                cancelButton: 'btn btn-danger'
+                confirmButton: confirmButtonClass + ' mr-1',
+                cancelButton: cancelButtonClass
             },
             buttonsStyling: false
         })

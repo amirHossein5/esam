@@ -25,12 +25,13 @@ class GalleryController extends Controller
             foreach ($request->file('images') as $uploadedImage) {
                 $image = Image::make($uploadedImage)
                     ->setExclusiveDirectory('product')
+                    ->autoResize()
                     ->save();
 
                 if (!$image) {
                     return $this->imageError();
                 }
-                
+
                 $product->galleries()->create(['image' => $image]);
             }
         }

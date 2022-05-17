@@ -50,6 +50,11 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function amazingSale(): HasOne
+    {
+        return $this->hasOne(AmazingSale::class);
+    }
+
     public function productCategory(): BelongsTo
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
@@ -107,6 +112,13 @@ class Product extends Model
     {
         return new Attribute(
             get: fn () => $this->delivery_amount == true ? 0 : 1
+        );
+    }
+
+    public function deliveryAmountReadable(): Attribute
+    {
+        return new Attribute(
+            get: fn () => fa_price($this->delivery_amount)
         );
     }
 }

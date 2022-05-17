@@ -23,6 +23,13 @@ class AmazingSale extends Model
         'end_date_jalali',
     ];
 
+    /**
+     * Carbon dates
+     *
+     * @var array
+     */
+    protected $dates = ['end_date', 'start_date',];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

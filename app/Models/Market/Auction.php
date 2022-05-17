@@ -4,10 +4,14 @@ namespace App\Models\Market;
 
 use App\Casts\ToEnglishMoney;
 use App\Models\AuctionPeriod;
+use App\Models\AuctionSuggestion;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Auction extends Model
 {
@@ -29,6 +33,16 @@ class Auction extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'auction_follower');
+    }
+
+    public function suggestions(): HasMany
+    {
+        return $this->hasMany(AuctionSuggestion::class, );
     }
 
     public function period(): BelongsTo

@@ -1,6 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "./tailwind-bootstrap.css";
 
 @font-face {
     font-family: iranSans;
@@ -19,12 +20,25 @@
         cursor: pointer;
     }
 
-    select[dir="rtl"] {
+    select.rtl {
         background-position: left 0.5rem center;
     }
 }
 
 @layer components {
+    .image-parent {
+        @apply flex items-center justify-center
+    }
+
+    .standard-image-size {
+        width: 242px;
+        height: 182px;
+    }
+
+    .standard-image-size img {
+        @apply max-w-full max-h-full
+    }
+
     .error{
         @apply mt-4 text-xs font-bold text-red-600;
     }
@@ -51,5 +65,9 @@
 
     .rtl {
         direction: rtl;
+    }
+
+    .ltr {
+        direction: ltr;
     }
 }

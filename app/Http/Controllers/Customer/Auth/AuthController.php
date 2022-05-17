@@ -94,7 +94,7 @@ class AuthController extends Controller
         }
 
         $otp->user->update(['email_verified_at' => now()]);
-        auth()->login($otp->user);
+        auth()->login($otp->user, true);
         $otp->delete();
         $session = session('url.intended');
         session()->forget('url');

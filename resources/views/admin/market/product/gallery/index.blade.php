@@ -61,7 +61,7 @@
                                 </button>
                             </form>
                         </section>
-                        <img src="{{ asset($gallery->image['index']['medium']) }}" height="90" alt="">
+                        <img src="{{ asset($gallery->image['index']) }}" height="90" alt="">
                     </section>
                 @endforeach
             </section>

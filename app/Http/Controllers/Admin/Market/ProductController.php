@@ -122,6 +122,7 @@ class ProductController extends Controller
         $productInputs['user_id'] = 1;
         $productInputs['image'] = Image::make($productInputs['image'])
             ->setExclusiveDirectory('product')
+            ->autoResize()
             ->save();
 
         if (!$productInputs['image']) {
@@ -280,6 +281,7 @@ class ProductController extends Controller
         if (isset($request['image'])) {
             $productInputs['image'] = Image::make($request['image'])
                 ->setExclusiveDirectory('product')
+                ->autoResize()
                 ->save();
 
             if (!$productInputs['image']) {
@@ -296,7 +298,9 @@ class ProductController extends Controller
 
         if ($request['deliveryIsFree'] == false) {
             $productInputs['delivery_amount'] = ProductWeight::findOrFail($productInputs['weight_id'])
-                ->delivery_amount;
+            ->delivery_amount;
+        } else {
+            $productInputs['delivery_amount'] = 0;
         }
 
         $product->update($productInputs);

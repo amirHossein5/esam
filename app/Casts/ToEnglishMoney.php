@@ -33,6 +33,7 @@ class ToEnglishMoney implements CastsAttributes
     public function set($model, string $key, $value, array $attributes)
     {
         // save number without any thousand separator
-        return $value ? strtr(faTOen($value), ['.' => '', '٫' => '']) : null;
+        // return $value ? strtr(faTOen($value), ['.' => '', '٫' => '']) : null;
+        return $value;
     }
 }

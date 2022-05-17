@@ -25,7 +25,7 @@
                     </h5>
                 </section>
 
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+                <section class="pb-2 mt-4 mb-3 d-flex justify-content-between align-items-center border-bottom">
                     <a href="{{ route('admin.market.product.index') }}" class="btn btn-info btn-sm">بازگشت </a>
                 </section>
 
@@ -38,7 +38,7 @@
                                 <th> حالت فروش</th>
                                 <th> تصویر کالا</th>
                                 <th>دسته </th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="text-center max-width-16-rem"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,7 +93,7 @@
                         "render": function(data, type, row, meta) {
                             if (data) {
                                 var assetRoute = "{{ asset(':asset') }}"
-                                    .replace(':asset', data.index.medium);
+                                    .replace(':asset', data.index);
                             }
                             return `<img src="${assetRoute}" class="max-height-2rem">`;
                         },
@@ -125,7 +125,7 @@
                                                 @csrf @method('put')
                                                 <button
                                                     type="submit"
-                                                    class="dropdown-item text-right"
+                                                    class="text-right dropdown-item"
                                                 >
                                                     <i class="fa fa-trash-restore"></i>
                                                      بازگردانی
@@ -135,7 +135,7 @@
                                                 @csrf @method('delete')
                                                 <button
                                                     type="submit"
-                                                    class="dropdown-item text-right"
+                                                    class="text-right dropdown-item"
                                                     onclick="confirm(event, 'به طور کامل پاک خواهد شد.')"
                                                 >
                                                     <i class="fa fa-window-close"></i>

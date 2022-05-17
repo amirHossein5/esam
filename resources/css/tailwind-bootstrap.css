@@ -1,0 +1,44 @@
+@layer components {
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -5px !important;
+        margin-left: -5px !important;
+    }
+
+    th {
+        text-align: inherit;
+    }
+
+    .table {
+        @apply w-full mb-4 text-gray-900
+    }
+
+    .table thead th {
+        @apply align-bottom border-b-2 border-gray-300
+    }
+
+    .table td,
+    .table th {
+        @apply p-3 border-t border-gray-300
+    }
+
+    .table.table-bordered {
+        @apply border border-gray-300
+    }
+
+    .table-bordered td,
+    .table-bordered th {
+        @apply border border-gray-300
+    }
+
+    .table-responsive {
+        max-width: 100%;
+    }
+
+    .table-hover tr:hover {
+        @apply bg-gray-200;
+    }
+}

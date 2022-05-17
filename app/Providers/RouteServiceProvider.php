@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use AmirHossein5\RequestTranslator\Facades\Translator;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -52,5 +53,9 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('web', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+        Translator::for('product', [
+            'productVariants.*.price', 'productVariants.*.number', 'number', 'price', 'start_price', 'urgent_price', 'reserved_price'
+        ]);
     }
 }

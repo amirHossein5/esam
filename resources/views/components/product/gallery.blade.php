@@ -37,7 +37,7 @@
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .swiper {
@@ -80,6 +80,14 @@
         .vbox-close svg {
             width: 4rem;
             height: 4rem;
+        }
+
+        .swiper-wrapper .swiper-slide {
+            height: auto;
+        }
+
+        .mySwiper .swiper-wrapper {
+            max-height: 4rem
         }
 
     </style>
