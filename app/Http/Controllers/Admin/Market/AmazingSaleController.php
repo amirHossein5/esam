@@ -37,7 +37,7 @@ class AmazingSaleController extends Controller
      */
     public function create()
     {
-        $auctions = DB::table('auctions')->get(['id'])->pluck('product_id')->toArray();
+        $auctions = DB::table('auctions')->get(['product_id'])->pluck('product_id')->toArray();
         $products = DB::table('products')
             ->get(['name', 'id'])
             ->reject(fn ($product) => in_array($product->id, $auctions));

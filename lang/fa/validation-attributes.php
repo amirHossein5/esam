@@ -106,5 +106,6 @@ return [
         'unit'                 => 'واحد',
         'postal_code'          => 'کد پستی',
         'delivery_time_id'     => ' زمان ارسال ',
+        'suggested_amount'     => ' قیمت پیشنهادی '
     ],
 ];

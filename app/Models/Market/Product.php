@@ -3,6 +3,7 @@
 namespace App\Models\Market;
 
 use App\Casts\ToEnglishMoney;
+use App\Models\ProductQuestion;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,6 +18,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, Sluggable, SoftDeletes;
+
+    /** disable_for_report column */
+    const DISABLE_FOR_REPORT = 1;
+    const NOT_DISABLE_FOR_REPORT = 0;
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
@@ -33,6 +38,10 @@ class Product extends Model
         'marketable_readable'
     ];
 
+    protected $dates = [
+        'published_at'
+    ];
+
     public function sluggable(): array
     {
         return [
@@ -45,6 +54,11 @@ class Product extends Model
     /**
      * Relations
      */
+    public function questions(): HasMany
+    {
+        return $this->hasMany(ProductQuestion::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -98,6 +112,14 @@ class Product extends Model
         return $query->where('delivery_amount', 0);
     }
 
+    public function scopeActives(Builder $query): Builder
+    {
+        // without checking quantity
+        return $query->where('published_at', '<=', now())
+            ->where('marketable', 1)
+            ->where('disabled_for_report', self::NOT_DISABLE_FOR_REPORT);
+    }
+
     /**
      * Accessors
      */
@@ -112,6 +134,15 @@ class Product extends Model
     {
         return new Attribute(
             get: fn () => $this->delivery_amount == true ? 0 : 1
+        );
+    }
+
+    public function isActive(): Attribute
+    {
+        // without checking quantity and disabled for report
+
+        return new Attribute(
+            get: fn () => $this->marketable and $this->published_at->lte(now())
         );
     }
 

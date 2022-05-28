@@ -83,6 +83,7 @@
         }
 
         .swiper-wrapper .swiper-slide {
+            max-height: 285px;
             height: auto;
         }
 
@@ -93,12 +94,13 @@
     </style>
 @endpush
 
+@if ($images->isNotEmpty())
 <div {!! $attributes->merge(['class' => 'swiper-slider-container']) !!}>
     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
         <div class="swiper-wrapper">
             @foreach ($images as $image)
                 <div class="swiper-slide">
-                    <a href="{{ $image }}" data-gall="product-gallery" class="outline-none venobox">
+                    <a href="{{ $image }}" data-gall="product-gallery" class="outline-none venobox h-full">
                         <img src="{{ asset('app-assets/images/product-gallery-loader.webp') }}" class="swiper-lazy"
                             data-src="{{ $image }}" />
                     </a>
@@ -120,6 +122,11 @@
     </div>
 
 </div>
+@else
+<div class=" mt-4 font-bold text-gray-600">
+    عکسی وجود ندارد
+</div>
+@endif
 
 @push('scripts')
     <script src="{{ asset('app-assets/swiper-slider/swiper-bundle.min.js') }}"></script>

@@ -147,21 +147,29 @@ class LandingPageCopanController extends Controller
      */
     public function changeStatus(LandingPageCopan $landingPageCopan): Response
     {
-        $canBeActive = LandingPageCopan::where('end_date', '>=', now())
-            ->where('id', $landingPageCopan->id)
-            ->exists();
+        if ($landingPageCopan->status === 0) {
+            $canBeActive = LandingPageCopan::where('end_date', '>=', now())
+                ->where('id', $landingPageCopan->id)
+                ->exists();
 
-        if (!$canBeActive) {
-            return response(['message' => 'از تاریخ پایان گذشته است'], SymfonyResponse::HTTP_UNPROCESSABLE_ENTITY);
+            if (!$canBeActive) {
+                return response(['message' => 'از تاریخ پایان گذشته است'], SymfonyResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $canBeActive = $landingPageCopan->copan->end_date->gte(now());
+
+            if (!$canBeActive) {
+                return response(['message' => 'از تاریخ پایان  کپن گذشته است'], SymfonyResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            LandingPageCopan::where('status', 1)->update([
+                'status' => 0
+            ]);
         }
-
-        LandingPageCopan::where('status', 1)->update([
-            'status' => 0
-        ]);
 
         $landingPageCopan->status = !$landingPageCopan->status;
         $result = $landingPageCopan->save();
-        
+
         return $result
             ? response(['checked' => $landingPageCopan->status])
             : response('', 500);

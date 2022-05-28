@@ -61,7 +61,7 @@ class SettingController extends Controller
         }
 
         $request['description'] = Purifier::clean($request['description']);
-
+        
         Setting::first()->update($request);
 
         return back()

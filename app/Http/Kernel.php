@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ProductDisabledForReportMiddleware;
 use App\Http\Middleware\ToEnglishDigits;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         "translate_from" => \AmirHossein5\RequestTranslator\Http\Middleware\TranslateFromMiddleware::class,
         'toEnglishDigits' => \App\Http\Middleware\ToEnglishDigits::class,
         'json_decode' => \App\Http\Middleware\JsonDecode::class,
+        'productDisabledForReportMiddleware' => ProductDisabledForReportMiddleware::class,
     ];
 }

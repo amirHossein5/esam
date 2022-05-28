@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('visitors')->default(0)->after('image');
+            $table->bigInteger('visitors')->default(0)->after('image');
         });
     }
 

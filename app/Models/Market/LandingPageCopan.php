@@ -39,7 +39,13 @@ class LandingPageCopan extends Model
      */
     public function scopeActives($query): Builder
     {
-        return $query->where('status', 1)->where('end_date', '>=' ,now());
+        return $query->where('status', 1)
+            ->where('end_date', '>=' ,now())
+            ->where('start_date', '<=', now())
+            ->whereHas('copan', fn ($query) =>
+                $query->where('end_date', '>=' ,now())
+                    ->where('start_date', '<=', now())
+            );
     }
 
     /**

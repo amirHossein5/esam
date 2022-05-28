@@ -30,6 +30,9 @@ class Copan extends Model
 
     protected $casts = ['discount_ceiling' => ToEnglishDigits::class, 'amount' => ToEnglishMoney::class];
 
+    protected $dates = [
+        'start_date', 'end_date'
+    ];
     /**
      * Appends to accessors.
      *

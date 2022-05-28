@@ -1,188 +1,354 @@
 @extends('customer.layouts.master')
 
 @section('head-tag')
-    <title> Macbook Air </title>
+    <title> {{ $product->name }} </title>
 @endsection
 
 @section('content')
     <div>
         <span class="font-bold"> شاخه:</span>
-        <a href="" class="a-hover">لکامپیوتر و شبکه لپ تاپ</a>
-        <i class="icofont-rounded-left"></i>
-        <a href="" class="a-hover">لپتاپ</a>
+        @foreach (collect($categories)->reverse() as $categoryName)
+            <a href="" class="a-hover">{{ $categoryName }}</a>
+            @if (!$loop->last)
+                <i class="icofont-rounded-left"></i>
+            @endif
+        @endforeach
     </div>
 
     <section class="py-4 mt-4">
-        <section class="block md:flex gap-9">
-            <section class="w-full md:w-5/12 ">
+        <section class="block gap-10 md:flex">
+            <section class="w-full mb-12 md:w-5/12 md:mb-0">
 
-                <section class="pb-2 text-left">
-                    <span class="title">
-                        12:09:08
-                    </span>
-                </section>
+                @if ($product->amazingSale)
+                    @if ($product->amazingSale->isActive)
+                        <section class="pb-2 text-left">
+                            <span
+                                class="title show-remaining-time"
+                                data-remain-time="{{ $product->amazingSale->end_date->timestamp - now()->timestamp }}"
+                            >
+                                12:09:08
+                            </span>
+                        </section>
+                    @endif
+                @endif
 
-                <section class="relative">
+                <section class="relative @if($product->galleries->isEmpty()) h-full flex items-center justify-center  @endif">
 
-                    <section class="absolute top-0 right-0 z-10 px-2 bg-red-600 sm:p-1 sm:rounded-md">
-                        <span class="text-gray-200 md:text-base">
-                            ۱٪ تخفیف
-                        </span>
-                    </section>
+                    @if ($product->amazingSale)
+                        @if ($product->amazingSale->isActive)
+                            <section class="absolute top-0 right-0 z-10 px-2 bg-red-600 sm:p-1 sm:rounded-md">
+                                <span class="text-gray-200 md:text-base">
+                                    {{ $product->amazingSale->percentage }}٪ تخفیف
+                                </span>
+                            </section>
+                        @endif
+                    @endif
 
-                    <section
-                        class="absolute top-0 left-0 z-10 flex flex-col items-center gap-2 p-1 text-xs bg-red-600 rounded-md lg:gap-3 sm:p-2">
-                        <span class="text-gray-200 ">
-                            ارسال رایگان
-                        </span>
-                        <span class="text-gray-200">
-                            به سراسر ایران
-                        </span>
-                    </section>
+                    @if ($product->deliveryIsFree)
+                        <section
+                            class="absolute top-0 left-0 z-10 flex flex-col items-center gap-2 p-1 text-xs bg-red-600 rounded-md lg:gap-3 sm:p-2">
+                            <span class="text-gray-200 ">
+                                ارسال رایگان
+                            </span>
+                            <span class="text-gray-200">
+                                به سراسر ایران
+                            </span>
+                        </section>
+                    @endif
 
-                    <x-product.gallery class="relative left-0 right-0 mx-auto" :images="[
-                        asset('app-assets/images/saffir_40300-22063852!3.jpg'),
-                        'http://esam.test/images/product/2022/05/16/1652688335_734.png',
-                        asset('app-assets/images/saffir_440300-22063852!2.jpg'),
-                        asset('app-assets/images/saffir_200-22063852!3.jpg'),
-                        asset('app-assets/images/saffir_340300-22063852!1.jpg'),
-                        asset('app-assets/images/saffir_200-22063852!3.jpg'),
-                        asset('app-assets/images/saffir_340300-22063852!1.jpg'),
-                    ]" />
+                    <x-product.gallery
+                        class="relative left-0 right-0 mx-auto"
+                        :images="$product->galleries->pluck('image.index')->map(fn ($path) => asset($path))"
+                    />
                 </section>
 
             </section>
 
             <section class="w-full mt-4 md:w-7/12 md:mt-0">
                 <div class="pb-2 border-b">
-                    <h6 class="mb-3 text-xl font-semibold"> Macbook Air </h6>
-                    <p class="text-base text-gray-600"> mid 2013 </p>
+                    <h6 class="mb-3 text-xl font-semibold"> {{ $product->name }} </h6>
+                    <p class="text-base text-gray-600">{{ $product->introduction }} </p>
                 </div>
 
                 <section class="gap-5 pt-2 xl:flex">
                     <section class="w-full xl:w-7/12">
-                        <div>
-                            <span class="text-gray-600"> وضعیت کالا: </span>
-                            <span>دست دوم</span>
-                        </div>
 
                         <section class="p-5 mt-4 bg-white border rounded-md shadow-md">
 
-                            {{-- auctions --}}
-                            <section class="hidden">
-                                <section class="text-base">
-                                    <p>زمان باقیمانده:</p>
-                                    <div class="text-base text-center text-red-600 sm:text-right sm:mr-20">۲ روز و ۱۳ ساعت و
-                                        ۱۵ دقیقه</div>
-                                </section>
-                                <section class="mt-4 text-base">
-                                    بالاترین پیشنهاد:
-                                    <div class="text-center sm:text-right sm:mr-20">
-                                        <span class="text-xl text-red-600 ">81,1515,1</span>
-                                        تومان
-                                    </div>
-                                </section>
-                                <section class="mt-4 text-base">
-                                    تعداد پیشنهادات:
-                                    <div class="text-center sm:text-right sm:mr-20">
-                                        <span class="text-xl ">215</span>
-                                    </div>
-                                </section>
-                                <section class="mt-6 text-base">
-                                    <span class="text-red-600">
-                                        <i class="icofont-lock"></i>
-                                        بالاترین پیشنهاد به قیمت رزرو نرسیده است و فروشنده میتواند کالا را ارسال نکند.
-                                    </span>
-                                </section>
-
-
-                                <section class="flex flex-col gap-1 mt-9">
-                                    <a href=""
-                                        class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md">ثبت
-                                        پیشنهاد</a>
-                                    <a href=""
-                                        class="block w-full py-2 text-base text-center text-white bg-green-600 rounded-md">
-                                        <i class="icofont-eye-alt"></i>
-                                        دنبال کن
-                                    </a>
-                                    <button
-                                        class="block w-full py-2 text-base text-center text-white bg-yellow-600 rounded-md toggle-modal"
-                                        data-id="auctionTable" data-open="false">جدول پیشنهادات این کالا</button>
-                                </section>
-
-                                <section class="flex flex-col justify-between mt-5 sm:flex-row">
-                                    <div>
-                                        <span class="text-gray-600">تعداد بازدید:</span>
-                                        <span class="text-base ">1032135</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-base ">50</span>
-                                        <span class="text-gray-600">دنبال شده</span>
-                                    </div>
-                                </section>
-                            </section>
-
-                            {{-- sell --}}
-                            <section class="">
-                                <section class="text-base">
-                                    خرید
-                                    <input type="number" value="1" class="w-24">
-                                    عدد از ۱۵ عدد
-                                </section>
-                                <section class="mt-2 text-base">
-                                    قیمت هر عدد:
-                                    <span class="text-sm line-through">15,000,000</span>
-                                    <span class="text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </section>
-                                <section class="pt-2 mt-5 border-t">
-                                    <div class="text-base ">
-                                        رنگ:
-                                    </div>
-                                    <div class="flex flex-wrap gap-4 mt-2">
-                                        <button
-                                            class="flex items-center justify-center gap-1 px-2 py-1 border-2 rounded-md">
-                                            <span style="background-color: black"
-                                                class="inline-block w-5 h-5 rounded-full"></span>
-                                            <span class="text-sm text-gray-600">
-                                                مشکی
+                            @if ($product->auction)
+                                {{-- auctions --}}
+                                <section class="">
+                                    <section class="text-base">
+                                        @if ($product->auction->start_date->gt(now()))
+                                            <p>زمان تا شروع مزایده:</p>
+                                            <div
+                                                class="text-base text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
+                                                data-remain-time="{{ $product->auction->start_date->timestamp - now()->timestamp }}"
+                                            >
+                                            ۲ روز و ۱۳ ساعت و
+                                                ۱۵ دقیقه
+                                            </div>
+                                        @elseif ($product->auction->end_date->lt(now()))
+                                            <p>زمان باقیمانده:</p>
+                                            <div
+                                                class="text-base text-center text-red-600 sm:text-right sm:mr-20"
+                                            >
+                                            مزایده به اتمام رسیده است
+                                            </div>
+                                        @else
+                                            <p>زمان باقیمانده:</p>
+                                            <div
+                                                class="text-base text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
+                                                data-remain-time="{{ $product->auction->end_date->timestamp - now()->timestamp }}"
+                                            >
+                                            ۲ روز و ۱۳ ساعت و
+                                                ۱۵ دقیقه
+                                            </div>
+                                        @endif
+                                    </section>
+                                    <section class="mt-4 text-base">
+                                        بالاترین پیشنهاد:
+                                        <div class="text-center sm:text-right sm:mr-20">
+                                            @if ($product->auction->suggestions->max('suggested_amount'))
+                                                <span
+                                                    class="text-xl text-red-600"
+                                                >
+                                                    {{ fa_price($product->auction->suggestions->max('suggested_amount')) }}
+                                                </span>
+                                                تومان
+                                            @else
+                                                هنوز پیشنهادی ثبت نشده است
+                                            @endif
+                                        </div>
+                                    </section>
+                                    @if ($product->auction->suggestions->isNotEmpty())
+                                        <section class="mt-4 text-base">
+                                            تعداد پیشنهادات:
+                                            <div class="text-center sm:text-right sm:mr-20">
+                                                <span class="text-xl ">{{ $product->auction->suggestions->count() }}</span>
+                                            </div>
+                                        </section>
+                                    @endif
+                                    <section class="mt-6 text-base">
+                                        @if ($product->auction->reservedPrice and $product->auction->reservedPrice <= $product->auction->suggestions->max('suggested_amount'))
+                                            <span class="mb-3 text-red-600">
+                                                <i class="icofont-lock"></i>
+                                                بالاترین پیشنهاد به قیمت رزرو نرسیده است و فروشنده میتواند کالا را ارسال نکند.
                                             </span>
-                                        </button>
-                                        <button
-                                            class="flex items-center justify-center gap-1 px-2 py-1 border-2 border-green-600 rounded-md">
-                                            <span style="background-color: black"
-                                                class="inline-block w-5 h-5 rounded-full"></span>
-                                            <span class="text-sm text-gray-600">
-                                                مشکی
-                                            </span>
-                                        </button>
+                                        @endif
+                                    </section>
 
-                                    </div>
-                                    <section class="pt-2 mt-5 border-t">
-                                        <div class="text-base">سایز:</div>
-                                        <div class="mt-2">
-                                            <x-select dir="rtl" class='block w-full'>
-                                                <option value="">43</option>
-                                                <option value="">43</option>
-                                                <option value="">43</option>
-                                            </x-select>
+
+                                    <section class="flex flex-col gap-1 mt-6">
+                                        @if ($product->auction->isActive)
+                                            <a
+                                                href="{{ route('customer.product.suggestionForm', $product) }}"
+                                                class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md toggle-modal"
+                                            >
+                                                ثبت
+                                                پیشنهاد
+                                            </a>
+                                        @endif
+                                        @if (auth()->user()->followingAuctions()->where('auction_id', $product->auction->id)->exists())
+                                            <form action="{{ route('customer.product.unfollowAuction', $product) }}" method="post">
+                                                @csrf @method('delete')
+                                                <button type="submit"
+                                                    class="block w-full py-2 text-base text-center text-green-600 bg-gray-200 border rounded-md">
+                                                    <i class="icofont-close"></i>
+                                                    دنبال نکردن
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('customer.product.followAuction', $product) }}" method="post">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="block w-full py-2 text-base text-center text-white bg-green-600 rounded-md">
+                                                    <i class="icofont-eye-alt"></i>
+                                                    دنبال کن
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <button
+                                            class="block w-full py-2 text-base text-center text-white bg-yellow-600 rounded-md toggle-modal"
+                                            data-id="auctionTable" data-open="false">جدول پیشنهادات این کالا</button>
+                                    </section>
+
+                                    {{-- auction suggestions modal --}}
+                                    <section id="auctionTable"
+                                        class="modal-container fixed top-0 left-0 right-0 bottom-0 bg-gray-400 bg-opacity-40 overflow-auto hidden  z-[99]">
+                                        <section
+                                            class="relative  modal top-[5%] -mt-10 bg-white border  mx-auto right-0 left-0 rounded-md shadow-md w-11/12 md:w-10/12 p-3">
+                                            <div class="pb-3 mb-3 border-b">
+                                                <div class="pb-3 mb-3 border-b">
+                                                    <i class="text-3xl text-red-600 cursor-pointer icofont-close-circled close-modal"
+                                                        data-id="auctionTable"></i>
+                                                </div>
+                                                <section class="flex-wrap justify-center overflow-x-scroll md:flex">
+                                                    <table class="w-[45rem] rounded-md">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="px-3 py-2 text-base border">زمان</th>
+                                                                <th class="px-3 py-2 text-base border">بالاترین پیشنهاد (تومان)</th>
+                                                                <th class="px-3 py-2 text-base border">پیشنهاد دهنده</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($product->auction->suggestions as $suggestion)
+                                                                <tr>
+                                                                    <td class="p-2 text-center border">
+                                                                        <span class="text-base text-gray-600">{{ $suggestion->created_at ? jdate($suggestion->created_at) : '-' }}</span>
+                                                                    </td>
+                                                                    <td class="p-2 text-center border">
+                                                                        <span class="text-base text-gray-600">{{ fa_price($suggestion->suggested_amount) }}</span>
+                                                                    </td>
+                                                                    <td class="p-2 text-center border">
+                                                                        <span class="text-base text-gray-600">{{ $suggestion->user->fullName ?? '-' }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </section>
+                                            </div>
+                                        </section>
+                                    </section>
+
+                                    <section class="flex flex-col justify-between mt-5 sm:flex-row">
+                                        <div>
+                                            <span class="text-gray-600">تعداد بازدید:</span>
+                                            <span class="text-base ">{{ $product->visitors }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-base ">{{ $product->auction->followers()->count() }}</span>
+                                            <span class="text-gray-600">دنبال شده</span>
                                         </div>
                                     </section>
                                 </section>
+                            @else
+                                {{-- sell --}}
+                                <section class="">
+                                    @if ($product->variants->where('marketable_number', '>', '0')->isEmpty())
+                                        <section class="text-base text-red-600">
+                                            <i class="icofont-close"></i>
+                                            این محصول موجود نیست
+                                        </section>
+                                    @else
 
+                                    @if ($product->variants->count() > 0)
+                                            <section class="text-base" id="show-product-quantity">
+                                                <section class="exists">
+                                                    خرید
+                                                    <input type="number" value="1" class="w-24" id="product-quantity-input">
+                                                    عدد از <span class="product-quantity-value">15</span> عدد
+                                                </section>
 
-                                <section class="mt-9">
-                                    <a href=""
-                                        class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md">خرید</a>
-                                    <a href=""
-                                        class="block w-full py-2 mt-1 text-base text-center text-white bg-green-600 rounded-md">اضافه
-                                        کردن به سبد خرید</a>
+                                                <section class="hidden text-base text-red-600 not-exists">
+                                                    <i class="icofont-close"></i>
+                                                    این مشخصه موجود نیست
+                                                </section>
+                                            </section>
+
+                                            <section class="pt-2 mt-5">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>مشخصه</th>
+                                                            <th> قیمت هر عدد (تومان)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($product->variants as $variant)
+                                                            <tr class="@if($variant->marketable_number <= 0) opacity-50 bg-gray-200 @endif">
+                                                                <td>
+                                                                    <input
+                                                                        type="radio"
+                                                                        name="selected-variant"
+                                                                        @checked($variant->active === 1)
+                                                                        @disabled($variant->marketable_number <= 0)
+                                                                        onchange="changeQuantity()"
+                                                                        class="product-quantity"
+                                                                        data-quantity="{{ $variant->marketable_number }}"
+                                                                    >
+                                                                </td>
+                                                                <td class="pr-4">
+                                                                    <div class="flex flex-wrap " style="gap: 0.8rem">
+                                                                        @foreach ($variant->selectableAttributes as $selectableAttribute)
+                                                                            <div>
+                                                                                <span class="text-sm">{{ $selectableAttribute->attribute->name }}</span>:
+                                                                                <span class="text-base">{{ $selectableAttribute->value }}</span>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        if ($product->amazingSale?->isActive) {
+                                                                            $discounted = (new App\Services\DiscountService())
+                                                                                ->calculate(
+                                                                                    $variant->price,
+                                                                                    $product->amazingSale->percentage
+                                                                                );
+                                                                        }
+                                                                    @endphp
+
+                                                                    @if ($product->amazingSale?->isActive)
+                                                                        <span class="text-sm line-through">{{ $variant->price_readable }}</span>
+                                                                        <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
+                                                                    @else
+                                                                        <span class="text-xl ">{{ $variant->price_readable }}</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </section>
+                                        @else
+                                            @php
+                                                $marketable_number = $product->variants[0]->marketable_number;
+
+                                                if ($product->amazingSale?->isActive) {
+                                                    $discounted = (new App\Services\DiscountService())
+                                                        ->calculate(
+                                                            $product->variants[0]->price,
+                                                            $product->amazingSale->percentage
+                                                        );
+                                                }
+                                            @endphp
+
+                                            <section class="text-base">
+                                                خرید
+                                                <input type="number" value="1" class="w-24" @if($marketable_number <= 1) disabled @endif>
+                                                عدد از <span class="">{{ $marketable_number }}</span> عدد
+                                            </section>
+
+                                            <section class="pt-4 text-base">
+                                                قیمت هر عدد:
+                                                @if ($product->amazingSale?->isActive)
+                                                    <span class="text-sm line-through">{{ $product->variants[0]->price_readable }}</span>
+                                                    <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
+                                                @else
+                                                    <span class="text-xl ">{{ $product->variants[0]->price_readable }}</span>
+                                                @endif
+                                                تومان
+                                            </section>
+                                        @endif
+
+                                        <section class="mt-9">
+                                            <a href=""
+                                                class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md">خرید</a>
+                                            <a href=""
+                                                class="block w-full py-2 mt-1 text-base text-center text-white bg-green-600 rounded-md">اضافه
+                                                کردن به سبد خرید</a>
+                                        </section>
+                                    @endif
+                                    <section class="mt-2">
+                                        <span class="text-gray-600">تعداد بازدید:</span>
+                                        <span class="text-base ">{{ $product->visitors }}</span>
+                                    </section>
                                 </section>
-                                <section class="mt-2">
-                                    <span class="text-gray-600">تعداد بازدید:</span>
-                                    <span class="text-base ">1032135</span>
-                                </section>
-                            </section>
+                            @endif
                         </section>
 
                         <section class="flex pb-2 border-b mt-7">
@@ -191,8 +357,13 @@
                             </section>
                             <section class="w-9/12">
                                 <p class="mt-5 text-xs text-gray-600">
-                                    جهت مشاهده زمان نحوه ارسال، وارد <a href="" class="a-hover">حساب کاربری</a> خود
-                                    شوید
+                                    @auth
+                                        تا {{ $product->user->deliveryTime->time }} کاری
+                                    @endauth
+                                    @guest
+                                        جهت مشاهده زمان نحوه ارسال، وارد <a href="{{ route('customer.auth.loginRegisterForm') }}" class="a-hover">حساب کاربری</a> خود
+                                        شوید
+                                    @endguest
                                 </p>
                             </section>
                         </section>
@@ -201,12 +372,11 @@
                         <div class="flex items-center justify-between ">
                             <div>
                                 <span class="text-base text-gray-600">شماره کالا: </span>
-                                <span class="text-base tracking-wider">22055951</span>
+                                <span class="text-base tracking-wider">{{ $product->id }}</span>
                             </div>
                             <div class='flex'>
                                 <div class="relative flex justify-center dropdown">
-                                    <i
-                                        class="p-3 text-2xl text-gray-600 transition cursor-pointer icofont-share hover:bg-gray-200"></i>
+                                    <i class="p-3 text-2xl text-gray-600 transition cursor-pointer icofont-share hover:bg-gray-200"></i>
 
                                     <div class="left-0 hidden w-48 p-4 my-2 bg-white border rounded-md shadow-md top-full dropdown-zone"
                                         data-open="false">
@@ -248,10 +418,32 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <i class="p-3 text-2xl text-gray-600 cursor-pointer icofont-heart"></i> --}}
-                                    <i
-                                        class="p-3 text-2xl text-red-600 transition cursor-pointer icofont-heart hover:bg-gray-200"></i>
                                 </div>
+                                @auth
+                                    @if (auth()->user()->favoriteProducts()->where('product_id', $product->id)->exists())
+                                        <form action="{{ route('customer.product.addToFavorites', $product) }}" class="flex " method="post">
+                                            @csrf @method('put')
+                                            <button>
+                                                <i class="p-3 text-2xl text-red-600 transition cursor-pointer icofont-heart hover:bg-gray-200"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('customer.product.addToFavorites', $product) }}" class="flex " method="post">
+                                            @csrf @method('put')
+                                            <button>
+                                                <i class="p-3 text-2xl text-gray-600 cursor-pointer icofont-heart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endauth
+                                @guest
+                                    <form action="{{ route('customer.product.addToFavorites', $product) }}" class="flex" method="post">
+                                        @csrf @method('put')
+                                        <button>
+                                            <i class="p-3 text-2xl text-gray-600 cursor-pointer icofont-heart"></i>
+                                        </button>
+                                    </form>
+                                @endguest
                             </div>
                         </div>
                         <div class="mt-2">
@@ -261,37 +453,54 @@
                                 <div class="flex flex-col gap-3 pb-2 border-b-2 border-gray-600 border-dotted">
                                     <div>
                                         <span>نام کاربری:</span>
-                                        <span class="text-base">saffir 7</span>
+                                        <span class="text-base">{{ $product->user->first_name ?? '-' }}</span>
                                     </div>
                                     <div>
                                         <span>تاریخ عضویت:</span>
-                                        <span class="text-base">1391/02/30</span>
-                                    </div>
-                                    <div>
-                                        <span>تعداد خریداران قبلی</span>
-                                        <span class="text-base">1</span>
+                                        <span class="text-base">{{ jdate($product->user->created_at)->format('d-m-Y') }}</span>
                                     </div>
                                     <div>
                                         <span>کالاهای در حال فروش:</span>
-                                        <span class="text-base">1</span>
+                                        <span class="text-base">{{ $product->user->products()->count() }}</span>
                                     </div>
                                 </div>
                                 <div class="mt-5">
                                     <div class="flex flex-col pb-2 mb-2 gap-7">
                                         <div>
-                                            <a class="px-4 py-2 bg-blue-300 rounded-md">
-                                                <i class="text-green-600 icofont-plus"></i>
-                                                فروشنده مورد علاقه
-                                            </a>
+                                            @auth
+                                                @if (auth()->user()->favoriteSellers()->wherePivot('seller_id', $product->user->id)->exists())
+                                                    <form method="POST" action="{{ route('customer.product.toggleFavoriteSeller', $product->user->id) }}" class="inline px-4 py-2 bg-gray-200 border rounded-md">
+                                                    @csrf @method('put')
+                                                        <button class="">
+                                                            <i class="text-lg text-red-600 icofont-close"></i>
+                                                            فروشنده مورد علاقه
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form method="POST" action="{{ route('customer.product.toggleFavoriteSeller', $product->user->id) }}" class="inline px-4 py-2 bg-blue-300 rounded-md">
+                                                    @csrf @method('put')
+                                                        <button>
+                                                            <i class="text-green-600 icofont-plus"></i>
+                                                            فروشنده مورد علاقه
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+                                            @endauth
+
+                                            @guest
+                                                <form method="POST" action="{{ route('customer.product.toggleFavoriteSeller', $product->user->id) }}" class="inline px-4 py-2 bg-blue-300 rounded-md">
+                                                    @csrf @method('put')
+                                                    <button>
+                                                        <i class="text-green-600 icofont-plus"></i>
+                                                        فروشنده مورد علاقه
+                                                    </button>
+                                                </form>
+                                            @endguest
                                         </div>
                                         <div>
-                                            <a class="px-4 py-2 bg-blue-300 rounded-md">
+                                            <a class="px-4 py-2 bg-blue-300 rounded-md" href="#product-questions">
                                                 سوال از فروشنده
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a class="px-4 py-2 bg-blue-300 rounded-md">
-                                                مشاهده کالاهای دیگر فروشنده
                                             </a>
                                         </div>
                                     </div>
@@ -312,7 +521,7 @@
 
         <section class="mt-9">
             <div>
-                کالای شبیه به این دارید؟ <a href="" class="a-hover">در ایسام بفروشید</a>
+                کالای شبیه به این دارید؟ <a href="{{ route('customer.dashboard.products.index') }}" class="a-hover">در ایسام بفروشید</a>
             </div>
 
             <section class='px-6 py-4 mt-3 bg-white border rounded-md'>
@@ -320,77 +529,21 @@
 
                 <section class="mt-3 overflow-x-auto">
                     <section class="border  min-w-[30rem]">
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
+                        @foreach ($attributeValuesByAttribute as $name => $value)
+                            <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
 
-                            <section class="w-4/12">
-                                <p>نوع</p>
+                                <section class="w-4/12">
+                                    <p>{{ $name }}</p>
+                                </section>
+
+                                {{-- because select box attributes just can have one value, and also because of getting all of the values of product, it's array --}}
+                                <section class="w-8/12">
+                                    <p>{{ $value[0]['value'] }} </p>
+                                </section>
+
                             </section>
+                        @endforeach
 
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
-
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
-
-                            <section class="w-4/12">
-                                <p>نوع</p>
-                            </section>
-
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
-
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
-
-                            <section class="w-4/12">
-                                <p>نوع</p>
-                            </section>
-
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
-
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
-
-                            <section class="w-4/12">
-                                <p>نوع</p>
-                            </section>
-
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
-
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
-
-                            <section class="w-4/12">
-                                <p>نوع</p>
-                            </section>
-
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
-
-                        <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
-
-                            <section class="w-4/12">
-                                <p>نوع</p>
-                            </section>
-
-                            <section class="w-8/12">
-                                <p>پ تاپ (نوت بوک) - Laptop </p>
-                            </section>
-
-                        </section>
                     </section>
                 </section>
 
@@ -402,112 +555,83 @@
                     توضیحات کالا
                 </p>
 
-                <section class="my-5 text-gray-900 drop-list-zone">
+                <section class="my-5 prose text-gray-900 drop-list-zone md:prose-lg lg:prose-xl prose-strong:text-base">
                     <p>
-                        مشکل فنی ندارد . سلامت باتری در تهیه این آگهی 77 درصد سایکل باتری 568 . همیچیز فابریک چیزی عوض نشده
-                        . از لحاظ ظاهری تمیز فقط بدنش گوشش لک داره که توی عکس ها مشخصه اما در کل خریدار عزیز شما 3 4 تا خش
-                        یا نقطه کوچک هم در نظر بگیر که اگر از چشم من چیزی پنهان موند مشکلی پیش نیاد. کاملا اپدیت هست . سوال
-                        یا عکس بیشتری نیاز بود در خدمتم
+                        {!! $product->description !!}
                     </p>
                 </section>
 
             </section>
 
-            <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' data-open="false">
+            <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' id="product-questions" data-open="false">
                 <p class="pb-2 text-lg border-b cursor-pointer drop-list-click-open">
                     <i class="icofont-caret-left"></i>
-                    سوال از فروشنده (۱۳)
+                    سوال از فروشنده ({{ $product->questions->count() }})
                 </p>
 
                 <section class="hidden my-5 text-gray-900 drop-list-zone">
-                    <div class="p-2 bg-gray-200 rounded-md">
-                        <a href="" class="a-hover">
-                            برای سوال از فروشنده این کالا وارد حساب کاربری خود شوید.
-                        </a>
-                        <a href="" class="a-hover">اگر حساب کاربری ندارید ثبت نام کنید.</a>
-                    </div>
+                    @guest
+                        <div class="p-2 bg-gray-200 rounded-md">
+                            <a href="{{ route('customer.auth.loginRegisterForm') }}" class="a-hover">
+                                برای سوال از فروشنده این کالا وارد حساب کاربری خود شوید.
+                            </a>
+                            <a href="{{ route('customer.auth.loginRegisterForm') }}" class="a-hover">اگر حساب کاربری ندارید ثبت نام کنید.</a>
+                        </div>
+                    @endguest
+
+                    @auth
+                        <div>
+                            <x-a href="{{ route('customer.product.question.create', $product->id) }}" class="">
+                                پرسش سوال
+                            </x-a>
+                        </div>
+                    @endauth
 
                     <section class="mt-6">
-                        <section class="py-3 border-b last:border-b-0">
-                            <section class="flex justify-between">
-                                <div class="text-gray-600">
-                                    M...k
-                                </div>
-                                <div class="text-gray-600">
-                                    00:02 1400/12/12
-                                </div>
-                            </section>
+                        @forelse ($product->questions as $question)
+                            <section class="py-3 border-b last:border-b-0">
+                                <section class="flex justify-between">
+                                    <div class="text-gray-600">
+                                        {{ $question->user->fullName ?? '-' }}
 
-                            <section class="mt-2">
-                                <p class="text-gray-600">
-                                    سلام مدلش 86 هست ولی اطلاعات فنی رو نمی دن چون ماشین بسیار خاص و کلکسیونی هست
-                                </p>
-                            </section>
-                        </section>
-                        <section class="py-3 border-b last:border-b-0">
-                            <section class="flex justify-between">
-                                <div class="text-gray-600">
-                                    M...k
-                                </div>
-                                <div class="text-gray-600">
-                                    00:02 1400/12/12
-                                </div>
-                            </section>
+                                        @if ($question->user->id == $product->user->id)
+                                            (فروشنده)
+                                        @elseif($question->user->id == auth()->id())
+                                            (شما)
+                                        @endif
+                                        -
+                                        <span class="">
+                                            {{ jdate($question->created_at)->format('d-m-Y H:i:s') }}
+                                        </span>
+                                    </div>
+                                    <div class="text-gray-600">
+                                        <div class="flex gap-2">
+                                            <x-a href="{{ route('customer.product.question.edit', [$question->id, $product->id]) }}" class="">
+                                                ویرایش
+                                            </x-a>
 
-                            <section class="mt-2">
-                                <p class="text-gray-600">
-                                    سلام مدلش 86 هست ولی اطلاعات فنی رو نمی دن چون ماشین بسیار خاص و کلکسیونی هست
-                                </p>
-                            </section>
-                        </section>
-                        <section class="py-3 border-b last:border-b-0">
-                            <section class="flex justify-between">
-                                <div class="text-gray-600">
-                                    M...k
-                                </div>
-                                <div class="text-gray-600">
-                                    00:02 1400/12/12
-                                </div>
-                            </section>
+                                            <form action="{{ route('customer.product.question.destroy', $question->id) }}" method="post">
+                                                @csrf @method('delete')
 
-                            <section class="mt-2">
-                                <p class="text-gray-600">
-                                    سلام مدلش 86 هست ولی اطلاعات فنی رو نمی دن چون ماشین بسیار خاص و کلکسیونی هست
-                                </p>
-                            </section>
-                        </section>
-                        <section class="py-3 border-b last:border-b-0">
-                            <section class="flex justify-between">
-                                <div class="text-gray-600">
-                                    M...k
-                                </div>
-                                <div class="text-gray-600">
-                                    00:02 1400/12/12
-                                </div>
-                            </section>
+                                                <x-button type='submit' class="bg-red-600">
+                                                    حذف
+                                                </x-button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </section>
 
-                            <section class="mt-2">
-                                <p class="text-gray-600">
-                                    سلام مدلش 86 هست ولی اطلاعات فنی رو نمی دن چون ماشین بسیار خاص و کلکسیونی هست
-                                </p>
+                                <section class="mt-2">
+                                    <p class="text-gray-600">
+                                        {{ $question->text }}
+                                    </p>
+                                </section>
                             </section>
-                        </section>
-                        <section class="py-3 border-b last:border-b-0">
-                            <section class="flex justify-between">
-                                <div class="text-gray-600">
-                                    M...k
-                                </div>
-                                <div class="text-gray-600">
-                                    00:02 1400/12/12
-                                </div>
-                            </section>
-
-                            <section class="mt-2">
-                                <p class="text-gray-600">
-                                    سلام مدلش 86 هست ولی اطلاعات فنی رو نمی دن چون ماشین بسیار خاص و کلکسیونی هست
-                                </p>
-                            </section>
-                        </section>
+                        @empty
+                            <div class="flex items-center justify-center h-full mt-4 font-bold text-gray-300">
+                                چیزی برای نمایش وجود ندارد
+                            </div>
+                        @endforelse
                     </section>
                 </section>
 
@@ -518,458 +642,99 @@
         <section class="mt-20">
             <h6 class="title">کالاهای مرتبط</h6>
 
-            <section
-                class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center">
-
-                {{-- for typical sell --}}
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-                    <section class="absolute left-0 top-2">
-                        <div class="text-center w-28">
-                            <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
-                                class="absolute z-0 -top-[2px] left-1" alt="">
-                            <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
-                        </div>
-                    </section>
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <span class="text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                                <div class="text-center">
-                                    <span class="line-through">81,1515,1</span>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                {{-- for auction --}}
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-                    <section class="absolute left-0 top-2">
-                        <div class="text-center w-28">
-                            <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
-                                class="absolute z-0 -top-[2px] left-1" alt="">
-                            <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
-                        </div>
-                    </section>
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <span class="text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                                <div class="text-center">
-                                    <span class="line-through">81,1515,1</span>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-                    <section class="absolute left-0 top-2">
-                        <div class="text-center w-28">
-                            <img src="{{ asset('app-assets/images/discountLabel.webp') }}"
-                                class="absolute z-0 -top-[2px] left-1" alt="">
-                            <span class="text-gray-200 text-base z-[2] relative">15% تخفیف</span>
-                        </div>
-                    </section>
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <span class="text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                                <div class="text-center">
-                                    <span class="line-through">81,1515,1</span>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="relative bg-white rounded-md shadow-md max-w-[22rem]">
-
-                    <a href="" class="flex items-center justify-center py-2 pointer">
-                        <section class="">
-                            <img class="rounded lazy"
-                                data-src="{{ asset('app-assets/images/14932837_1645698796_340_th.jpg') }}"
-                                src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}" alt="">
-                        </section>
-                    </a>
-                    <section class="mt-2">
-                        <a href="" class="block p-2 text-base a-hover">
-                            گرافیک asus gtx 1050 ti 4g
-                        </a>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div>
-                                <div class="text-center">
-                                    <p>بالاترین پیشنهاد:</p>
-                                    <span class="mt-1 text-xl text-red-600 ">81,1515,1</span>
-                                    تومان
-                                </div>
-                            </div>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <img src="{{ asset('app-assets/images/Offer.webp') }}" class="!w-8 m-1" alt="">
-                            <span class="text-2xl text-red-600">20</span>
-                        </section>
-                        <section class="flex items-center justify-center px-2 py-4 border-t">
-                            <div class="text-center">
-                                <span class="text-2xl text-red-600">41:11:09</span>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
+            <x-product.show
+                type="max-grid-5"
+                id="related-products"
+                :products="$relatedProducts"
+            />
 
         </section>
     </section>
 
     {{-- modals --}}
-    <section id="auctionTable"
-        class="modal-container fixed top-0 left-0 right-0 bottom-0 bg-gray-400 bg-opacity-40 overflow-auto hidden  z-[99]">
-        <section
-            class="relative  modal top-[5%] -mt-10 bg-white border  mx-auto right-0 left-0 rounded-md shadow-md w-11/12 md:w-10/12 p-3">
-            <div class="pb-3 mb-3 border-b">
-                <div class="pb-3 mb-3 border-b">
-                    <i class="text-3xl text-red-600 cursor-pointer icofont-close-circled close-modal"
-                        data-id="auctionTable"></i>
-                </div>
-                <section class="flex-wrap justify-center overflow-x-scroll md:flex">
-                    <table class="w-[45rem] rounded-md">
-                        <thead>
-                            <tr>
-                                <th class="px-3 py-2 text-base border">زمان</th>
-                                <th class="px-3 py-2 text-base border">بالاترین پیشنهاد (تومان)</th>
-                                <th class="px-3 py-2 text-base border">پیشنهاد دهنده</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="p-2 text-center border">
-                                    <span class="text-base text-gray-600">1400/12/18</span> <span
-                                        class="text-base text-gray-600">14:24</span>
-                                </td>
-                                <td class="p-2 text-center border">
-                                    <span class="text-base text-gray-600">35,000,000,000</span>
-                                </td>
-                                <td class="p-2 text-center border">
-                                    <span class="text-base text-gray-600">flatter</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-        </section>
-    </section>
 
     <section id="reportModal"
         class="modal-container fixed top-0 left-0 right-0 bottom-0 bg-gray-400 bg-opacity-40 overflow-auto hidden  z-[99]">
         <section
-            class="relative  modal top-[5%] -mt-10 bg-white border  mx-auto right-0 left-0 rounded-md shadow-md w-11/12 md:w-10/12 p-3">
+            class="relative  modal top-[5%] -mt-10 bg-white border  mx-auto right-0 left-0 rounded-md shadow-md w-11/12 md:w-6/12 p-3">
             <div class="pb-3 mb-3 border-b">
                 <div class="pb-3 mb-3 border-b">
                     <i class="text-3xl text-red-600 cursor-pointer icofont-close-circled close-modal"
                         data-id="reportModal"></i>
                 </div>
-                <section class="md:flex gap-7">
-                    <section class="pb-3 mb-3 border-b md:w-1/2">
-                        <div class="pb-3 mb-3 border-b">
-                            <p>در صورت مشاهده هرگونه تخلف، با ارسال این فرم، ما را در جریان موضوع قرار دهید.</p>
-                            <p class="text-red-600"> وارد کردن توضیحات در مورد تخلف الزامیست </p>
-                        </div>
-                        <div>
-                            <p>در صورتی که شما خریدار این کالا هستید برای گزارش مشکل خود بر روی دکمه زیر کلیک کنید </p>
-                            <a class="block px-2 py-2 my-4 text-sm text-center text-gray-200 bg-red-600 rounded-md">
-                                من خریدار این کالا هستم و مشکل دارم
-                            </a>
-                        </div>
-                    </section>
-                    <section class="md:w-1/2">
-                        <div class="mb-5">
-                            <div>
-                                <x-label class="mt-3 mb-2">
-                                    کالا:
-                                </x-label>
-                            </div>
-                            <div class="text-base text-center">
-                                Macbook Air
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <x-label class="mt-3 mb-2">
-                                    موضوع تخلف:
-                                </x-label>
+                <section class="gap-7">
+                    <form action="{{ route('customer.product.report', $product->id) }}" method="post" id="report">
+                        @csrf
+                        <section class="">
+                            <div class="mb-5">
+                                <div>
+                                    <x-label class="mt-4 mb-2">
+                                        کالا:
+                                    </x-label>
+                                </div>
+                                <div class="text-base text-center">
+                                    Macbook Air
+                                </div>
                             </div>
                             <div>
-                                <x-select class="block w-full mt-1 text-sm text-right" dir="rtl">
-                                    <option value="">کالا ممنوع و غیر مجاز است</option>
-                                    <option value="">کالا ممنوع و غیر مجاز است</option>
-                                    <option value="">کالا ممنوع و غیر مجاز است</option>
-                                </x-select>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <x-label class="mt-3 mb-2">
-                                    نام شما:
-                                </x-label>
-                            </div>
-                            <div>
-                                <x-input class="block w-full mt-1" type="text" />
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <x-label class="mt-3 mb-2">
-                                    ایمیل شما:
-                                </x-label>
+                                <div>
+                                    <x-label class="mt-4 mb-2">
+                                        موضوع تخلف:
+                                    </x-label>
+                                </div>
+                                <div>
+                                    <x-select class="block w-full mt-1 text-sm text-right" name="title" dir="rtl">
+                                        @foreach (\App\Models\Report::TITLES as $key => $title)
+                                            <option value="{{ $key }}">{{ $title }}</option>
+                                        @endforeach
+                                    </x-select>
+
+                                    <div class="error title_error"></div>
+                                </div>
                             </div>
                             <div>
-                                <x-input class="block w-full mt-1" type="email" />
+                                <div>
+                                    <x-label class="mt-4 mb-2">
+                                        نام شما:
+                                    </x-label>
+                                </div>
+                                <div>
+                                    <x-input class="block w-full mt-1" type="text" name="name" />
+
+                                    <div class="error name_error"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
                             <div>
-                                <x-label class="mt-3 mb-2">
-                                    توضیحات:
-                                </x-label>
+                                <div>
+                                    <x-label class="mt-4 mb-2">
+                                        ایمیل شما:
+                                    </x-label>
+                                </div>
+                                <div>
+                                    <x-input class="block w-full mt-1" type="email" name="email" />
+
+                                    <div class="error email_error"></div>
+                                </div>
                             </div>
                             <div>
-                                <x-textarea class="block w-full mt-1" />
+                                <div>
+                                    <x-label class="mt-4 mb-2">
+                                        توضیحات:
+                                    </x-label>
+                                </div>
+                                <div>
+                                    <x-textarea class="block w-full mt-1" name="description" />
+
+                                    <div class="error description_error"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <x-button class="flex justify-center w-full py-3 mt-4">
-                                ارسال
-                            </x-button>
-                        </div>
-                    </section>
+                            <div>
+                                <x-button class="flex justify-center w-full py-3 mt-4 bg-red-600 disable-on-ajax">
+                                    ارسال
+                                </x-button>
+                            </div>
+                        </section>
+                    </form>
                 </section>
             </div>
         </section>
@@ -1013,5 +778,90 @@
         $('.close-modal').on('click', function() {
             $('.toggle-modal[data-id=' + $(this).data('id') + ']').click();
         })
+    </script>
+
+    <script>
+        changeQuantity()
+
+        function changeQuantity() {
+            let quantity = $('.product-quantity:checked').data('quantity')
+
+            if (quantity > 0) {
+                $('#show-product-quantity .exists').show();
+                $('#show-product-quantity .not-exists').hide();
+                $('#show-product-quantity .product-quantity-value').text(quantity);
+                if(quantity == '1') {
+                    $('#show-product-quantity #product-quantity-input').val(1)
+                    $('#show-product-quantity #product-quantity-input').prop('disabled', true)
+                } else {
+                    $('#show-product-quantity #product-quantity-input').prop('disabled', false)
+                }
+            } else {
+                $('#show-product-quantity .exists').hide();
+                $('#show-product-quantity .not-exists').show();
+            }
+        }
+    </script>
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    </script>
+
+    <script>
+        $('form#report').submit(function () {
+            event.preventDefault();
+
+            $('.disable-on-ajax').prop('disabled', true);
+            let formData = new FormData($('form#report')[0]);
+
+            $.ajax({
+                type: "post",
+                url: $('form#report').attr('action'),
+                headers: {
+                    "Accept": "application/json"
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('.disable-on-ajax').prop('disabled', false);
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    })
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1000);
+                }, error: function(xhr, status, error) {
+                    $('.disable-on-ajax').prop('disabled', false);
+
+                    if (!xhr.responseJSON) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'مشکلی پیش آمده دوباره امتحان کنید'
+                        })
+                    }
+
+                    Object.entries(xhr.responseJSON.errors).forEach((error) => {
+                        $('form#report .error').text('')
+
+                        setTimeout(() => {
+                            $(`form#report .${error[0]}_error`).text(error[1][0]);
+                        }, 100);
+                    });
+                }
+            });
+        });
     </script>
 @endsection

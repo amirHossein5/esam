@@ -12,6 +12,11 @@
                 سفارش های من
             </a>
 
+            <a href="{{ route('customer.dashboard.favoriteSellers') }}"
+                class="block text-gray-600 transition border-b p-7 hover:bg-gray-200 last:border-b-0">
+                فروشنده های مورد علاقه
+            </a>
+
             <a href="{{ route('customer.dashboard.myAddresses.index') }}"
                 class="block text-gray-600 transition border-b p-7 hover:bg-gray-200 last:border-b-0">
                 آدرس های من

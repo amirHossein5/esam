@@ -30,6 +30,7 @@
     </section>
 
     @include('customer.layouts.script')
+    @include('alerts.sweetalert.all')
 
     @yield('scripts')
     @stack('scripts')

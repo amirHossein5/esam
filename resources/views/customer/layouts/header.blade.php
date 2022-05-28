@@ -8,7 +8,8 @@
             </div>
 
             <div class="absolute hidden md:block left-1 top-3 ">
-                <a href="{{ route('customer.dashboard.products.create') }}" class="px-4 py-2 text-gray-600 bg-blue-300 rounded-md">فروش کالا</a>
+                <a href="{{ route('customer.faq.index') }}" class="px-4 py-2 text-gray-600 bg-blue-300 rounded-md">سوالات متداول</a>
+                <a href="{{ route('customer.dashboard.products.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md">فروش کالا</a>
             </div>
         </section>
     </section>
@@ -21,14 +22,18 @@
             </div>
 
             <a href="{{ route('customer.index') }}" class="cursor-pointer h-[inherit]">
-                <img src="{{ asset('app-assets/images/mdLogo.webp') }}" class="max-h-full" alt="logo">
+                <img src="{{ asset($setting->logo) }}" class="max-h-full" alt="logo">
             </a>
         </div>
 
         <div class="hidden md:block">
-            <form action="" class="flex">
-                <input type="text" placeholder="جستجو درمیان ۶۰۰ هزار کالا..."
-                    class="border border-gray-600 h-12 w-80 lg:w-[39rem] rounded-r-md text-gray-600">
+            <form action="{{ route('customer.product.search') }}" class="flex">
+                {{-- parameters not be remvoe --}}
+                @foreach (request()->except('kw') as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
+                <input type="text" placeholder="جستجو میان کالاها..."
+                    class="border border-gray-600 h-12 w-80 lg:w-[39rem] rounded-r-md text-gray-600" name="kw" value="{{ request()->get('kw') }}">
                 <button class="flex items-center justify-center h-12 px-4 border border-gray-600 rounded-l-md">
                     <i class="text-xl icofont-search"></i>
                 </button>
@@ -85,47 +90,25 @@
             </div>
         </div>
         <section class="menus overflow-y-scroll h-[calc(100%-5rem)] cursor-pointer relative">
-            <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover show-children" data-open="false"
-                id="menu-1">
-                <span>موبایل و تبلت</span>
-                <i class="icofont-simple-down"></i>
+            @foreach ($productCategories as $productCategory)
+                @if ($productCategory->children->isNotEmpty())
+                    <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover show-children" data-open="false"
+                        id="{{ $productCategory->id }}">
+                        <span>{{ $productCategory->name }}</span>
+                        <i class="icofont-simple-down"></i>
 
-                <div class="hidden children">
-                    <section
-                        class="absolute top-0 left-0 right-0 h-full overflow-y-auto bg-white cursor-pointer menus">
-                        <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover show-children"
-                            data-open="false" id="menu-2">
-                            <span>موبایل و 1</span>
-                            <i class="icofont-simple-down"></i>
-
-                            <div class="hidden children">
-                                <section
-                                    class="absolute top-0 left-0 right-0 h-full overflow-y-auto bg-white cursor-pointer menus">
-                                    <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover show-children"
-                                        data-open="false" id="menu-3">
-                                        <span>موبایل و 10000</span>
-                                        <i class="icofont-simple-down"></i>
-                                        <div class="hidden children">
-                                            <section
-                                                class="absolute top-0 left-0 right-0 h-full overflow-y-auto bg-white cursor-pointer menus">
-                                                <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
-                                                    <a href="#">موبایل و 30000000</a>
-                                                </div>
-                                            </section>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
+                        <div class="hidden children">
+                            @include('customer.layouts.children-menu', [
+                                'children' => $productCategory->children
+                            ])
                         </div>
-                        <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
-                            <a href="#">موبایل و 3</a>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
-                <a href="#">موبایل و تبلت</a>
-            </div>
+                    </div>
+                @else
+                    <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
+                        <a href="#">{{ $productCategory->name }}</a>
+                    </div>
+                @endif
+            @endforeach
         </section>
     </section>
 </header>

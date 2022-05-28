@@ -162,3 +162,58 @@ function strlimit(string $value, int $limit = 100, string $end = '...'): string
 {
     return Str::limit($value, $limit, $end);
 }
+
+/**
+ * Returns another image when intended image not found.
+ *
+ * @param string $intendedImage
+ * @param string $notFoundImage
+ * @return string
+ */
+function image(string $intendedImage, string $notFoundImage = 'app-assets/images/image-not-found.jpg'): string
+{
+    return file_exists(public_path($intendedImage))
+        ? asset($intendedImage)
+        : asset($notFoundImage);
+}
+
+/**
+ * Puts same values of array in a key and reverts array.
+ * 
+ * [
+ *    2 => "1"
+ *    4 => "2"
+ *    5 => "3"
+ *    6 => "3"
+ *    7 => "3"
+ * ]
+ *  output:
+ * [
+ *    1 => 2 
+ *    2 => 4 
+ *    3 => [
+ *      5
+ *      6
+ *      7
+ *    ]
+ * ]
+ *
+ * @param array $input 
+ * @return array
+ */
+function array_squish(array $input): array
+{
+    $array = [];
+
+    foreach ($input as $value => $attribute) {
+        if (isset($array[$attribute])) {
+            $array[$attribute] = array_merge(
+                is_array($array[$attribute]) ? $array[$attribute] : [$array[$attribute]],
+                [$value]
+            );
+        } else {
+            $array[$attribute] = $value;
+        }
+    }
+    return $array;
+}

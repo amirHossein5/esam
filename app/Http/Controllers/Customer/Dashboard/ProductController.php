@@ -16,6 +16,7 @@ use App\Models\Market\ProductCategory;
 use App\Models\Market\ProductWeight;
 use App\Models\Market\SellType;
 use App\Services\Admin\Market\ProductVariantService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
 
@@ -122,13 +123,17 @@ class ProductController extends Controller
         $category = ProductCategory::findOrFail($request['productCategory_id']);
 
         if ($sellType->name == SellType::AUCTION) {
+            $period = AuctionPeriod::findOrFail($request['auction_period_id']);
             $request['start_date'] = date('Y-m-d H:i:s', substr($request['start_date'], 0, 10));
+            $request['end_date'] = Carbon::parse($request['start_date'])->add($period->unit, $period->period)
+                ->format('Y-m-d H:i:s');
             $request['urgent_price'] = isset($request['urgent_price']) ? $request['urgent_price'] : null;
             $request['reserved_price'] = isset($request['reserved_price']) ? $request['reserved_price'] : null;
 
             Auction::create([
                 'product_id' => $product->id,
                 'start_date' => $request['start_date'],
+                'end_date' => $request['end_date'],
                 'start_price' => $request['start_price'],
                 'period_id' => $request['auction_period_id'],
                 'urgent_price' => $request['urgent_price'],
@@ -291,25 +296,39 @@ class ProductController extends Controller
         $sellType = SellType::findOrFail($request['sell_type_id']);
         $category = ProductCategory::findOrFail($product->category_id);
 
-        if ($product->auction()->exists()) {
-            $product->auction()->delete();
-        } else {
+        if ($product->variants()->exists()) {
             $product->variants()->delete();
         }
 
         if ($sellType->name == SellType::AUCTION) {
+            $period = AuctionPeriod::findOrFail($request['auction_period_id']);
             $request['start_date'] = date('Y-m-d H:i:s', substr($request['start_date'], 0, 10));
+            $request['end_date'] = Carbon::parse($request['start_date'])->add($period->unit, $period->period)
+                ->format('Y-m-d H:i:s');
             $request['urgent_price'] = isset($request['urgent_price']) ? $request['urgent_price'] : null;
             $request['reserved_price'] = isset($request['reserved_price']) ? $request['reserved_price'] : null;
 
-            Auction::create([
-                'product_id' => $product->id,
-                'start_date' => $request['start_date'],
-                'start_price' => $request['start_price'],
-                'period_id' => $request['auction_period_id'],
-                'urgent_price' => $request['urgent_price'],
-                'reserved_price' => $request['reserved_price'],
-            ]);
+            if ($product->auction()->exists()) {
+                $product->auction()->update([
+                    'product_id' => $product->id,
+                    'start_date' => $request['start_date'],
+                    'end_date' => $request['end_date'],
+                    'start_price' => $request['start_price'],
+                    'period_id' => $request['auction_period_id'],
+                    'urgent_price' => $request['urgent_price'],
+                    'reserved_price' => $request['reserved_price'],
+                ]);
+            } else {
+                Auction::create([
+                    'product_id' => $product->id,
+                    'start_date' => $request['start_date'],
+                    'end_date' => $request['end_date'],
+                    'start_price' => $request['start_price'],
+                    'period_id' => $request['auction_period_id'],
+                    'urgent_price' => $request['urgent_price'],
+                    'reserved_price' => $request['reserved_price'],
+                ]);
+            }
         } else if ($sellType->name == SellType::FIXPRICE) {
 
             if ($category->selectableValues()->exists()) {
@@ -364,6 +383,23 @@ class ProductController extends Controller
         }
 
         return response(['message' => ' با موفقیت ویرایش شد.', 'id' => $productId], Response::HTTP_CREATED);
+    }
+
+    /**
+     * Changes marketable.
+     *
+     * @param \App\Models\Market\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function changeMarketable(Product $product)
+    {
+        //gate
+
+        $product->marketable = !$product->marketable;
+        $product->save();
+
+        return back()
+            ->with('sweetalert-mixin-success', 'با موفقیت تغییر داده شد');
     }
 
     /**

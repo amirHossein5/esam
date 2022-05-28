@@ -57,9 +57,35 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function favoriteSellers()
+    {
+        $sellers = auth()->user()->favoriteSellers()->paginate(6);
+
+        return view('customer.dashboard.favorite-sellers', compact('sellers'));
+    }
+
+    /**
+     * Destroy a resource.
+     *
+     * @param \App\Models\User $seller
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyFavoriteSeller(User $seller)
+    {
+        auth()->user()->favoriteSellers()->detach($seller->id);
+
+        return back()
+            ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function favorites()
     {
-        $favoriteProducts = auth()->user()->favoriteProducts()->paginate(6);
+        $favoriteProducts = auth()->user()->favoriteProducts()->with(['product.variants', 'product.amazingSale', 'product.auction'])->paginate(6);
 
         return view('customer.dashboard.favorites', compact('favoriteProducts'));
     }

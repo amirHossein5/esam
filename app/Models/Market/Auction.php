@@ -6,6 +6,7 @@ use App\Casts\ToEnglishMoney;
 use App\Models\AuctionPeriod;
 use App\Models\AuctionSuggestion;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,15 +18,19 @@ class Auction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'start_price', 'reserved_price', 'urgent_price', 'start_date', 'period_id'];
+    protected $fillable = ['product_id', 'start_price', 'reserved_price', 'urgent_price', 'start_date', 'end_date', 'period_id'];
 
     protected $casts = [
-        'start_price' => ToEnglishMoney ::class,
+        'start_price' => ToEnglishMoney::class,
         'reserved_price' => ToEnglishMoney::class,
         'urgent_price' => ToEnglishMoney::class,
     ];
 
     protected $appends = ['start_price_readable', 'reserved_price_readable', 'urgent_price_readable'];
+
+    protected $dates = [
+        'start_date', 'end_date'
+    ];
 
     /**
      * Relations
@@ -42,7 +47,7 @@ class Auction extends Model
 
     public function suggestions(): HasMany
     {
-        return $this->hasMany(AuctionSuggestion::class, );
+        return $this->hasMany(AuctionSuggestion::class, 'auction_id');
     }
 
     public function period(): BelongsTo
@@ -72,5 +77,21 @@ class Auction extends Model
         return new Attribute(
             get: fn () => fa_price($this->urgent_price)
         );
+    }
+
+    public function isActive(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->end_date->gte(now()) and $this->start_date->lte(now())
+        );
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeActives(Builder $query): Builder
+    {
+        return $query->where('end_date', '>=', now())
+            ->where('start_date', '<=', now());
     }
 }

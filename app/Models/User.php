@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\ToEnglishMoney;
+use App\Models\Market\Auction;
 use App\Models\Market\Order;
 use App\Models\Market\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -69,6 +70,11 @@ class User extends Authenticatable
     /**
      * Relations
      */
+    public function favoriteSellers(): BelongsToMany
+    {
+        return $this->belongsToMany(self::class, 'user_favorite_sellers', 'user_id', 'seller_id');
+    }
+
     public function otps(): HasMany
     {
         return $this->hasMany(Otp::class);
@@ -121,6 +127,16 @@ class User extends Authenticatable
     public function favoriteProducts(): HasMany
     {
         return $this->hasMany(UserFavoriteProduct::class);
+    }
+
+    public function auctionSuggestions(): HasMany
+    {
+        return $this->hasMany(AuctionSuggestion::class);
+    }
+
+    public function followingAuctions(): BelongsToMany
+    {
+        return $this->belongsToMany(Auction::class, 'auction_follower', 'user_id');
     }
 
     /**

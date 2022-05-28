@@ -212,6 +212,36 @@
 
             <section
                 class="sidebar-part-title
+                @if(request()->is('admin/reports*')) text-green @endif"
+            >
+                گزارش ها
+            </section>
+            <a
+                href="{{ route('admin.reports.index') }}"
+                class="sidebar-link @if(request()->routeIs('admin.reports.index')) text-green @endif"
+            >
+                <i class="fas fa-bars"></i>
+                <span>همه گزارش ها</span>
+            </a>
+
+            <a
+                href="{{ route('admin.reports.disabledForReport') }}"
+                class="sidebar-link @if(request()->routeIs('admin.reports.disabledForReport')) text-green @endif"
+            >
+                <i class="fas fa-bars"></i>
+                <span>محصولات غیرفعال شده</span>
+            </a>
+
+            <a
+                href="{{ route('admin.reports.notDisabledForReport') }}"
+                class="sidebar-link @if(request()->routeIs('admin.reports.notDisabledForReport')) text-green @endif"
+            >
+                <i class="fas fa-bars"></i>
+                <span>محصولات غیر فعال نشده</span>
+            </a>
+
+            {{-- <section
+                class="sidebar-part-title
                 @if(request()->is('admin/support*')) text-green @endif"
             >
                 درخواست های پشتیبانی
@@ -238,7 +268,7 @@
             >
                 <i class="fas fa-bars"></i>
                 <span>پشتیبانی های باز</span>
-            </a>
+            </a> --}}
 
 
 

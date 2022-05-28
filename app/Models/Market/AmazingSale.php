@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,5 +58,24 @@ class AmazingSale extends Model
         return new Attribute(
             get: fn () => (string) jdate($this->end_date)
         );
+    }
+
+    public function isActive(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->end_date->gte(now()) and
+                $this->start_date->lte(now()) and
+                $this->status === 1
+        );
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeActives(Builder $query): Builder
+    {
+        return $query->where('end_date', '>=', now())
+            ->where('start_date', '<=', now())
+            ->where('status', 1);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes, Sluggable, CascadeSoftDeletes, CascadeDeleteMorph;
+
+    // show_in_menu
+    const ACTIVE = 1;
+    const DISABLE = 0;
 
     protected $cascadeDeletes = ['children'];
 
@@ -75,5 +80,13 @@ class ProductCategory extends Model
     public function selectableValues(): BelongsToMany
     {
         return $this->belongsToMany(SelectableAttributeValue::class, 'category_selectable_attribute_value', 'category_id', 'attribute_value_id');
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeActiveInMenu(Builder $query): Builder
+    {
+        return $query->where('show_in_menu', self::ACTIVE);
     }
 }

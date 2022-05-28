@@ -30,7 +30,7 @@ class OtpMail extends Mailable
     public function build()
     {
         return $this->subject('کد فعال سازی')
-            ->markdown('emails.send-otp', [
+            ->markdown('mail.send-otp', [
                 'title' => 'کد فعال سازی'
             ]);
     }

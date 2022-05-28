@@ -119,8 +119,9 @@
                         "render": function(data, type, row, meta) {
                             var galleryRoute = "{{ route('admin.market.product.gallery.index', ':id')}}"
                                 .replace(':id', row.id);
-                            // var showRoute = ""
-                            //     .replace(':id', row.id);
+                            var showRoute = "{{ route('customer.product.item', [':id', ':slug']) }}"
+                                .replace(':id', row.id)
+                                .replace(':slug', row.slug);
                             var editRoute = "{{ route('admin.market.product.edit', ':id') }}"
                                 .replace(':id', row.id);
                             var destroyRoute = "{{ route('admin.market.product.destroy', ':id')}}"
@@ -143,7 +144,7 @@
                                                 <i class="fa fa-list-ul"></i>
                                                 تغییر امکان فروش
                                             </a>
-                                            <a href="" class="text-right dropdown-item">
+                                            <a href="${showRoute}" class="text-right dropdown-item">
                                                 <i class="fa fa-list-ul"></i>
                                                 مشاهده
                                             </a>

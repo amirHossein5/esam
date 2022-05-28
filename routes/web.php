@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Content\FAQController;
+use App\Http\Controllers\Customer\FAQController as CustomerFAQController;
 use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\CopanController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Customer\Dashboard\ProductController as DashboardProductController;
+use App\Http\Controllers\Customer\ProductController as CustomerProductController;
 use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\PermissionController;
@@ -32,8 +34,11 @@ use App\Http\Controllers\Admin\Market\ProductCategoryController;
 use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Customer\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\Dashboard\MyAddressesController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\ProductQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -277,17 +282,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     // support
-    Route::prefix('support')->name('support.')->controller(SupportController::class)->group(function () {
+    // Route::prefix('support')->name('support.')->controller(SupportController::class)->group(function () {
+    //     Route::get('index', 'index')->name('index');
+    //     Route::get('unseen', 'unseen')->name('unseen');
+    //     Route::get('closed', 'closed')->name('closed');
+    //     Route::get('open', 'open')->name('open');
+    //     Route::get('/show/{question}', 'show')->name('show');
+    //     Route::post('/{question}', 'store')->name('store');
+    //     Route::get('/edit/{answer}', 'edit')->name('edit');
+    //     Route::put('/{answer}', 'update')->name('update');
+    //     Route::delete('/{answer}', 'destroy')->name('destroy');
+    //     Route::get('changeStatus/{question}', 'changeStatus')->name('changeStatus');
+    // });
+
+    // reports
+    Route::prefix('reports')->name('reports.')->controller(ReportController::class)->group(function () {
         Route::get('index', 'index')->name('index');
-        Route::get('unseen', 'unseen')->name('unseen');
-        Route::get('closed', 'closed')->name('closed');
-        Route::get('open', 'open')->name('open');
-        Route::get('/show/{question}', 'show')->name('show');
-        Route::post('/{question}', 'store')->name('store');
-        Route::get('/edit/{answer}', 'edit')->name('edit');
-        Route::put('/{answer}', 'update')->name('update');
-        Route::delete('/{answer}', 'destroy')->name('destroy');
-        Route::get('changeStatus/{question}', 'changeStatus')->name('changeStatus');
+        Route::get('disabled-for-report', 'disabledForReport')->name('disabledForReport');
+        Route::get('not-disabled-for-report', 'notDisabledForReport')->name('notDisabledForReport');
+        Route::get('show/{report}', 'show')->name('show');
+        Route::put('toggle-disable-product/{report}', 'toggleDisableProduct')->name('toggleDisableProduct');
     });
 
     // notify
@@ -350,28 +364,39 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::name('customer.')->group(function () {
 
-    Route::get('/', function () {
-        return view('customer.index');
-    })->name('index');
+    Route::get('/', [HomeController::class, 'index'])->name('index');
 
-    Route::name('service.')->prefix('service')->group(function () {
-        Route::get('/', function () {
-            return view('customer.service.index');
-        })->name('index');
-
-        Route::get('/show/10', function () {
-            return view('customer.service.show');
-        })->name('index');
+    Route::name('faq.')->prefix('faq')->controller(CustomerFAQController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{faq:slug}', 'show')->name('show');
     });
 
-    Route::name('product.')->group(function () {
-        Route::get('item/10/mac', function () {
-            return view('customer.products.show');
-        })->name('item');
+    Route::name('product.')->controller(CustomerProductController::class)->group(function () {
+        Route::get('item/{product}/{slug}', 'show')->middleware('productDisabledForReportMiddleware')->name('item');
 
-        Route::get('search', function () {
-            return view('customer.products.search');
-        })->name('item');
+        Route::middleware('auth')->prefix('item')->middleware('productDisabledForReportMiddleware')->group(function () {
+            Route::get('suggestion-form/{product}', 'suggestionForm')->name('suggestionForm');
+            Route::post('submit-suggestion/{product}', 'submitSuggestion')
+                ->name('submitSuggestion')
+                ->middleware('translate_from:money_translation.php', 'translate:suggested_amount');
+            Route::post('follow-auction/{product}', 'followAuction')->name('followAuction');
+            Route::put('add-to-favorites/{product}', 'addToFavorites')->name('addToFavorites');
+            Route::delete('remove-favorite/{favorite}', 'removeFavorite')->name('removeFavorite');
+            Route::delete('unfollow-auction/{product}', 'unfollowAuction')->name('unfollowAuction');
+            Route::put('/toggle-favorite-seller/{seller}', 'toggleFavoriteSeller')->name('toggleFavoriteSeller');
+            Route::post('/report/{product}', 'report')->name('report');
+
+            // product question
+            Route::controller(ProductQuestionController::class)->prefix('question')->name('question.')->group(function () {
+                Route::get('create/{product}', 'create')->name('create');
+                Route::post('/{product}', 'store')->name('store');
+                Route::get('edit/{question}/{product}', 'edit')->name('edit');
+                Route::put('/{question}/{product}', 'update')->name('update');
+                Route::delete('/{question}', 'destroy')->name('destroy');
+            });
+        });
+
+        Route::get('search', 'search')->name('search')->middleware('translate_from:money_translation.php', 'translate:price-from,price-until');
     });
 
     Route::middleware('auth')->group(function () {
@@ -413,6 +438,7 @@ Route::name('customer.')->group(function () {
                     ->middleware([
                         'json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product'
                     ]);
+                Route::put('changeMarketable/{product}', 'changeMarketable')->name('changeMarketable');
                 Route::delete('{product}', 'destroy')->name('destroy');
 
                 //gallery
@@ -423,6 +449,8 @@ Route::name('customer.')->group(function () {
                 });
             });
 
+            Route::get('/favorite-sellers', 'favoriteSellers')->name('favoriteSellers');
+            Route::delete('/favorite-sellers/{seller}', 'destroyFavoriteSeller')->name('destroyFavoriteSeller');
             Route::get('/favorites', 'favorites')->name('favorites');
             Route::delete('/favorite/{userFavoriteProduct}', 'destroyFavorite')->name('destroyFavorite');
             Route::get('/account', 'account')->name('account');
@@ -445,7 +473,6 @@ Route::name('customer.')->group(function () {
         Route::get('/logout', 'logout')->name('logout')->middleware('auth');
     });
 });
-
 
 
 // Route::get('/dashboard', function () {
