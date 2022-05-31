@@ -67,7 +67,10 @@
 
             <a href="{{ route('customer.cart.index') }}" class="flex flex-row-reverse justify-center p-2 rounded-md cursor-pointer relative bg-slate-gray md:p-3">
                 <i class="icofont-cart-alt text-2xl"></i>
-                <span class="bg-red-600 text-gray-200 font-bold relative flex items-center top-1 px-2 rounded-full">6</span>
+
+                @if ( auth()->user()?->cartItems()->count() > 0)
+                    <span class="bg-red-600 text-gray-200 font-bold relative flex items-center top-1 px-2 rounded-full">{{ auth()->user()->cartItems()->count() }}</span>
+                @endif
             </a>
         </section>
 

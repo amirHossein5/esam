@@ -90,6 +90,7 @@ return [
         'auction_period_id'    => 'مدت',
         'start_price'          => 'شروع قیمت',
         'product_id'           => 'محصول',
+        'variant_id'           => 'مشخصه',
         'percentage'           => 'درصد',
         'discount_ceiling'     => 'حداکثر تخفیف',
         'code'                 => 'کد',
@@ -106,6 +107,7 @@ return [
         'unit'                 => 'واحد',
         'postal_code'          => 'کد پستی',
         'delivery_time_id'     => ' زمان ارسال ',
-        'suggested_amount'     => ' قیمت پیشنهادی '
+        'suggested_amount'     => ' قیمت پیشنهادی ',
+        'pay-type'             => 'روش پرداخت',
     ],
 ];

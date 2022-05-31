@@ -3,6 +3,7 @@
 namespace App\Models\Market;
 
 use App\Casts\ToEnglishMoney;
+use App\Models\VariantFrozenNumber;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sold_number', 'frozen_number', 'marketable_number', 'price', 'product_id','active'];
+    protected $fillable = ['sold_number', 'marketable_number', 'price', 'product_id','active'];
 
     protected $casts = [
         'price' => ToEnglishMoney::class,
@@ -26,6 +27,11 @@ class ProductVariant extends Model
     /**
      * Relations
      */
+    public function frozenNumber(): HasMany
+    {
+        return $this->hasMany(VariantFrozenNumber::class, 'variant_id');
+    }
+
     public function selectableAttributes(): HasMany
     {
         return $this->hasMany(ProductVariantSelectableAttribute::class, 'variant_id');

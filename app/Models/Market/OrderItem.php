@@ -13,10 +13,16 @@ class OrderItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['order_id', 'product_id','product_object', 'delivery_time', 'amazing_sale_id', 'amazing_sale_object', 'amazing_sale_discount_amount', 'number', 'final_product_price', 'final_total_price', 'variant_id', 'variant_object'];
+
     protected $casts = [
         'amazing_sale_discount_amount' => ToEnglishMoney::class,
         'final_product_price' => ToEnglishMoney::class,
         'final_total_price' => ToEnglishMoney::class,
+
+        'product_object' => 'object',
+        'amazing_sale_object' => 'object',
+        'variant_object' => 'object',
     ];
 
     protected $appends = [

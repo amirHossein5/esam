@@ -70,7 +70,7 @@
                         "searchable": false
                     },
                     {
-                        "data": "product.name",
+                        "data": "product_object.name",
                         "render": function(data, type, row, meta) {
                             return strlimit(data , 0, 10);
                         }
@@ -88,9 +88,9 @@
                         }
                     },
                     {
-                        "data": "variant.price",
+                        "data": "variant_object.price",
                         "render": function(data, type, row, meta) {
-                            return row.variant.price_readable ?? '-';
+                            return row.variant_object.price_readable ?? '-';
                         }
                     },
                     {
@@ -106,18 +106,21 @@
                         }
                     },
                     {
-                        "data": "variant.selectable_attributes",
+                        "data": "variant_object.selectable_attributes",
                         "render": function(data, type, row, meta) {
                             render = '';
 
-                            data.forEach((attribute, index) => {
-                                if (index > 2) {
-                                    render += '...';
-                                    return;
-                                }
+                            if (data) {
+                                data.forEach((attribute, index) => {
+                                    console.log(attribute,index);
+                                    if (index > 2) {
+                                        render += '...';
+                                        return;
+                                    }
 
-                                render += `- ${attribute.attribute.name}: ${attribute.value} <br>`;
-                            });
+                                    render += `- ${attribute.attribute.name}: ${attribute.value} <br>`;
+                                });
+                            }
 
                             return data.length != 0 ? render : '-';
                         }

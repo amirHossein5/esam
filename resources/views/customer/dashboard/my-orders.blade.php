@@ -45,27 +45,34 @@
                         </div>
                     </div>
 
-                    <div class="mt-6">
-                        <div class="mr-2 text-base text-gray-600">
-                            هزینه ارسال کالاها : {{ $order->delivery_amount_readable }} تومان
-                        </div>
-                    </div>
-
                     <div class="mt-2">
                         <div class="mr-2 text-base text-gray-600">
                             تخفیف کالاها : <span class="text-base text-red-600">{{ $order->order_discount_amount_readable }} تومان</span>
                         </div>
                     </div>
 
+
+                    <div class="mt-6">
+                        <div class="mr-2 text-base text-gray-600">
+                            هزینه ارسال  : {{ $order->delivery_amount_readable }} تومان
+                        </div>
+                    </div>
+
                     <div class="mt-2">
                         <div class="mr-2 text-base text-gray-600">
-                            قیمت نهایی : {{ $order->order_final_amount - $order->discount_amount + $order->delivery_amount }} تومان
+                            کد تخفیف : <span class="text-base text-red-600">{{ $order->order_copan_discount_amount_readable }} تومان</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="mr-2 text-base text-gray-600">
+                            قیمت نهایی : {{ fa_price(($order->order_final_amount - ($order->order_discount_amount + $order->order_copan_discount_amount)) + $order->delivery_amount) }} تومان
                         </div>
                     </div>
 
                     <div class='flex flex-wrap gap-2 mt-4'>
                         @foreach ($order->items as $item)
-                            <img class="w-28" src="{{ asset($item->product->image) }}"
+                            <img class="w-28" src="{{ asset($item->product_object->image->index) }}"
                             alt="">
                         @endforeach
                     </div>

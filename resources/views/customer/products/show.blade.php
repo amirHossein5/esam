@@ -234,114 +234,129 @@
                                         </section>
                                     @else
 
-                                    @if ($product->variants->count() > 0)
-                                            <section class="text-base" id="show-product-quantity">
-                                                <section class="exists">
-                                                    خرید
-                                                    <input type="number" value="1" class="w-24" id="product-quantity-input">
-                                                    عدد از <span class="product-quantity-value">15</span> عدد
+                                        <form action="{{ route('customer.cart.store', $product->id) }}" method="post">
+                                            @csrf
+
+                                            @if ($product->variants->count() > 1 or $product->variants[0]->selectableAttributes->count() > 0)
+                                                <section class="text-base" id="show-product-quantity">
+                                                    <section class="exists">
+                                                        خرید
+                                                        <input type="number" name="number" value="1" class="w-24" id="product-quantity-input">
+                                                        عدد از <span class="product-quantity-value">15</span> عدد
+                                                    </section>
+                                                    @error('number')
+                                                        <section class="error">
+                                                            {{ $message }}
+                                                        </section>
+                                                    @enderror
+                                                    <section class="hidden text-base text-red-600 not-exists">
+                                                        <i class="icofont-close"></i>
+                                                        این مشخصه موجود نیست
+                                                    </section>
                                                 </section>
 
-                                                <section class="hidden text-base text-red-600 not-exists">
-                                                    <i class="icofont-close"></i>
-                                                    این مشخصه موجود نیست
-                                                </section>
-                                            </section>
-
-                                            <section class="pt-2 mt-5">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th>مشخصه</th>
-                                                            <th> قیمت هر عدد (تومان)</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($product->variants as $variant)
-                                                            <tr class="@if($variant->marketable_number <= 0) opacity-50 bg-gray-200 @endif">
-                                                                <td>
-                                                                    <input
-                                                                        type="radio"
-                                                                        name="selected-variant"
-                                                                        @checked($variant->active === 1)
-                                                                        @disabled($variant->marketable_number <= 0)
-                                                                        onchange="changeQuantity()"
-                                                                        class="product-quantity"
-                                                                        data-quantity="{{ $variant->marketable_number }}"
-                                                                    >
-                                                                </td>
-                                                                <td class="pr-4">
-                                                                    <div class="flex flex-wrap " style="gap: 0.8rem">
-                                                                        @foreach ($variant->selectableAttributes as $selectableAttribute)
-                                                                            <div>
-                                                                                <span class="text-sm">{{ $selectableAttribute->attribute->name }}</span>:
-                                                                                <span class="text-base">{{ $selectableAttribute->value }}</span>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    @php
-                                                                        if ($product->amazingSale?->isActive) {
-                                                                            $discounted = (new App\Services\DiscountService())
-                                                                                ->calculate(
-                                                                                    $variant->price,
-                                                                                    $product->amazingSale->percentage
-                                                                                );
-                                                                        }
-                                                                    @endphp
-
-                                                                    @if ($product->amazingSale?->isActive)
-                                                                        <span class="text-sm line-through">{{ $variant->price_readable }}</span>
-                                                                        <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
-                                                                    @else
-                                                                        <span class="text-xl ">{{ $variant->price_readable }}</span>
-                                                                    @endif
-                                                                </td>
+                                                <section class="pt-2 mt-5">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>مشخصه</th>
+                                                                <th> قیمت هر عدد (تومان)</th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($product->variants as $variant)
+                                                                <tr class="@if($variant->marketable_number <= 0) opacity-50 bg-gray-200 @endif">
+                                                                    <td>
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="variant_id"
+                                                                            value="{{ $variant->id }}"
+                                                                            @checked($variant->active === 1)
+                                                                            @disabled($variant->marketable_number <= 0)
+                                                                            onchange="changeQuantity()"
+                                                                            class="product-quantity"
+                                                                            data-quantity="{{ $variant->marketable_number }}"
+                                                                        >
+                                                                    </td>
+                                                                    <td class="pr-4">
+                                                                        <div class="flex flex-wrap " style="gap: 0.8rem">
+                                                                            @foreach ($variant->selectableAttributes as $selectableAttribute)
+                                                                                <div>
+                                                                                    <span class="text-sm">{{ $selectableAttribute->attribute->name }}</span>:
+                                                                                    <span class="text-base">{{ $selectableAttribute->value }}</span>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        @php
+                                                                            if ($product->amazingSale?->isActive) {
+                                                                                $discounted = (new App\Services\DiscountService())
+                                                                                    ->calculate(
+                                                                                        $variant->price,
+                                                                                        $product->amazingSale->percentage
+                                                                                    );
+                                                                            }
+                                                                        @endphp
+
+                                                                        @if ($product->amazingSale?->isActive)
+                                                                            <span class="text-sm line-through">{{ $variant->price_readable }}</span>
+                                                                            <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
+                                                                        @else
+                                                                            <span class="text-xl ">{{ $variant->price_readable }}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </section>
+                                            @else
+                                                @php
+                                                    $marketable_number = $product->variants[0]->marketable_number;
+
+                                                    if ($product->amazingSale?->isActive) {
+                                                        $discounted = (new App\Services\DiscountService())
+                                                            ->calculate(
+                                                                $product->variants[0]->price,
+                                                                $product->amazingSale->percentage
+                                                            );
+                                                    }
+                                                @endphp
+
+                                                <section class="text-base">
+                                                    خرید
+                                                    <input type="number" name="number" value="1" class="w-24">
+                                                    عدد از <span class="">{{ $marketable_number }}</span> عدد
+                                                </section>
+                                                @error('number')
+                                                    <section class="error">
+                                                        {{ $message }}
+                                                    </section>
+                                                @enderror
+
+                                                <input type="hidden" name="variant_id" value="{{ $product->variants[0]->id }}">
+
+                                                <section class="pt-4 text-base">
+                                                    قیمت هر عدد:
+                                                    @if ($product->amazingSale?->isActive)
+                                                        <span class="text-sm line-through">{{ $product->variants[0]->price_readable }}</span>
+                                                        <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
+                                                    @else
+                                                        <span class="text-xl ">{{ $product->variants[0]->price_readable }}</span>
+                                                    @endif
+                                                    تومان
+                                                </section>
+                                            @endif
+                                            <section class="mt-9">
+                                                <button
+                                                    class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md">خرید</button>
+                                                <button
+                                                    class="block w-full py-2 mt-1 text-base text-center text-white bg-green-600 rounded-md">اضافه
+                                                    کردن به سبد خرید</button>
                                             </section>
-                                        @else
-                                            @php
-                                                $marketable_number = $product->variants[0]->marketable_number;
-
-                                                if ($product->amazingSale?->isActive) {
-                                                    $discounted = (new App\Services\DiscountService())
-                                                        ->calculate(
-                                                            $product->variants[0]->price,
-                                                            $product->amazingSale->percentage
-                                                        );
-                                                }
-                                            @endphp
-
-                                            <section class="text-base">
-                                                خرید
-                                                <input type="number" value="1" class="w-24" @if($marketable_number <= 1) disabled @endif>
-                                                عدد از <span class="">{{ $marketable_number }}</span> عدد
-                                            </section>
-
-                                            <section class="pt-4 text-base">
-                                                قیمت هر عدد:
-                                                @if ($product->amazingSale?->isActive)
-                                                    <span class="text-sm line-through">{{ $product->variants[0]->price_readable }}</span>
-                                                    <span class="text-xl text-red-600 ">{{ fa_price($discounted) }}</span>
-                                                @else
-                                                    <span class="text-xl ">{{ $product->variants[0]->price_readable }}</span>
-                                                @endif
-                                                تومان
-                                            </section>
-                                        @endif
-
-                                        <section class="mt-9">
-                                            <a href=""
-                                                class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md">خرید</a>
-                                            <a href=""
-                                                class="block w-full py-2 mt-1 text-base text-center text-white bg-green-600 rounded-md">اضافه
-                                                کردن به سبد خرید</a>
-                                        </section>
+                                        </form>
                                     @endif
                                     <section class="mt-2">
                                         <span class="text-gray-600">تعداد بازدید:</span>
@@ -382,37 +397,23 @@
                                         data-open="false">
                                         <div class="flex flex-wrap justify-center">
                                             <div class="p-3 hover:bg-gray-200">
-                                                <a href="">
+                                                <a href="https://telegram.me/share/url?url={{ url()->current() }}">
                                                     <i
-                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-share">
+                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-telegram">
                                                     </i>
                                                 </a>
                                             </div>
                                             <div class="p-3 hover:bg-gray-200">
-                                                <a href="">
+                                                <a href="https://wa.me/?text={{ url()->current() }}">
                                                     <i
-                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-share">
+                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-whatsapp">
                                                     </i>
                                                 </a>
                                             </div>
                                             <div class="p-3 hover:bg-gray-200">
-                                                <a href="">
+                                                <a href="https://twitter.com/home?status={{ url()->current() }}">
                                                     <i
-                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-share">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="p-3 hover:bg-gray-200">
-                                                <a href="">
-                                                    <i
-                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-share">
-                                                    </i>
-                                                </a>
-                                            </div>
-                                            <div class="p-3 hover:bg-gray-200">
-                                                <a href="">
-                                                    <i
-                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-share">
+                                                        class="text-2xl text-gray-600 transition cursor-pointer icofont-twitter">
                                                     </i>
                                                 </a>
                                             </div>
@@ -524,30 +525,32 @@
                 کالای شبیه به این دارید؟ <a href="{{ route('customer.dashboard.products.index') }}" class="a-hover">در ایسام بفروشید</a>
             </div>
 
-            <section class='px-6 py-4 mt-3 bg-white border rounded-md'>
-                <p class="text-lg">مشخصات کالا</p>
+            @if ($attributeValuesByAttribute)
+                <section class='px-6 py-4 mt-3 bg-white border rounded-md'>
+                    <p class="text-lg">مشخصات کالا</p>
 
-                <section class="mt-3 overflow-x-auto">
-                    <section class="border  min-w-[30rem]">
-                        @foreach ($attributeValuesByAttribute as $name => $value)
-                            <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
+                    <section class="mt-3 overflow-x-auto">
+                        <section class="border  min-w-[30rem]">
+                            @foreach ($attributeValuesByAttribute as $name => $value)
+                                <section class="flex p-2 border-b odd:bg-gray-100 last:border-b-0">
 
-                                <section class="w-4/12">
-                                    <p>{{ $name }}</p>
+                                    <section class="w-4/12">
+                                        <p>{{ $name }}</p>
+                                    </section>
+
+                                    {{-- because select box attributes just can have one value, and also because of getting all of the values of product, it's array --}}
+                                    <section class="w-8/12">
+                                        <p>{{ $value[0]['value'] }} </p>
+                                    </section>
+
                                 </section>
+                            @endforeach
 
-                                {{-- because select box attributes just can have one value, and also because of getting all of the values of product, it's array --}}
-                                <section class="w-8/12">
-                                    <p>{{ $value[0]['value'] }} </p>
-                                </section>
-
-                            </section>
-                        @endforeach
-
+                        </section>
                     </section>
-                </section>
 
-            </section>
+                </section>
+            @endif
 
             <section class='px-6 py-4 mt-3 bg-white border rounded-md drop-list' data-open="true">
                 <p class="pb-2 text-lg border-b cursor-pointer drop-list-click-open">
@@ -639,16 +642,18 @@
         </section>
 
         {{-- related products --}}
-        <section class="mt-20">
-            <h6 class="title">کالاهای مرتبط</h6>
+        @if ($relatedProducts->isNotEmpty())
+                <section class="mt-20">
+                <h6 class="title">کالاهای مرتبط</h6>
 
-            <x-product.show
-                type="max-grid-5"
-                id="related-products"
-                :products="$relatedProducts"
-            />
+                <x-product.show
+                    type="max-grid-5"
+                    id="related-products"
+                    :products="$relatedProducts"
+                />
 
-        </section>
+            </section>
+        @endif
     </section>
 
     {{-- modals --}}
@@ -792,7 +797,7 @@
                 $('#show-product-quantity .product-quantity-value').text(quantity);
                 if(quantity == '1') {
                     $('#show-product-quantity #product-quantity-input').val(1)
-                    $('#show-product-quantity #product-quantity-input').prop('disabled', true)
+                    $('#show-product-quantity #product-quantity-input').prop('disabled', false)
                 } else {
                     $('#show-product-quantity #product-quantity-input').prop('disabled', false)
                 }

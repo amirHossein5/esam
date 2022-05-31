@@ -19,7 +19,11 @@ class PaymentTypeSeeder extends Seeder
             [
                 'name' => 'online',
                 'fa_name' => 'آنلاین'
-            ]
+            ],
+            [
+                'name' => 'cash',
+                'fa_name' => 'کیف پول'
+            ],
         ])->each(function ($type) {
             if (! PaymentType::where('name', $type['name'])->exists()) {
                 PaymentType::create($type);

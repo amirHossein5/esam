@@ -80,7 +80,14 @@ class MyAddressesController extends Controller
 
         $address->update($request);
 
-        return to_route('customer.dashboard.myAddresses.index')->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
+        $session = session('url.intended');
+        session()->forget('url');
+
+        return $session
+            ? redirect($session)
+                ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد')
+            : to_route('customer.dashboard.myAddresses.index')
+                ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');
     }
 
     /**

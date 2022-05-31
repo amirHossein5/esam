@@ -5,6 +5,7 @@ namespace App\Models\Market;
 use App\Casts\ToEnglishDigits;
 use App\Casts\ToEnglishMoney;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,7 @@ class Copan extends Model
     protected $dates = [
         'start_date', 'end_date'
     ];
+
     /**
      * Appends to accessors.
      *
@@ -53,6 +55,16 @@ class Copan extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Scopes
+     */
+    public function scopeActives(Builder $query): Builder
+    {
+        return $query->where('status', 1)
+            ->where('end_date', '>=', now())
+            ->where('start_date', '<=', now());
     }
 
     /**

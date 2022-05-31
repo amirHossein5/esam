@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Customer\Dashboard\GalleryController as DashboardGalleryController;
 use App\Http\Controllers\Admin\Market\LandingPageCopans;
 use App\Http\Controllers\Admin\Market\PaymentController;
+use App\Http\Controllers\Customer\PaymentController as CustomerPaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Customer\Dashboard\ProductController as DashboardProductController;
 use App\Http\Controllers\Customer\ProductController as CustomerProductController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\Admin\Market\LandingPageCopanController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeController;
 use App\Http\Controllers\Admin\Market\SelectableAttributeValueController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\Dashboard\MyAddressesController;
 use App\Http\Controllers\Customer\HomeController;
@@ -297,7 +299,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // reports
     Route::prefix('reports')->name('reports.')->controller(ReportController::class)->group(function () {
-        Route::get('index', 'index')->name('index');
+        Route::get('', 'index')->name('index');
         Route::get('disabled-for-report', 'disabledForReport')->name('disabledForReport');
         Route::get('not-disabled-for-report', 'notDisabledForReport')->name('notDisabledForReport');
         Route::get('show/{report}', 'show')->name('show');
@@ -399,16 +401,29 @@ Route::name('customer.')->group(function () {
         Route::get('search', 'search')->name('search')->middleware('translate_from:money_translation.php', 'translate:price-from,price-until');
     });
 
+    Route::middleware('auth', 'productDisabledForReportMiddleware')->group(function () {
+        Route::prefix('cart')->name('cart.')->controller(CartController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store/{productId}', 'store')->name('store'); // add to cart
+            Route::put('/update', 'update')->name('update');
+            Route::delete('destroy/{cartItem}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('payment')->name('payment.')->controller(CustomerPaymentController::class)->group(function () {
+            Route::get('/address', 'address')->name('address');
+            Route::get('/edit-address/{address}', 'editAddress')->name('editAddress');
+
+            Route::get('code/{address}', 'code')->name('code');
+            Route::post('register-code/{address}', 'registerCode')->name('registerCode');
+
+            Route::get('pay/{address}/{copanId?}', 'payPage')->name('payPage');
+            Route::post('pay/{address}/{copanId?}', 'pay')->name('pay');
+
+            Route::get('result/{order}', 'result')->name('result');
+        });
+    });
+
     Route::middleware('auth')->group(function () {
-        Route::prefix('cart')->name('cart.')->group(function () {
-            Route::view('/', 'customer.cart')->name('index');
-        });
-
-        Route::prefix('payment')->name('payment.')->group(function () {
-            Route::view('/address', 'customer.payment.address')->name('address');
-            Route::view('/', 'customer.payment.payment')->name('payment');
-        });
-
         // customer dashboard
         Route::prefix('/dashboard')->name('dashboard.')->controller(DashboardController::class)->group(function () {
             Route::get('/', 'index')->name('index');

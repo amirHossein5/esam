@@ -91,7 +91,7 @@
                     {
                         "data": "order_final_amount",
                         "render": function(data, type, row, meta) {
-                            return  data - row.order_discount_amount;
+                            return  (parseInt(data) - (parseInt(row.order_discount_amount) + parseInt(row.order_copan_discount_amount))) + parseInt(row.delivery_amount ?? 0);
                         }
                     },
                     {
@@ -121,7 +121,7 @@
                     {
                         "data": "delivery_amount",
                         "render": function(data, type, row, meta) {
-                            return strlimit(data , 0, 10);
+                            return data;
                         }
                     },
                     {

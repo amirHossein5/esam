@@ -45,7 +45,8 @@ class DashboardController extends Controller
      */
     public function myOrders()
     {
-        $orders = Order::where('user_id', auth()->id())
+        $orders = Order::where('order_status', Order::ACCEPTED)
+            ->where('user_id', auth()->id())
             ->with('items.product')
             ->paginate(6);
 

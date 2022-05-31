@@ -141,12 +141,6 @@
                                 </td>
                             </tr>
                             <tr class="border-bottom">
-                                <th>تاریخ ارسال</th>
-                                <td class="text-left font-weight-bolder">
-                                    {{ $order->delivery_time ?? '-' }}
-                                </td>
-                            </tr>
-                            <tr class="border-bottom">
                                 <th>بانک</th>
                                 <td class="text-left font-weight-bolder">
                                     {{ $order->payment->paymentable->gateway ?? '-' }}
@@ -180,7 +174,7 @@
                             <tr class="border-bottom">
                                 <th>مبلغ نهایی</th>
                                 <td class="text-left font-weight-bolder">
-                                    {{ fa_price($order->order_final_amount - $order->order_discount_amount) }}
+                                   {{ fa_price(($order->order_final_amount - ($order->order_discount_amount + $order->order_copan_discount_amount)) + $order->delivery_amount) }}
                                 </td>
                             </tr>
 

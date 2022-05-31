@@ -146,7 +146,7 @@ class OrderController extends Controller
     {
         if (request()->wantsJson()) {
             return datatables(
-                $order->items->load(['variant.selectableAttributes.attribute', 'product', 'amazingSale'])
+                $order->items
             )->toJson();
         }
 

@@ -53,7 +53,7 @@ class ProductController extends Controller
             ->get();
         $relatedProducts = collect($relatedProducts)->filter(fn ($product) =>
             $product->variants->isNotEmpty() ? $product->variants->where('marketable_number', '>', '0')->isNotEmpty() : true
-        );
+        )->reject(fn ($related) => $related->id === $product->id);
 
         return view('customer.products.show', compact('product', 'categories', 'attributeValuesByAttribute', 'relatedProducts'));
     }
@@ -175,8 +175,8 @@ class ProductController extends Controller
                 // when an attribute has multiple value ids, put value ids to array
                 // attribute id => [ valueids ]
                 foreach (array_squish(array_combine($values, $attributes)) as $attribute => $value) {
-                    if (is_array($value)) {                        
-                        $filteredProducts->whereHas('attributeValues', fn($q) => 
+                    if (is_array($value)) {
+                        $filteredProducts->whereHas('attributeValues', fn($q) =>
                             $q->where('attribute_id', $attribute)
                                 ->where(function ($q) use ($value) {
                                     foreach ($value as $value) {
@@ -185,7 +185,7 @@ class ProductController extends Controller
                                 })
                         );
                     } else {
-                        $filteredProducts->whereHas('attributeValues', fn($q) => 
+                        $filteredProducts->whereHas('attributeValues', fn($q) =>
                             $q->where('attribute_id', $attribute)->where('value_id', (int) $value)
                         );
                     }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\ToEnglishMoney;
 use App\Models\Market\Auction;
 use App\Models\Market\Order;
+use App\Models\Market\Payment;
 use App\Models\Market\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,7 +31,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'role_id', 'current_team_id', 'remember_token', 'delivery_time_id'
+        'first_name', 'last_name', 'email', 'mobile', 'national_code', 'slug', 'profile_photo_path', 'password', 'email_verified_at', 'mobile_verified_at', 'user_type', 'status', 'role_id', 'current_team_id', 'remember_token', 'delivery_time_id', 'cash'
     ];
 
     /**
@@ -70,6 +71,21 @@ class User extends Authenticatable
     /**
      * Relations
      */
+    public function usedCopans(): HasMany
+    {
+        return $this->hasMany(UsedCopan::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function cartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
     public function favoriteSellers(): BelongsToMany
     {
         return $this->belongsToMany(self::class, 'user_favorite_sellers', 'user_id', 'seller_id');

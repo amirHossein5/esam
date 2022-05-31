@@ -28,11 +28,17 @@ class Order extends Model
     const ACCEPTED = 1;
     const NOTACCEPTED = 2;
 
+    protected $fillable = ['user_id', 'address_id', 'address_object', 'payment_id', 'payment_object', 'delivery_status', 'delivery_amount', 'order_final_amount', 'order_discount_amount', 'copan_id', 'copan_object', 'order_copan_discount_amount', 'order_status'];
+
     protected $casts = [
         'order_final_amount' => ToEnglishMoney::class,
         'order_discount_amount' => ToEnglishMoney::class,
         'order_copan_discount_amount' => ToEnglishMoney::class,
-        'delivery_amount' => ToEnglishMoney::class
+        'delivery_amount' => ToEnglishMoney::class,
+
+        'address_object' => 'object',
+        'payment_object' => 'object',
+        'copan_object' => 'object',
     ];
 
     /**
