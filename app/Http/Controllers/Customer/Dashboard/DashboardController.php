@@ -132,8 +132,16 @@ class DashboardController extends Controller
             'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->id()), 'email'],
         ]);
 
-        User::where('id', auth()->id())
-            ->update($request);
+        if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
+            return back()
+                ->withInput()
+                ->withErrors(['email' => 'ایمیل معتبر نیست.']);
+        }
+
+        $user = User::findOrFail(auth()->id());
+
+        User::whereId(auth()->id())
+            ->update(['email_verified_at' => null] + $request);
 
         return back()
             ->with('sweetalert-mixin-success', 'با موفقیت ویرایش شد');

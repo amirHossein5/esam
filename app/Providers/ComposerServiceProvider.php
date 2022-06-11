@@ -49,7 +49,7 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('randomFaqs', $randomFaqs);
         });
 
-        view()->composer('customer.layouts.*', function ($view) {
+        view()->composer(['customer.layouts.*', 'customer.page'], function ($view) {
             $view->with('setting', (new SettingRepository)->first());
         });
 
@@ -61,7 +61,12 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('landingPageCopan', LandingPageCopan::actives()->first());
         });
 
-        view()->composer(['customer.payment.address', 'customer.payment.code', 'customer.payment.pay', 'customer.cart'], function ($view) {
+        view()->composer([
+            'customer.payment.address',
+            'customer.payment.code',
+            'customer.payment.pay',
+            'customer.cart',
+        ], function ($view) {
             $cartItems = auth()->user()->cartItems()->with('product.amazingSale', 'variant.selectableAttributes.attribute')->get();
 
             $totalAmount = 0;

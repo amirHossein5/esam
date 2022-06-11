@@ -28,7 +28,7 @@ class PageRequest extends FormRequest
             'body' => 'required|string',
             'status' => 'required|numeric|in:0,1',
             'tags' => 'required|regex:/^[\w\-\.۰−۹آ-یء ,]+$/ui',
-            'slug' => 'required|max:20'
+            'slug' => 'required|url'
         ];
     }
 }

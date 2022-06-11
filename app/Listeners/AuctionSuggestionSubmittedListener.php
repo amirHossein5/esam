@@ -29,8 +29,10 @@ class AuctionSuggestionSubmittedListener
     public function handle($event)
     {
         foreach ($event->product->auction->followers as $follower) {
-            Mail::to($follower)
-                ->queue(new AuctionSuggestionSubmittedMail($event->product, $event->suggested_amount));
+            if (filter_var($follower?->email, FILTER_VALIDATE_EMAIL) and $follower?->email_verified_at) {
+                Mail::to($follower)
+                    ->queue(new AuctionSuggestionSubmittedMail($event->product, $event->suggested_amount));
+            }
         }
     }
 }

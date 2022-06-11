@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Customer\FAQController as CustomerFAQController;
 use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Customer\PageController as CustomerPageController;
 use App\Http\Controllers\Admin\Market\ColorController;
 use App\Http\Controllers\Admin\Market\CopanController;
 use App\Http\Controllers\Admin\Market\OrderController;
@@ -320,6 +321,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/destroy/{email}', 'destroy')->name('destroy');
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
             Route::get('/changeStatus/{email}', 'changeStatus')->name('changeStatus');
+            Route::get('/changeSent/{email}', 'changeSent')->name('changeSent');
         });
 
         //email file
@@ -374,7 +376,6 @@ Route::name('customer.')->group(function () {
     });
 
     Route::name('product.')->controller(CustomerProductController::class)->group(function () {
-        Route::get('item/{product}/{slug}', 'show')->middleware('productDisabledForReportMiddleware')->name('item');
 
         Route::middleware('auth')->prefix('item')->middleware('productDisabledForReportMiddleware')->group(function () {
             Route::get('suggestion-form/{product}', 'suggestionForm')->name('suggestionForm');
@@ -396,9 +397,12 @@ Route::name('customer.')->group(function () {
                 Route::put('/{question}/{product}', 'update')->name('update');
                 Route::delete('/{question}', 'destroy')->name('destroy');
             });
+
         });
 
         Route::get('search', 'search')->name('search')->middleware('translate_from:money_translation.php', 'translate:price-from,price-until');
+
+        Route::get('item/{product}/{slug}', 'show')->middleware('productDisabledForReportMiddleware')->name('item');
     });
 
     Route::middleware('auth', 'productDisabledForReportMiddleware')->group(function () {
@@ -489,6 +493,7 @@ Route::name('customer.')->group(function () {
     });
 });
 
+Route::get('{page}', [CustomerPageController::class,'show'])->where('page', '.*');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

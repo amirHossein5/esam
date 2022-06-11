@@ -39,7 +39,7 @@ class ClearTempFiles extends Command
      */
     public function handle()
     {
-        $files = TemporaryFile::all();
+        $files = TemporaryFile::where('updated_at', '<', now()->subHour())->get();
 
         foreach ($files as $file) {
             if ($file->folder_path) {

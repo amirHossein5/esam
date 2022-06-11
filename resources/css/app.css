@@ -9,6 +9,10 @@
 }
 
 @layer base {
+    .prose {
+        max-width: 100% !important;
+    }
+
     * {
         text-align: right;
         direction: rtl;

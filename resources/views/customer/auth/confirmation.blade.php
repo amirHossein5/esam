@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="pb-5 vh-100 d-flex justify-content-center align-items-center">
-        <form action="{{ route('customer.auth.confirmation', $otp->token) }}" method="post">
+        <form action="{{ route(session('verify') ? 'customer.auth.verifyEmail.confirmation' : 'customer.auth.confirmation', $otp->token) }}" method="post">
             @csrf
 
             <section class="mb-5 login-wrapper">
@@ -10,8 +10,8 @@
                     <img src="{{ asset('app-assets/images/mdLogo.webp') }}" alt="">
                 </section>
                 <section class="login-title">
-                    <a href="{{ route('customer.auth.loginRegisterForm') }}" class="btn btn-sm btn-success">برگشت</a>
-                    <a href="{{ route('customer.auth.resendCode', $otp->token) }}" disabled class="btn btn-sm btn-warning d-none" id="timer">ارسال مجدد کد</a>
+                    <a href="{{ session('verify.finally') ?? route('customer.auth.loginRegisterForm') }}" class="btn btn-sm btn-success">برگشت</a>
+                    <a href="{{ route(session('verify') ? 'customer.auth.verifyEmail.resendCode' : 'customer.auth.resendCode', $otp->token) }}" disabled class="btn btn-sm btn-warning d-none" id="timer">ارسال مجدد کد</a>
                 </section>
                 <section class="login-info">   کد ارسال شده به ایمیل را وارد کنید.</section>
                 <section class="login-input-text">

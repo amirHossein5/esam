@@ -24,7 +24,7 @@
                         <section class="pb-2 text-left">
                             <span
                                 class="title show-remaining-time"
-                                data-remain-time="{{ $product->amazingSale->end_date->timestamp - now()->timestamp }}"
+                                data-remain-time="{{ $product->amazingSale->end_date }}"
                             >
                                 12:09:08
                             </span>
@@ -82,11 +82,10 @@
                                         @if ($product->auction->start_date->gt(now()))
                                             <p>زمان تا شروع مزایده:</p>
                                             <div
-                                                class="text-base text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
-                                                data-remain-time="{{ $product->auction->start_date->timestamp - now()->timestamp }}"
+                                                class="text-2xl text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
+                                                data-remain-time="{{ $product->auction->start_date }}"
                                             >
-                                            ۲ روز و ۱۳ ساعت و
-                                                ۱۵ دقیقه
+
                                             </div>
                                         @elseif ($product->auction->end_date->lt(now()))
                                             <p>زمان باقیمانده:</p>
@@ -98,11 +97,10 @@
                                         @else
                                             <p>زمان باقیمانده:</p>
                                             <div
-                                                class="text-base text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
-                                                data-remain-time="{{ $product->auction->end_date->timestamp - now()->timestamp }}"
+                                                class="text-2xl text-center text-red-600 sm:text-right sm:mr-20 show-remaining-time"
+                                                data-remain-time="{{ $product->auction->end_date }}"
                                             >
-                                            ۲ روز و ۱۳ ساعت و
-                                                ۱۵ دقیقه
+
                                             </div>
                                         @endif
                                     </section>
@@ -142,7 +140,7 @@
                                     <section class="flex flex-col gap-1 mt-6">
                                         @if ($product->auction->isActive)
                                             <a
-                                                href="{{ route('customer.product.suggestionForm', $product) }}"
+                                                href="{{ route('customer.product.suggestionForm', $product->id) }}"
                                                 class="block w-full py-2 text-base text-center text-white bg-blue-600 rounded-md toggle-modal"
                                             >
                                                 ثبت

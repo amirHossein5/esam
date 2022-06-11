@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('send:public-mail')->everyFiveMinutes();
+        $schedule->command('clear:otps')->everyFiveMinutes();
+        $schedule->command('clear:temp')->everyFiveMinutes();
     }
 
     /**

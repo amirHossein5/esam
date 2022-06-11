@@ -40,6 +40,7 @@
                                 <th>عنوان اطلاعیه</th>
                                 <th>متن اطلاعیه</th>
                                 <th>تاریخ ارسال </th>
+                                <th>ارسال شده</th>
                                 <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
@@ -98,6 +99,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -147,6 +149,23 @@
                         "render": function(data, type, row, meta) {
                             return `<section class="direction-ltr">${data.split(' ').join(' / ')}</section>`;
                         },
+                    },
+                    {
+                        "data": 'sent',
+                        "render": function(data, type, row, meta) {
+                            var route = "{{ route('admin.notify.email.changeSent', ':id') }}".replace(':id', row.id);
+
+                            var tag = `
+                                <input
+                                    type="checkbox"
+                                    onclick="changeStatus(event, 'ارسال شده')"
+                                    data-url="${route}" `;
+                            if(data) {
+                                tag += ' checked ';
+                            }
+                            return tag + `>`;
+                        },
+                        'searchable': false,
                     },
                     {
                         'data': "status",

@@ -37,6 +37,7 @@
                                 <th>عنوان اطلاعیه</th>
                                 <th>متن اطلاعیه</th>
                                 <th>تاریخ ارسال </th>
+                                <th>ارسال شده</th>
                                 <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
@@ -95,6 +96,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -142,6 +144,12 @@
                         "data": 'send_at',
                         "render": function(data, type, row, meta) {
                             return `<section class="direction-ltr">${data.split(' ').join(' / ')}</section>`;
+                        },
+                    },
+                    {
+                        "data": 'sent',
+                        "render": function(data, type, row, meta) {
+                            return data ? 'ارسال شده' : 'ارسال نشده';
                         },
                     },
                     {

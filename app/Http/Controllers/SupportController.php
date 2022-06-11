@@ -126,7 +126,7 @@ class SupportController extends Controller
         ]);
 
         $request['title'] = $question->title;
-        $request['user_id'] = 2;
+        $request['user_id'] = auth()->id();
         $request['product_id'] = $question->product_id;
         $request['description'] = Purifier::clean($request['description']);
 

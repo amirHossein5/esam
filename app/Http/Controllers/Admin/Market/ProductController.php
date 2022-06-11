@@ -120,7 +120,7 @@ class ProductController extends Controller
         $productInputs['published_at'] = date('Y-m-d H:i:s', substr($productInputs['published_at'], 0, 10));
         $productInputs['description'] = Purifier::clean($productInputs['description']);
         $productInputs['category_id'] = $productInputs['productCategory_id'];
-        $productInputs['user_id'] = 1;
+        $productInputs['user_id'] = auth()->id();
         $productInputs['image'] = Image::make($productInputs['image'])
             ->setExclusiveDirectory('product')
             ->autoResize()

@@ -23,7 +23,7 @@ class EmailController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                Email::select('id', 'subject', 'body', 'status', 'send_at')->onlyTrashed()
+                Email::select('id', 'subject', 'body', 'status', 'send_at', 'sent')->onlyTrashed()
             )->editColumn('subject', function ($value) {
                 return Str::limit($value->subject, 10, '...');
             })->editColumn('send_at', function ($value) {
@@ -61,7 +61,7 @@ class EmailController extends Controller
         if (request()->wantsJson()) {
 
             return datatables(
-                Email::select('id', 'subject', 'body', 'status', 'send_at')
+                Email::select('id', 'subject', 'body', 'status', 'send_at', 'sent')
             )->editColumn('subject', function ($value) {
                 return Str::limit($value->subject, 10, '...');
             })->editColumn('send_at', function ($value) {
@@ -203,6 +203,16 @@ class EmailController extends Controller
 
         return $result
             ? response(['checked' => $email->status])
+            : response('', 500);
+    }
+
+    public function changeSent(Email $email): Response
+    {
+        $email->sent = !$email->sent;
+        $result = $email->save();
+
+        return $result
+            ? response(['checked' => $email->sent])
             : response('', 500);
     }
 }

@@ -65,7 +65,7 @@
                     <section class="flex items-center justify-center px-2 py-4 border-t">
                         <div class="text-center">
                             <span class="text-2xl text-red-600 show-remaining-time"
-                                data-remain-time="{{ $product->auction->end_date->timestamp - now()->timestamp }}">
+                                data-remain-time="{{ $product->auction->end_date }}">
                             </span>
                         </div>
                     </section>
@@ -87,7 +87,7 @@
                         <section class="flex items-center justify-center px-2 py-4 border-t">
                             <div class="text-center">
                                 <span class="text-2xl text-red-600 show-remaining-time"
-                                    data-remain-time="{{ $product->amazingSale->end_date->timestamp - now()->timestamp }}">
+                                    data-remain-time="{{ $product->amazingSale->end_date }}">
                                 </span>
                             </div>
                         </section>

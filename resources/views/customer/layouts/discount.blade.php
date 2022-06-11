@@ -15,25 +15,10 @@
                 <section class="flex items-center justify-center w-1/2">
                     <span
                         class="text-2xl text-gray-700 show-remaining-time"
-                        data-remain-time="{{ $landingPageCopan->copan->end_date->timestamp - now()->timestamp }}"
+                        data-remain-time="{{ $landingPageCopan->copan->end_date }}"
                     >
                     </span>
                 </section>
             </section>
         </section>
-
-        @push('scripts')
-            <script>
-                window.onload = function() {
-                    var durationPerSecond = {{ $landingPageCopan?->copan->end_date->timestamp - now()->timestamp }},
-                        display = document.querySelector('#landingPageCopan-copan-remaining-time');
-                    var endText = $(display).text();
-                    var url = display.href;
-
-                    if (durationPerSecond > 0) {
-                        startTimer(durationPerSecond, display, endText, url);
-                    }
-                };
-            </script>
-        @endpush
     @endif

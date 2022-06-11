@@ -48,16 +48,7 @@ class AuthController extends Controller
             $user = User::create($newUser);
         }
 
-        if ($user->otps()->active()->exists()) {
-            $otp = $user->otps()->active()->first();
-        } else {
-            $otp = $user->otps()->create([
-                'token' => \Str::random(60),
-                'code' => rand(111111, 999999),
-                'login_id' => $request['id'],
-                'type' => $isEmail ? Otp::EMAIL : Otp::MOBILE
-            ]);
-        }
+        $otp = $this->getOtpCode($user, $request['id'], $isEmail);
 
         Mail::to($user->email)
             ->queue(new OtpMail($otp->code));
@@ -93,11 +84,30 @@ class AuthController extends Controller
                 ]);
         }
 
-        $otp->user->update(['email_verified_at' => now()]);
+        $id = null;
+
+        if ($otp->type === Otp::MOBILE) {
+            $id = [
+                'mobile' => $otp->login_id
+            ];
+        } else if ($otp->type === Otp::EMAIL) {
+            $id = [
+                'email' => $otp->login_id
+            ];
+        }
+
+        $otp->user->update([
+            'email_verified_at' => now(),
+            $id
+        ]);
         auth()->login($otp->user, true);
         $otp->delete();
-        $session = session('url.intended');
-        session()->forget('url');
+
+        if ($session = session('url.intended')) {
+            session()->forget('url');
+        } else if ($session = session('verify.finally')) {
+            session()->forget('verify');
+        }
 
         return $session
             ? redirect($session)
@@ -124,10 +134,42 @@ class AuthController extends Controller
             ->with('sent', 'با موفقیت دوباره ارسال شد.');
     }
 
+    // public function verifyEmailForm()
+    // {
+    //     if (!filter_var($email = session('verify.email') ?? auth()->user()->email, FILTER_VALIDATE_EMAIL)) {
+    //         return back()
+    //             ->withInput()
+    //             ->withErrors(['code' => 'ایمیل معتبر نیست.']);
+    //     }
+
+    //     $otp = $this->getOtpCode(auth()->user(), $email, isEmail: true);
+
+    //     Mail::to($email)
+    //         ->queue(new OtpMail($otp->code));
+
+    //     return view('customer.auth.confirmation', compact('otp'));
+    // }
+
     public function logout()
     {
         auth()->logout();
 
         return to_route('customer.index');
+    }
+
+    private function getOtpCode($user, $id, $isEmail = false)
+    {
+        if ($user->otps()->active()->exists()) {
+            $otp = $user->otps()->active()->first();
+        } else {
+            $otp = $user->otps()->create([
+                'token' => \Str::random(60),
+                'code' => rand(111111, 999999),
+                'login_id' => $id,
+                'type' => $isEmail ? Otp::EMAIL : Otp::MOBILE
+            ]);
+        }
+
+        return $otp;
     }
 }

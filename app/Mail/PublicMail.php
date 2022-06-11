@@ -2,13 +2,13 @@
 
 namespace App\Mail;
 
-use App\Models\Market\Product;
+use App\Models\Notify\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AuctionSuggestionSubmittedMail extends Mailable
+class PublicMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,7 +17,7 @@ class AuctionSuggestionSubmittedMail extends Mailable
      *
      * @return void
      */
-    public function __construct(public Product $product, public string $suggested_amount)
+    public function __construct(public $subject, public string $body, public $files)
     {
         //
     }
@@ -29,7 +29,12 @@ class AuctionSuggestionSubmittedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('پیشنهاد جدیدی برای مزایده ثبت شد')
-            ->markdown('mail.auction-suggestion-submitted-mail');
+        $build = $this->subject($this->subject);
+
+        foreach ($this->files as $file) {
+            $build->attachFromStorage($file->file_path);
+        }
+
+        return $build->markdown('mail.public-mail');
     }
 }
