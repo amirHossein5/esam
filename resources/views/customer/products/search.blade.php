@@ -237,10 +237,10 @@
                     </section>
                 </section>
 
-                <section class="p-3 mt-1 bg-white border rounded-md">
+                <section class="p-4 mt-1 bg-white border rounded-md shadow-md">
                     <p class="text-red-600 ">تعداد کالاها : <span>{{ $filteredProducts->total() }} </span></p>
                     @if ($breadcrumbCategories)
-                        <p class="mt-1">
+                        <p class="mt-4">
                             <section class="flex gap-2">
                                 <span>در:</span>
                                 <a href="{{ route('customer.product.search', request()->except('category', 'attributes','attribute-values')) }}" class="a-hover">همه گروه ها</a>
@@ -251,12 +251,12 @@
                                 </section>
                                 <section>
                                     <i class="icofont-rounded-left"></i>
-                                    <a href="{{ 
+                                    <a href="{{
                                         route(
-                                            'customer.product.search', 
-                                            ['category' => $breadcrumbCategories->id] + 
+                                            'customer.product.search',
+                                            ['category' => $breadcrumbCategories->id] +
                                             request()->except('category', 'attributes','attribute-values')
-                                        ) 
+                                        )
                                         }}" class="a-hover">{{ $breadcrumbCategories->name }}</a>
                                 </section>
                             </section>
@@ -298,8 +298,8 @@
                     attributes += ',' + $(input).data('attribute-id')
                     values += ',' + $(input).val()
                 })
-                
-                $(this).append(`    
+
+                $(this).append(`
                     <input type="hidden" name="attributes" value="${attributes.slice(1)}">
 
                     <input type="hidden" name="attribute-values" value="${values.slice(1)}">

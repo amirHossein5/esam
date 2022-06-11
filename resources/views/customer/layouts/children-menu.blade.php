@@ -13,8 +13,8 @@
                 </div>
             </div>
         @else
-            <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
-                <a href="#">{{ $child->name }}</a>
+            <div class="text-gray-600 bg-hover">
+                <a class="block px-2 py-4" href="{{ route('customer.product.search', ['category' => $child->id]) }}">{{ $child->name }}</a>
             </div>
         @endif
     @endforeach

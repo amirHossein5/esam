@@ -2,7 +2,11 @@
     <section>
         <section class="relative flex items-center justify-center">
             <div>
-                <a href="">
+                <a href="{{ route('customer.product.search', [
+                        'sell-type' => 'auction',
+                        'sort' => 'last-remaining-auctions',
+                        'active-auctions' => 'on'
+                    ]) }}">
                     <img src="{{ asset('app-assets/images/last-auctions.webp') }}" alt="last-auctions">
                 </a>
             </div>
@@ -108,7 +112,7 @@
                     </div>
                 @else
                     <div class="flex justify-between px-2 py-4 text-gray-600 bg-hover">
-                        <a href="#">{{ $productCategory->name }}</a>
+                        <a href="{{ route('customer.product.search', ['category' => $productCategory->id]) }}">{{ $productCategory->name }}</a>
                     </div>
                 @endif
             @endforeach
