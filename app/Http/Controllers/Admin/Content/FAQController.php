@@ -22,13 +22,16 @@ class FAQController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $faqs = FAQ::query()
+                ->with('faqCategory');
+            $count = $faqs->count();
+
             return datatables(
-                FAQ::query()
+                $faqs
                     ->skip(request()->start)
                     ->take(request()->length)
-                    ->with('faqCategory')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.content.faq.index');

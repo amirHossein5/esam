@@ -23,14 +23,17 @@ class ProductCategoryController extends Controller
     public function archive()
     {
         if (request()->wantsJson()) {
+            $productCategories = ProductCategory::select('id', 'name', 'image', 'parent_id', 'show_in_menu')
+                ->onlyTrashed()
+                ->with('trashedParent');
+            $count = $productCategories->count();
+
             return datatables(
-                ProductCategory::select('id', 'name', 'image', 'parent_id', 'show_in_menu')
-                    ->onlyTrashed()
+                $productCategories
                     ->skip(request()->start)
                     ->take(request()->length)
-                    ->with('trashedParent')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.market.category.archive.index');
@@ -42,13 +45,16 @@ class ProductCategoryController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $productCategories = ProductCategory::select('id', 'name', 'image', 'parent_id', 'show_in_menu')
+                ->with('parent:id,name');
+            $count = $productCategories->count();
+
             return datatables(
-                ProductCategory::select('id', 'name', 'image', 'parent_id', 'show_in_menu')
-                    ->with('parent:id,name')
+                $productCategories
                     ->skip(request()->start)
                     ->take(request()->length)
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.market.category.index');

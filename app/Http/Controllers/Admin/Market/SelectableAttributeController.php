@@ -17,13 +17,16 @@ class SelectableAttributeController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $selectableAttributes = SelectableAttribute::query()
+                ->with(['values' => fn ($query) => $query->take(5)]);
+            $count = $selectableAttributes->count();
+
             return datatables(
-                SelectableAttribute::query()
+                $selectableAttributes
                     ->skip(request()->start)
                     ->take(request()->length)
-                    ->with(['values' => fn ($query) => $query->take(5)])
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
         return view('admin.market.selectable-attributes.index');
     }

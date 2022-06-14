@@ -82,15 +82,17 @@
                         "render": function(data, type, row, meta) {
                             var permissions = '';
 
-                            data.forEach((permission, index) => {
+                            data.every((permission, index) => {
                                 index = index + 1;
 
                                 if (index > 3) {
                                     permissions += '...';
-                                    return;
+                                    return false;
                                 }
 
                                 permissions += `${index}- ${permission.description} <br>`;
+
+                                return true;
                             });
 
                             return permissions ? permissions : '-';

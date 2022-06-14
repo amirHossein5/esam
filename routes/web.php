@@ -42,6 +42,23 @@ use App\Http\Controllers\Customer\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\Dashboard\MyAddressesController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProductQuestionController;
+use App\Models\Content\Banner;
+use App\Models\Content\FAQ;
+use App\Models\Content\FAQCategory;
+use App\Models\Content\Page;
+use App\Models\Market\AmazingSale;
+use App\Models\Market\Copan;
+use App\Models\Market\LandingPageCopan;
+use App\Models\Market\Order;
+use App\Models\Market\Payment;
+use App\Models\Market\Product;
+use App\Models\Market\ProductAttribute;
+use App\Models\Market\ProductCategory;
+use App\Models\Market\SelectableAttribute;
+use App\Models\Notify\Email;
+use App\Models\Notify\SMS;
+use App\Models\Report;
+use App\Models\Setting;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +79,7 @@ use App\Http\Controllers\Customer\ProductQuestionController;
 |
 */
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
     Route::put('/notificationsMarkAsSeen/', [NotificationController::class, 'notificationsMarkAsSeen'])
@@ -72,7 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('market')->name('market.')->group(function () {
 
         //category
-        Route::prefix('category')->name('category.')->controller(ProductCategoryController::class)->group(function () {
+        Route::prefix('category')->name('category.')->middleware('can:viewAny,'.ProductCategory::class)->controller(ProductCategoryController::class)->group(function () {
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
@@ -86,7 +103,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         // selectable attributes
-        Route::prefix('selectable-attributes')->name('selectableAttributes.')->controller(SelectableAttributeController::class)->group(function () {
+        Route::prefix('selectable-attributes')->name('selectableAttributes.')->middleware('can:viewAny,' . SelectableAttribute::class)->controller(SelectableAttributeController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
@@ -96,7 +113,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //order
-        Route::prefix('order')->name('order.')->controller(OrderController::class)->group(function () {
+        Route::prefix('order')->name('order.')->middleware('can:viewAny,' . Order::class)->controller(OrderController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/{order}/items', 'orderItems')->name('orderItems');
             Route::get('/sending', 'sending')->name('sending');
@@ -123,25 +140,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //payment
-        Route::prefix('payment')->name('payment.')->controller(PaymentController::class)->group(function () {
+        Route::prefix('payment')->name('payment.')->middleware('can:viewAny,' . Payment::class)->controller(PaymentController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/changeStatus/{payment}/{status_number}', 'changeStatus')->name('changeStatus');
         });
 
         //product
-        Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () {
-            Route::get('/archive', 'archive')->name('archive');
+        Route::prefix('product')->name('product.')->middleware('can:viewAny,' . Product::class)->controller(ProductController::class)->group(function () {
+            Route::get('/archive', 'archive')->name('archive')->middleware('can:archiveViewAny,' . Product::class);
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store')
                 ->middleware(['json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product']);
-            Route::get('/edit/{product}', 'edit')->name('edit');
+            Route::get('/edit/{product}', 'edit')->name('edit')->middleware('can:update,'.Product::class);
             Route::put('/{product}', 'update')->name('update')
-                ->middleware(['json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product']);
+                ->middleware(['json_decode:productVariants,true', 'translate_from:money_translation.php', 'translate:product', 'can:update,' . Product::class]);
             Route::put('/restore/{id}', 'restore')->name('restore');
-            Route::delete('/destroy/{product}', 'destroy')->name('destroy');
+            Route::delete('/destroy/{product}', 'destroy')->name('destroy')->middleware('can:delete,'.Product::class);
             Route::delete('/forceDelete/{id}', 'forceDelete')->name('forceDelete');
-            Route::get('/changeMarketable/{product}', 'changeMarketable')->name('changeMarketable');
+            Route::get('/changeMarketable/{product}', 'changeMarketable')->name('changeMarketable')->middleware('can:change_marketable,'.Product::class);
 
             //gallery
             Route::prefix('{product}')->name('gallery.')->controller(GalleryController::class)->group(function () {
@@ -152,7 +169,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //attribute
-        Route::prefix('attribute')->name('attribute.')->controller(AttributeController::class)->group(function () {
+        Route::prefix('attribute')->name('attribute.')->middleware('can:viewAny,'.ProductAttribute::class)->controller(AttributeController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/show', 'show')->name('show');
             Route::get('/create', 'create')->name('create');
@@ -164,7 +181,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('discount')->name('discount.')->group(function () {
 
             // amzing sale
-            Route::prefix('amazing-sale')->name('amazingSale.')->controller(AmazingSaleController::class)->group(function () {
+            Route::prefix('amazing-sale')->name('amazingSale.')->middleware('can:viewAny,' . AmazingSale::class)->controller(AmazingSaleController::class)->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/', 'store')->name('store');
@@ -175,7 +192,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
 
             //copans
-            Route::prefix('copan')->name('copan.')->controller(CopanController::class)->group(function () {
+            Route::prefix('copan')->name('copan.')->middleware('can:viewAny,'.Copan::class)->controller(CopanController::class)->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/', 'store')->name('store')->middleware('toEnglishDigits:discount_ceiling,amount');
@@ -186,7 +203,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
 
             // landing page copans
-            Route::prefix('landing-page-copans')->name('landingPageCopans.')->controller(LandingPageCopanController::class)->group(function () {
+            Route::prefix('landing-page-copans')->name('landingPageCopans.')->middleware('can:viewAny,' . LandingPageCopan::class)->controller(LandingPageCopanController::class)->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/', 'store')->name('store');
@@ -202,7 +219,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('content')->name('content.')->group(function () {
 
         //faq categories
-        Route::prefix('faq-category')->name('faqCategory.')->controller(FAQCategoryController::class)->group(function () {
+        Route::prefix('faq-category')->name('faqCategory.')->middleware('can:viewAny,' . FAQCategory::class)->controller(FAQCategoryController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
@@ -213,7 +230,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //faq
-        Route::prefix('faq')->name('faq.')->controller(FAQController::class)->group(function () {
+        Route::prefix('faq')->name('faq.')->middleware('can:viewAny,' . FAQ::class)->controller(FAQController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
@@ -224,7 +241,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //page
-        Route::prefix('page')->name('page.')->group(function () {
+        Route::prefix('page')->name('page.')->middleware('can:viewAny,' . Page::class)->group(function () {
             Route::get('/', [PageController::class, 'index'])->name('index');
             Route::get('/datatable', [PageController::class, 'indexDatatable'])->name('datatable.index');
             Route::get('/create', [PageController::class, 'create'])->name('create');
@@ -236,7 +253,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //banners
-        Route::prefix('banner')->name('banner.')->controller(BannerController::class)->group(function () {
+        Route::prefix('banner')->name('banner.')->middleware('can:viewAny,' . Banner::class)->controller(BannerController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
@@ -247,7 +264,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     // users
-    Route::prefix('user')->name('user.')->group(function () {
+    Route::prefix('user')->name('user.')->middleware('is_superadmin')->group(function () {
         //admin-user
         Route::prefix('admin-user')->name('admin-user.')->controller(AdminUserController::class)->group(function () {
             Route::get('/', 'index')->name('index');
@@ -299,18 +316,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // });
 
     // reports
-    Route::prefix('reports')->name('reports.')->controller(ReportController::class)->group(function () {
+    Route::prefix('reports')->name('reports.')->middleware('can:viewAny,' . Report::class)->controller(ReportController::class)->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('disabled-for-report', 'disabledForReport')->name('disabledForReport');
         Route::get('not-disabled-for-report', 'notDisabledForReport')->name('notDisabledForReport');
         Route::get('show/{report}', 'show')->name('show');
-        Route::put('toggle-disable-product/{report}', 'toggleDisableProduct')->name('toggleDisableProduct');
+        Route::put('toggle-disable-product/{report}', 'toggleDisableProduct')->name('toggleDisableProduct')->middleware('can:toggleProduct,' . Report::class);
     });
 
     // notify
     Route::prefix('notify')->name('notify.')->group(function () {
         //email
-        Route::prefix('email')->name('email.')->controller(EmailController::class)->group(function () {
+        Route::prefix('email')->name('email.')->middleware('can:viewAny,'.Email::class)->controller(EmailController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/create', 'create')->name('create');
@@ -325,7 +342,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //email file
-        Route::prefix('email-file')->name('emailFile.')->controller(EmailFileController::class)->group(function () {
+        Route::prefix('email-file')->name('emailFile.')->middleware('can:viewAny,' . Email::class)->controller(EmailFileController::class)->group(function () {
             Route::get('/{id}', 'index')->name('index');
             Route::post('/{email}/store', 'store')->name('store');
             Route::post('/download/{file}', 'download')->name('download');
@@ -336,7 +353,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //sms
-        Route::prefix('sms')->name('sms.')->controller(SMSController::class)->group(function () {
+        Route::prefix('sms')->name('sms.')->middleware('can:viewAny,' . SMS::class)->controller(SMSController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/archive', 'archive')->name('archive');
             Route::get('/create', 'create')->name('create');
@@ -351,7 +368,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     // settings
-    Route::prefix('setting')->name('setting.')->group(function () {
+    Route::prefix('setting')->name('setting.')->middleware('can:view,'. Setting::class)->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::put('/update', [SettingController::class, 'update'])->name('update');
     });
@@ -377,17 +394,15 @@ Route::name('customer.')->group(function () {
 
     Route::name('product.')->controller(CustomerProductController::class)->group(function () {
 
-        Route::middleware('auth')->prefix('item')->middleware('productDisabledForReportMiddleware')->group(function () {
+        Route::prefix('item')->middleware('productDisabledForReportMiddleware', 'auth')->group(function () {
             Route::get('suggestion-form/{product}', 'suggestionForm')->name('suggestionForm');
             Route::post('submit-suggestion/{product}', 'submitSuggestion')
                 ->name('submitSuggestion')
                 ->middleware('translate_from:money_translation.php', 'translate:suggested_amount');
             Route::post('follow-auction/{product}', 'followAuction')->name('followAuction');
             Route::put('add-to-favorites/{product}', 'addToFavorites')->name('addToFavorites');
-            Route::delete('remove-favorite/{favorite}', 'removeFavorite')->name('removeFavorite');
             Route::delete('unfollow-auction/{product}', 'unfollowAuction')->name('unfollowAuction');
             Route::put('/toggle-favorite-seller/{seller}', 'toggleFavoriteSeller')->name('toggleFavoriteSeller');
-            Route::post('/report/{product}', 'report')->name('report');
 
             // product question
             Route::controller(ProductQuestionController::class)->prefix('question')->name('question.')->group(function () {
@@ -402,7 +417,10 @@ Route::name('customer.')->group(function () {
 
         Route::get('search', 'search')->name('search')->middleware('translate_from:money_translation.php', 'translate:price-from,price-until');
 
-        Route::get('item/{product}/{slug}', 'show')->middleware('productDisabledForReportMiddleware')->name('item');
+        Route::middleware('productDisabledForReportMiddleware')->group(function () {
+            Route::post('/report/{product}', 'report')->name('report');
+            Route::get('item/{product}/{slug}', 'show')->name('item');
+        });
     });
 
     Route::middleware('auth', 'productDisabledForReportMiddleware')->group(function () {
@@ -471,7 +489,7 @@ Route::name('customer.')->group(function () {
             Route::get('/favorite-sellers', 'favoriteSellers')->name('favoriteSellers');
             Route::delete('/favorite-sellers/{seller}', 'destroyFavoriteSeller')->name('destroyFavoriteSeller');
             Route::get('/favorites', 'favorites')->name('favorites');
-            Route::delete('/favorite/{userFavoriteProduct}', 'destroyFavorite')->name('destroyFavorite');
+            Route::delete('/favorite/{userFavoriteProduct}', 'destroyFavoriteProduct')->name('destroyFavoriteProduct');
             Route::get('/account', 'account')->name('account');
             Route::put('/editAccount', 'editAccount')->name('editAccount')->middleware('translate:mobile');
         });

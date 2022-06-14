@@ -27,9 +27,13 @@
 
                 <section class="pb-2 mt-4 mb-3 d-flex align-items-center border-bottom">
                     <a href="{{ route('admin.market.product.create') }}" class="btn btn-info btn-sm">ایجاد کالای جدید </a>
-                    <a href="{{ route('admin.market.product.archive') }}" class="mx-2">
-                        <u>آرشیو</u>
-                    </a>
+
+                    @can('archiveViewAny', \App\Models\Market\Product::class)
+                        <a href="{{ route('admin.market.product.archive') }}" class="mx-2">
+                            <u>آرشیو</u>
+                        </a>
+                    @endcan
+
                 </section>
 
                 <section class="table-responsive" style="min-height: 30rem;">
@@ -140,29 +144,40 @@
                                             <a href="${galleryRoute}" class="text-right dropdown-item"><i class="fa fa-images"></i>
                                                 گالری
                                             </a>
-                                            <a href="${changeMarketableRoute}" class="text-right dropdown-item">
-                                                <i class="fa fa-list-ul"></i>
-                                                تغییر امکان فروش
-                                            </a>
+
+                                            @can('changeMarketable', \App\Models\Market\Product::class)
+                                                <a href="${changeMarketableRoute}" class="text-right dropdown-item">
+                                                    <i class="fa fa-list-ul"></i>
+                                                    تغییر امکان فروش
+                                                </a>
+                                            @endcan
+
                                             <a href="${showRoute}" class="text-right dropdown-item">
                                                 <i class="fa fa-list-ul"></i>
                                                 مشاهده
                                             </a>
-                                            <a href="${editRoute}" class="text-right dropdown-item">
-                                                <i class="fa fa-edit"></i>
-                                                ویرایش
-                                            </a>
-                                            <form action="${destroyRoute}" method="POST">
-                                                @csrf @method('delete')
-                                                <button
-                                                    type="submit"
-                                                    class="text-right dropdown-item"
-                                                    onclick="confirm(event)"
-                                                >
-                                                    <i class="fa fa-window-close"></i>
-                                                     حذف
-                                                </button>
-                                            </form>
+
+                                            @can('update', \App\Models\Market\Product::class)
+                                                <a href="${editRoute}" class="text-right dropdown-item">
+                                                    <i class="fa fa-edit"></i>
+                                                    ویرایش
+                                                </a>
+                                            @endcan
+
+                                            @can('delete', \App\Models\Market\Product::class)
+                                                <form action="${destroyRoute}" method="POST">
+                                                    @csrf @method('delete')
+                                                    <button
+                                                        type="submit"
+                                                        class="text-right dropdown-item"
+                                                        onclick="confirm(event)"
+                                                    >
+                                                        <i class="fa fa-window-close"></i>
+                                                        حذف
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                            
                                         </div>
                                     </div>
                                 </section>

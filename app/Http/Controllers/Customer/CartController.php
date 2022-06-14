@@ -146,6 +146,8 @@ class CartController extends Controller
      */
     public function destroy(CartItem $cartItem)
     {
+        $cartItem = auth()->user()->cartItems()->findOrFail($cartItem->id);
+        
         $cartItem->delete();
 
         return back()

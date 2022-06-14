@@ -7,6 +7,7 @@ use App\Models\Market\Auction;
 use App\Models\Market\Order;
 use App\Models\Market\Payment;
 use App\Models\Market\Product;
+use App\Traits\Authorizable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -23,7 +24,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Authorizable;
+
+    /** user_type */
+    const ADMIN = 1;
+    const USER = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -62,11 +67,6 @@ class User extends Authenticatable
     protected $appends = [
         'fullName'
     ];
-
-    public function isAdmin(): bool
-    {
-        return $this->user_type === 1;
-    }
 
     /**
      * Relations
@@ -181,5 +181,13 @@ class User extends Authenticatable
     public function scopeCustomers($query): Builder
     {
         return $query->where('user_type', 0);
+    }
+
+    /**
+     * methods
+     */
+    public function isAdmin(): bool
+    {
+        return $this->user_type === 1;
     }
 }

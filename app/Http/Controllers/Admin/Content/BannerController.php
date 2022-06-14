@@ -19,9 +19,6 @@ class BannerController extends Controller
         if (request()->wantsJson()) {
             return datatables(
                 Banner::query()
-                    ->skip(request()->start)
-                    ->take(request()->length)
-                    ->get()
             )->toJson();
         }
 

@@ -18,12 +18,14 @@ class RoleController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $roles = Role::with('permissions:description,id');
+            $count = $roles->count();
+
             return datatables(
-                Role::with('permissions:description,id')
-                    ->skip(request()->start)
+                $roles->skip(request()->start)
                     ->take(request()->length)
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.user.role.index');

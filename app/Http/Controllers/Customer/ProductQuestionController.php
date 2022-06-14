@@ -50,6 +50,10 @@ class ProductQuestionController extends Controller
      */
     public function edit(ProductQuestion $question, Product $product)
     {
+        if ($question->user->id != auth()->id()) {
+            abort(403);
+        }
+        
         return view('customer.products.question.edit', compact('product', 'question'));
     }
 
@@ -63,6 +67,10 @@ class ProductQuestionController extends Controller
      */
     public function update(Request $request, ProductQuestion $question, Product $product)
     {
+        if ($question->user->id != auth()->id()) {
+            abort(403);
+        }
+
         $request = $request->validate([
             'text' => 'required|string|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
         ]);
@@ -81,6 +89,10 @@ class ProductQuestionController extends Controller
      */
     public function destroy(ProductQuestion $question)
     {
+        if ($question->user->id != auth()->id()) {
+            abort(403);
+        }
+
         $question->delete();
 
         return back()

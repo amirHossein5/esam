@@ -21,9 +21,6 @@ class FAQCategoryController extends Controller
         if (request()->wantsJson()) {
             return datatables(
                 FAQCategory::query()
-                    ->skip(request()->start)
-                    ->take(request()->length)
-                    ->get()
             )->toJson();
         }
 

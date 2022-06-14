@@ -15,12 +15,15 @@ class PaymentController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $payments = Payment::with('paymentable', 'user:first_name,last_name,id', 'paymentType');
+            $count = $payments->count();
+
             return datatables(
-                Payment::with('paymentable', 'user:first_name,last_name,id', 'paymentType')
+                $payments
                     ->skip(request()->start)
                     ->take(request()->length)
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         $paymentType = 'تمام پرداخت ها';

@@ -37,7 +37,7 @@ class ProductController extends Controller
             $product->save();
         }
 
-        $product->load('variants.selectableAttributes.attribute:id,name', 'questions', 'attributeValues.attribute', 'galleries', 'productCategory.parent', 'amazingSale');
+        $product->load('variants.selectableAttributes.attribute:id,name', 'questions.user', 'attributeValues.attribute', 'galleries', 'productCategory.parent', 'amazingSale');
         $product->load(['auction.suggestions' => fn ($q) => $q->orderByDesc('suggested_amount')]);
 
         $categories = $this->getNestedCategoryNames(
@@ -257,12 +257,14 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $min = number_format($product
-            ->auction
-            ->suggestions()
-            ->selectRaw('max(suggested_amount) as max_suggested_amount')
-            ->first()
-            ->max_suggested_amount, 0, '.', '');
+        $min = number_format(
+            $product
+                ->auction
+                ->suggestions()
+                ->selectRaw('max(suggested_amount) as max_suggested_amount')
+                ->first()
+                ->max_suggested_amount, 0, '.', ''
+            );
 
         $request = $request->validate([
             'suggested_amount' => "required|numeric|gt:$min"
@@ -299,22 +301,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Removes user favorite products.
-     *
-     * @param \App\Models\Market\Product $product
-     * @return \Illuminate\Http\Response
-     */
-    public function removeFavorite(UserFavoriteProduct $favorite)
-    {
-        //gate
-
-        $favorite->delete();
-
-        return back()
-            ->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
-    }
-
-    /**
      * Follows the auction.
      *
      * @param \App\Models\Market\Product $product
@@ -344,10 +330,6 @@ class ProductController extends Controller
      */
     public function UnFollowAuction(Product $product)
     {
-        if (!$product->auction()->exists()) {
-            abort(404);
-        }
-
         auth()->user()->followingAuctions()->detach($product->auction->id);
 
         return back()
@@ -384,7 +366,7 @@ class ProductController extends Controller
             'title' => ['required', Rule::in(array_keys(Report::TITLES))],
             'name' => 'required|max:30|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
             'email' => 'required|email',
-            'description' => 'required|string|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui'
+            'description' => 'required|string'
         ]);
 
         Report::create($request + ['product_id' => $product->id]);

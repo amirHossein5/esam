@@ -38,6 +38,10 @@ class PaymentController extends Controller
      */
     public function editAddress(Address $address)
     {
+        if ($address->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         session()->put('url.intended', route('customer.payment.address'));
 
         return to_route('customer.dashboard.myAddresses.edit', $address->id);
@@ -115,6 +119,10 @@ class PaymentController extends Controller
      */
     public function pay(Request $request, Address $address, $copanId = null)
     {
+        if ($address->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $request = $request->validate([
             'pay-type' => 'required|in:cash,online-payment'
         ], [

@@ -19,12 +19,14 @@ class AmazingSaleController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $amazingSales = AmazingSale::with('product:id,name');
+            $count = $amazingSales->count();
+
             return datatables(
-                AmazingSale::skip(request()->start)
+                    $amazingSales->skip(request()->start)
                     ->take(request()->length)
-                    ->with('product:id,name')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.market.discount.amazing-sale.index');

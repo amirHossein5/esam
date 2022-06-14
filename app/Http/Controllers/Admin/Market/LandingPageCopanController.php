@@ -23,12 +23,14 @@ class LandingPageCopanController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $landingPageCopans = LandingPageCopan::with('copan:code,id');
+            $count = $landingPageCopans->count();
+
             return datatables(
-                LandingPageCopan::skip(request()->start)
+                $landingPageCopans->skip(request()->start)
                     ->take(request()->length)
-                    ->with('copan:code,id')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.market.discount.landing-page-copans.index');

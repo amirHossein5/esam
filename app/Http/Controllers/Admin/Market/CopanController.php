@@ -19,12 +19,14 @@ class CopanController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $copans = Copan::with('user:id,first_name,last_name');
+            $count = $copans->count();
+
             return datatables(
-                Copan::skip(request()->start)
+                $copans->skip(request()->start)
                     ->take(request()->length)
-                    ->with('user:id,first_name,last_name')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.market.discount.copan.index');

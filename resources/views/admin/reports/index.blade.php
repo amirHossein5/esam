@@ -97,15 +97,17 @@
                             return `
                                 <section class="text-left">
 
-                                    <form action="${toggleDisableProductRoute}" method="post" class="d-inline">
-                                        @csrf @method('put')
+                                    @can('toggleProduct', \App\Models\Report::class)
+                                        <form action="${toggleDisableProductRoute}" method="post" class="d-inline">
+                                            @csrf @method('put')
 
-                                        <button
-                                            class="btn btn-${buttonClass} btn-sm"
-                                        >
-                                            ${buttonText}
-                                        </button>
-                                    </form>
+                                            <button
+                                                class="btn btn-${buttonClass} btn-sm"
+                                            >
+                                                ${buttonText}
+                                            </button>
+                                        </form>
+                                    @endcan
 
                                     <a
                                         href="${showRoute}"

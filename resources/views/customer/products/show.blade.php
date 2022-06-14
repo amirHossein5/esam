@@ -147,7 +147,8 @@
                                                 پیشنهاد
                                             </a>
                                         @endif
-                                        @if (auth()->user()->followingAuctions()->where('auction_id', $product->auction->id)->exists())
+
+                                        @if (auth()->user()?->followingAuctions()->where('auction_id', $product->auction->id)->exists())
                                             <form action="{{ route('customer.product.unfollowAuction', $product) }}" method="post">
                                                 @csrf @method('delete')
                                                 <button type="submit"
@@ -370,13 +371,7 @@
                             </section>
                             <section class="w-9/12">
                                 <p class="mt-5 text-xs text-gray-600">
-                                    @auth
-                                        تا {{ $product->user->deliveryTime->time }} کاری
-                                    @endauth
-                                    @guest
-                                        جهت مشاهده زمان نحوه ارسال، وارد <a href="{{ route('customer.auth.loginRegisterForm') }}" class="a-hover">حساب کاربری</a> خود
-                                        شوید
-                                    @endguest
+                                    تا {{ $product->user->deliveryTime->time }} کاری
                                 </p>
                             </section>
                         </section>
@@ -607,17 +602,19 @@
                                     </div>
                                     <div class="text-gray-600">
                                         <div class="flex gap-2">
-                                            <x-a href="{{ route('customer.product.question.edit', [$question->id, $product->id]) }}" class="">
-                                                ویرایش
-                                            </x-a>
+                                            @if ($question->user->id === auth()->id())
+                                                <x-a href="{{ route('customer.product.question.edit', [$question->id, $product->id]) }}" class="">
+                                                    ویرایش
+                                                </x-a>
 
-                                            <form action="{{ route('customer.product.question.destroy', $question->id) }}" method="post">
-                                                @csrf @method('delete')
+                                                <form action="{{ route('customer.product.question.destroy', $question->id) }}" method="post">
+                                                    @csrf @method('delete')
 
-                                                <x-button type='submit' class="bg-red-600">
-                                                    حذف
-                                                </x-button>
-                                            </form>
+                                                    <x-button type='submit' class="bg-red-600">
+                                                        حذف
+                                                    </x-button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </section>

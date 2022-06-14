@@ -36,10 +36,12 @@
                         <section class="row">
 
                             <section>
-                                <div class="row">
+                                <div class="md:columns-2 lg:columns-3"
+                                    style="columns: auto;"
+                                >
 
                                     @foreach ($permissions as $permission)
-                                        <section class="col-md-3">
+                                        <section class="">
                                             <div class=" d-block form-check">
                                                 <input
                                                     type="checkbox"

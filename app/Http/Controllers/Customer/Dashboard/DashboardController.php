@@ -96,11 +96,9 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroyFavorite(UserFavoriteProduct $userFavoriteProduct)
+    public function destroyFavoriteProduct(UserFavoriteProduct $userFavoriteProduct)
     {
-        //gate
-
-        $userFavoriteProduct->delete();
+        auth()->user()->favoriteProducts()->whereId($userFavoriteProduct->id)->delete();
 
         return back()->with('sweetalert-mixin-success', 'با موفقیت حذف شد');
     }

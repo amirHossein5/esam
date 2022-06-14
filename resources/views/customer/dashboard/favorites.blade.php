@@ -19,7 +19,7 @@
                                 مشاهده
                         </x-a>
 
-                        <form action="{{ route('customer.product.removeFavorite', $favorite->id) }}" method="post" class="inline">
+                        <form action="{{ route('customer.dashboard.destroyFavoriteProduct', $favorite->id) }}" method="post" class="inline">
                             @csrf @method('delete')
                             <x-button type="submit" class="bg-red-600" >
                                 حذف از لیست علاقه مندی

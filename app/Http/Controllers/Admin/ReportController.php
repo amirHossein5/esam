@@ -17,17 +17,19 @@ class ReportController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $reports = Report::query()
+                    ->with('product:id,name,disabled_for_report,slug');
+            $totalReportsCount = $reports->count();
+
             return datatables(
-                Report::query()
-                    ->with('product:id,name,disabled_for_report,slug')
-                    ->skip(request()->start)
+                $reports->skip(request()->start)
                     ->take(request()->length)
                     ->get()
                     ->map(function ($report) {
                         $report->title = Report::TITLES[$report->title];
                         return $report;
                     })
-            )->toJson();
+            )->setTotalRecords($totalReportsCount)->skipPaging()->toJson();
         }
 
         $reportMod = 'همه گزارش ها';
@@ -43,17 +45,19 @@ class ReportController extends Controller
     public function disabledForReport()
     {
         if (request()->wantsJson()) {
+            $reports = Report::whereHas('product', fn ($q) => $q->where('disabled_for_report', Product::DISABLE_FOR_REPORT))
+                ->with('product:id,name,disabled_for_report,slug');
+            $count = $reports->count();
+
             return datatables(
-                Report::whereHas('product', fn ($q) => $q->where('disabled_for_report', Product::DISABLE_FOR_REPORT))
-                    ->with('product:id,name,disabled_for_report,slug')
-                    ->skip(request()->start)
+                $reports->skip(request()->start)
                     ->take(request()->length)
                     ->get()
                     ->map(function ($report) {
                         $report->title = Report::TITLES[$report->title];
                         return $report;
                     })
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         $reportMod = 'محصولات بسته شده';
@@ -70,17 +74,19 @@ class ReportController extends Controller
     public function notDisabledForReport()
     {
         if (request()->wantsJson()) {
+            $reports = Report::whereHas('product', fn ($q) => $q->where('disabled_for_report', Product::NOT_DISABLE_FOR_REPORT))
+                ->with('product:id,name,disabled_for_report,slug');
+            $count = $reports->count();
+
             return datatables(
-                Report::whereHas('product', fn ($q) => $q->where('disabled_for_report', Product::NOT_DISABLE_FOR_REPORT))
-                    ->with('product:id,name,disabled_for_report,slug')
-                    ->skip(request()->start)
+                $reports->skip(request()->start)
                     ->take(request()->length)
                     ->get()
                     ->map(function ($report) {
                         $report->title = Report::TITLES[$report->title];
                         return $report;
                     })
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         $reportMod = 'محصولات بسته نشده';

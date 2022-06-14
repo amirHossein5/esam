@@ -21,13 +21,15 @@ class OrderController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $orders = Order::query()
+                ->with('payment.paymentable', 'payment.paymentType');
+            $count = $orders->count();
+
             return datatables(
-                Order::query()
-                    ->skip(request()->start)
+                $orders->skip(request()->start)
                     ->take(request()->length)
-                    ->with('payment.paymentable', 'payment.paymentType')
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         $orderType = 'تمام سفارشات';

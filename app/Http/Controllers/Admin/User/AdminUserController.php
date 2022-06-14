@@ -22,16 +22,18 @@ class AdminUserController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $users = User::select('id', 'email', 'mobile', 'first_name', 'role_id', 'last_name', 'status')
+                ->with(['role' => function ($query) {
+                    $query->withoutGlobalScope('visible');
+                }])
+                ->admins();
+            $count = $users->count();
+
             return datatables(
-                User::select('id', 'email', 'mobile', 'first_name','role_id', 'last_name', 'status')
-                    ->with(['role' => function ($query) {
-                        $query->withoutGlobalScope('visible');
-                    }])
-                    ->admins()
-                    ->skip(request()->start)
+                $users->skip(request()->start)
                     ->take(request()->length)
                     ->get()
-            )->toJson();
+            )->setTotalRecords($count)->skipPaging()->toJson();
         }
 
         return view('admin.user.admin-user.index');

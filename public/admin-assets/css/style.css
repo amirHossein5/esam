@@ -108,3 +108,15 @@
 .font-bold {
     font-weight: bold;
 }
+
+@media (min-width: 768px) {
+    .md\:columns-2 {
+        columns: 2 !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:columns-3 {
+        columns: 3 !important;
+    }
+}

@@ -393,7 +393,9 @@ class ProductController extends Controller
      */
     public function changeMarketable(Product $product)
     {
-        //gate
+        if ($product->user_id != auth()->id()) {
+            abort(403);
+        }
 
         $product->marketable = !$product->marketable;
         $product->save();
@@ -410,8 +412,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // gate
-
+        if ($product->user_id != auth()->id()) {
+            abort(403);
+        }
+        
         $product->delete();
 
         return back()->with('sweetalert-mixin-success', 'با موفقیت حذف شد');

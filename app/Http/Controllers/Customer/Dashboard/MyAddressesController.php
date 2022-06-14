@@ -60,6 +60,10 @@ class MyAddressesController extends Controller
      */
     public function edit(Address $address)
     {
+        if ($address->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $provinces = ProvinceRepository::all();
 
         return view('customer.dashboard.my-addresses.edit', compact('address', 'provinces'));
@@ -74,7 +78,9 @@ class MyAddressesController extends Controller
      */
     public function update(AddressRequest $request, Address $address)
     {
-        //gate
+        if ($address->user_id !== auth()->id()) {
+            abort(403);
+        }
 
         $request = $request->validated();
 
@@ -98,7 +104,10 @@ class MyAddressesController extends Controller
      */
     public function destroy(Address $address)
     {
-        //gate
+        if ($address->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $address->delete();
 
         return back()->with('sweetalert-mixin-success', 'با موفقیت حذف شد');

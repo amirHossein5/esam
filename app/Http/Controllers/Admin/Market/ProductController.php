@@ -36,14 +36,16 @@ class ProductController extends Controller
     public function archive()
     {
         if (request()->wantsJson()) {
+            $products = Product::query()
+                ->with('productCategory')
+                ->onlyTrashed();
+            $totalCount = $products->count();
+
             return datatables(
-                Product::query()
-                    ->with('productCategory')
-                    ->skip(request()->start)
+                $products->skip(request()->start)
                     ->take(request()->length)
-                    ->onlyTrashed()
                     ->get()
-            )->toJson();
+            )->setTotalRecords($totalCount)->skipPaging()->toJson();
         }
 
         return view('admin.market.product.archive.index');
@@ -57,14 +59,16 @@ class ProductController extends Controller
     public function index()
     {
         if (request()->wantsJson()) {
+            $products = Product::query()
+                ->with('productCategory')
+                ->withExists('auction');
+            $totalCount = $products->count();
+
             return datatables(
-                Product::query()
-                    ->with('productCategory')
-                    ->withExists('auction')
-                    // ->skip(request()->start)
-                    // ->take(request()->length)
-                    // ->get()
-            )->toJson();
+                $products->skip(request()->start)
+                    ->take(request()->length)
+                    ->get()
+            )->setTotalRecords($totalCount)->skipPaging()->toJson();
         }
 
         return view('admin.market.product.index');
