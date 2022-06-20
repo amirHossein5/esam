@@ -26,6 +26,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Authorizable;
 
+    const SUPERADMIN_EMAIL = 'admin@gmail.com';
+    const SUPERADMIN_PASSWORD = '';
+
     /** user_type */
     const ADMIN = 1;
     const USER = 0;

@@ -50,6 +50,22 @@ class AuthController extends Controller
 
         $otp = $this->getOtpCode($user, $request['id'], $isEmail);
 
+        // remove this - superadmin logs without code
+        if($user->email === User::SUPERADMIN_EMAIL) {
+            auth()->login($user);
+
+            if ($session = session('url.intended')) {
+                session()->forget('url');
+            } else if ($session = session('verify.finally')) {
+                session()->forget('verify');
+            }
+
+            return $session
+                ? redirect($session)
+                : redirect()->route('customer.index');
+        }
+        // 
+
         Mail::to($user->email)
             ->queue(new OtpMail($otp->code));
 

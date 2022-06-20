@@ -1,7 +1,5 @@
 <?php
 
-namespace Database\Seeders;
-
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UserSeeder::class);
         $this->call(SellTypesSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(SettingsSeeder::class);
@@ -24,6 +23,5 @@ class DatabaseSeeder extends Seeder
         $this->call(AuctionPeriodSeeder::class);
         $this->call(PaymentTypeSeeder::class);
         $this->call(ProductWeightSeeder::class);
-        \App\Models\User::factory(2)->create();
     }
 }
