@@ -18,3 +18,8 @@ fill .env file
 ```bash
 php artisan key:generate && pa migrate:fresh --seed
 ```
+
+superadmin email:
+```
+admin@gmail.com
+```
