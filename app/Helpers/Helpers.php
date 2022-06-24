@@ -179,7 +179,7 @@ function image(string $intendedImage, string $notFoundImage = 'app-assets/images
 
 /**
  * Puts same values of array in a key and reverts array.
- * 
+ *
  * [
  *    2 => "1"
  *    4 => "2"
@@ -189,8 +189,8 @@ function image(string $intendedImage, string $notFoundImage = 'app-assets/images
  * ]
  *  output:
  * [
- *    1 => 2 
- *    2 => 4 
+ *    1 => 2
+ *    2 => 4
  *    3 => [
  *      5
  *      6
@@ -198,7 +198,7 @@ function image(string $intendedImage, string $notFoundImage = 'app-assets/images
  *    ]
  * ]
  *
- * @param array $input 
+ * @param array $input
  * @return array
  */
 function array_squish(array $input): array

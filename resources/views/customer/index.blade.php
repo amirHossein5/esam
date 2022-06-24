@@ -2,6 +2,7 @@
 
 @section('head-tag')
     <title>{{ $setting->title }}</title>
+    <link rel="stylesheet" href="{{ asset('app-assets/OwlCarousel/owl.carousel.min.css') }}">
 @endsection
 
 @section('content')
@@ -100,7 +101,7 @@
 @endsection
 
 @section('scripts')
-
+    <script src="{{ asset('app-assets/OwlCarousel/owl.carousel.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $(".banners-owl-carousel").owlCarousel({

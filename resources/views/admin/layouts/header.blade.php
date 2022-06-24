@@ -3,22 +3,17 @@
             <section class="px-2 d-flex justify-content-between flex-md-row-reverse">
                 <span id="sidebar-toggle-show" class="d-inline d-md-none pointer"><i class="fas fa-toggle-off"></i></span>
                 <span id="sidebar-toggle-hide" class="d-none d-md-inline pointer"><i class="fas fa-toggle-on"></i></span>
-                <span><img class="logo" src="{{ asset('admin-assets/images/logo.png') }}" /></span>
+                <span>
+                    <a href="{{ route('customer.index') }}" class="mx-auto pr-3">
+                        <img class="" width="80" src="{{ asset('logo.png') }}" />
+                    </a>
+                </span>
                 <span class="d-md-none" id="menu-toggle"><i class="fas fa-ellipsis-h"></i></span>
             </section>
         </section>
         <section class="body-header" id="body-header">
             <section class="d-flex justify-content-between">
                 <section>
-                    <span class="mr-5">
-                        <span id="search-area" class="search-area d-none">
-                            <i id="search-area-hide" class="fas fa-times pointer"></i>
-                            <input id="search-input" type="text" class="search-input">
-                            <i class="fas fa-search pointer"></i>
-                        </span>
-                        <i id="search-toggle" class="p-1 fas fa-search d-none d-md-inline pointer"></i>
-                    </span>
-
                     <span id="full-screen" class="p-1 mr-5 pointer d-none d-md-inline">
                         <i id="screen-compress" class="fas fa-compress d-none"></i>
                         <i id="screen-expand" class="fas fa-expand "></i>
@@ -67,26 +62,14 @@
 
                     <span class="ml-3 ml-md-5 position-relative">
                         <span id="header-profile-toggle" class="pointer">
-                            <img class="header-avatar" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
+                            <img class="header-avatar" src="https://ui-avatars.com/api/?name={{ auth()->user()->fullName ?? 'user' }}&color=7F9CF5&background=EBF4FF"
                                 alt="">
-                            <span class="header-username">کامران محمدی</span>
+                            <span class="header-username">{{ auth()->user()->fullName }}</span>
                             <i class="fas fa-angle-down"></i>
                         </span>
-                        <section id="header-profile" class="rounded header-profile">
+                        <section id="header-profile" class="rounded header-profile" style="left: -184%;">
                             <section class="rounded list-group">
-                                <a href="#" class="list-group-item list-group-item-action header-profile-link">
-                                    <i class="fas fa-cog"></i>تنظیمات
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action header-profile-link">
-                                    <i class="fas fa-user"></i>کاربر
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action header-profile-link">
-                                    <i class="far fa-envelope"></i>پیام ها
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action header-profile-link">
-                                    <i class="fas fa-lock"></i>قفل صفحه
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action header-profile-link">
+                                <a href="{{ route('customer.auth.logout') }}" class="list-group-item list-group-item-action header-profile-link" >
                                     <i class="fas fa-sign-out-alt"></i>خروج
                                 </a>
                             </section>
