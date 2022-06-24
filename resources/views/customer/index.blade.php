@@ -32,7 +32,7 @@
     @endif
 
     {{-- auctions banners --}}
-    <section class="grid grid-cols-2 gap-3 mt-8 md:my-4 sm:grid-cols-3 md:grid-cols-4">
+    {{-- <section class="grid grid-cols-2 gap-3 mt-8 md:my-4 sm:grid-cols-3 md:grid-cols-4">
         <div>
             <a href="">
                 <img class="rounded-md shadow-md lazy" src="{{ asset('app-assets/images/product-carousel-loader.jpg') }}"
@@ -57,7 +57,7 @@
                     data-src="{{ asset('app-assets/images/001004-449x336-Auction-coin-min.jpg') }}" alt="">
             </a>
         </div>
-    </section>
+    </section> --}}
 
     {{-- last remaining auctions --}}
     @if ($lastRemainingAuctions?->isNotEmpty())

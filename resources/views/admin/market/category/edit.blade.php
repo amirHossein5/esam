@@ -134,7 +134,7 @@
                                         @enderror
 
                                         <div class="my-1">
-                                            <img src="{{ asset($productCategory->image['index']['medium']) }}" width="50" height="50" alt="">
+                                            <img src="{{ asset($productCategory->image['index']['medium'] ?? '') }}" width="50" height="50" alt="">
                                         </div>
                                     </div>
                                 </section>

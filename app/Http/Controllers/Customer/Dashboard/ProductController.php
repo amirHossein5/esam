@@ -49,7 +49,8 @@ class ProductController extends Controller
         $productWeights = null;
 
         if (request()->has('productCategory')) {
-            $productCategory = ProductCategory::with(['attributes.defaultValues', 'selectableValues.selectableAttribute'])
+            $productCategory = ProductCategory::whereDoesntHave('allChildren')
+                ->with(['attributes.defaultValues', 'selectableValues.selectableAttribute'])
                 ->findOrFail(request('productCategory'));
 
             $selectableValues = collect($productCategory->selectableValues->toArray())
@@ -60,7 +61,7 @@ class ProductController extends Controller
             $auction_periods = AuctionPeriod::get();
             $productWeights = ProductWeight::get();
         } else {
-            $productCategories = DB::table('product_categories')->get(['name', 'id']);
+            $productCategories = ProductCategory::whereDoesntHave('allChildren')->get(['name', 'id']);
         }
 
         return view('customer.dashboard.products.create', compact('productCategories', 'productCategory', 'sellTypes', 'auction_periods', 'selectableValues', 'productWeights'));
@@ -415,7 +416,7 @@ class ProductController extends Controller
         if ($product->user_id != auth()->id()) {
             abort(403);
         }
-        
+
         $product->delete();
 
         return back()->with('sweetalert-mixin-success', 'با موفقیت حذف شد');

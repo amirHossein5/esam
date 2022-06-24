@@ -29,7 +29,7 @@ class StoreProductCategoryRequest extends FormRequest
             'name'        => 'required|regex:/^[\w\-\.۰−۹آ-یء ,]+$/iu',
             'show_in_menu' => 'required|numeric|in:0,1',
             'parent_id' => 'nullable|numeric|regex:/^[0-9]+$/|exists:product_categories,id',
-            'image'       => 'required|image|file|max:1000',
+            'image'       => 'nullable|image|file|max:1000',
             'description' => 'required|string',
 
             'selectableValues.*' => new SelectableValuesRule(),

@@ -17,9 +17,9 @@ class SettingsSeeder extends Seeder
     {
         if (!DB::table('settings')->first()) {
             DB::table('settings')->insert([
-                'title' => 'عنوان سایت',
-                'description' => 'توضیحات سایت',
-                'keywords' => 'کلمات کلیدی سایت',
+                'title' => 'ایسام',
+                'description' => 'فروش محصول بصورت مزایده یا عادی',
+                'keywords' => 'مزایده,فروش',
                 'icon' => 'icon.png',
                 'logo' => 'logo.png',
                 'phone_number' => '09035440654',
