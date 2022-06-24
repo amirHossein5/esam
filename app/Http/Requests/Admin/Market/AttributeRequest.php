@@ -25,7 +25,7 @@ class AttributeRequest extends FormRequest
     {
         return [
             'name' => 'required|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
-            'values' => 'required|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟]+$/ui',
+            'values' => 'required|regex:/^[\w\-\.۰−۹آ-یء ,\?\؟\(\)]+$/ui',
             'category_id' => 'required|numeric|exists:product_categories,id'
         ];
     }

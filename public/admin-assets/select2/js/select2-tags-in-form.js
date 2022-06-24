@@ -4,7 +4,7 @@ function select2TagsInForm(select2InputId = '#select2', mainInputId = '#tags', f
     $(select2InputId).select2({
         tags: true,
         data: data,
-        tokenSeparators: [' ', ','],
+        tokenSeparators: [','],
         placeholder: as + ' های مورد نظر را وارد کنید'
     });
 

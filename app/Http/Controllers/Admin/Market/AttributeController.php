@@ -18,7 +18,7 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $productCategories = DB::table('product_categories')->get(['name', 'id']);
+        $productCategories = ProductCategory::whereDoesntHave('allChildren')->get(['name', 'id']);
 
         return view('admin.market.attribute.index', compact('productCategories'));
     }
@@ -30,7 +30,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $productCategories = ProductCategory::get(['name', 'id']);
+        $productCategories = ProductCategory::whereDoesntHave('allChildren')->get(['name', 'id']);
 
         return view('admin.market.attribute.create', compact('productCategories'));
     }
@@ -46,6 +46,9 @@ class AttributeController extends Controller
         $request = $request->validated();
 
         DB::transaction(function () use ($request) {
+            ProductCategory::whereDoesntHave('allChildren')
+                ->findOrFail($request['category_id']);
+
             $attribute = ProductAttribute::create($request);
 
             $request['values'] = str_replace(',,', ',', $request['values']);
