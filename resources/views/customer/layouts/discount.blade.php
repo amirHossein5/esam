@@ -2,7 +2,7 @@
     @if ($landingPageCopan)
         <section class="mt-2 mb-5 sm:flex">
             <section class="sm:w-2/3 max-h-[55px]">
-                <img class="lazy" src="{{ asset('app-assets/images/discount-loader.webp') }}"
+                <img class="lazy max-h-full" src="{{ asset('app-assets/images/discount-loader.webp') }}"
                     data-src="{{ asset($landingPageCopan->image) }}" alt="" class="sm:h-full min-h-[30px]">
             </section>
             <section class="sm:w-1/3 flex p-3 max-h-[55px] items-center bg-blue-300">
